@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 58 (101010) - https://sketch.com -->
+    <title>907C3743-096B-4FB4-8674-F335EDE0C126</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logout">
+            <g>
+                <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                <polyline id="Path-2" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero" points="13 4 4 4 4 20 13 20"></polyline>
+                <path d="M10,12 L20,12" id="Path-4" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Path-5" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="17 9 20 12 17 15"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

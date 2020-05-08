@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="add-product-client-copy-2" transform="translate(-76.000000, -203.000000)">
+            <g id="popup">
+                <g id="search" transform="translate(64.000000, 190.000000)">
+                    <g id="search_icon" transform="translate(12.000000, 13.000000)">
+                        <g id="Group">
+                            <rect id="Rectangle" x="0" y="0" width="14" height="14"></rect>
+                            <path d="M6.125,11.375 C9.02449494,11.375 11.375,9.02449494 11.375,6.125 C11.375,3.22550506 9.02449494,0.875 6.125,0.875 C3.22550506,0.875 0.875,3.22550506 0.875,6.125 C0.875,9.02449494 3.22550506,11.375 6.125,11.375 Z M9.625,9.625 L13.125,13.125" id="Combined-Shape" stroke="#8FA2B4" stroke-width="1.2"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

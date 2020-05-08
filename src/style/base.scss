@@ -1,0 +1,229 @@
+body{
+  color: #204569;
+  overflow: auto;
+  box-sizing: border-box;
+  background: #EBF4FE;
+  font-family: "MontRegular",sans-serif;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height:10px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-border-radius: 2px;
+
+    background: #EDF2F8;
+  }
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: grey;
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: grey;
+  }
+}
+
+.content_block{
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 48px 64px 89px;
+}
+
+.title_page{
+  padding-bottom: 32px;
+  color: #204569;
+  font-family:"MontSemiBold",sans-serif;
+  font-size: 32px;
+  letter-spacing: -1px;
+  line-height: 42px;
+}
+textarea{
+  &::-webkit-scrollbar {
+    width: 5px;
+    height:5px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-border-radius: 2px;
+
+    background: #EDF2F8;
+  }
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: grey;
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: grey;
+  }
+}
+
+
+a, button{
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.page{
+  display: flex;
+}
+
+.green_text{
+  color: #2CC197;
+}
+
+
+.red_text{
+  color: #E44B4B;
+}
+
+.blue_text{
+  color: #3796F6;
+}
+
+
+.table_container{
+  .table_header .table_header{
+    display: flex;
+  }
+}
+
+.cancel_btn{
+  height: 36px;
+  width: 104px;
+  border-radius: 2px;
+  border: 1px solid #9AA6B2;
+  display: flex;
+  color: #9AA6B2;
+  font-family: "MontSemiBold",sans-serif;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+
+  &:hover{
+    background: #9AA6B2;
+    color: #ffffff;
+  }
+}
+.red_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 36px;
+  border-radius: 2px;
+  font-family: "MontSemiBold",sans-serif;
+  width: 104px;
+  font-size: 10px;
+  color: #E44B4B;
+  text-transform: uppercase;
+  border: 1px solid #E44B4B;
+  &:hover{
+    background: #E44B4B;
+    color: #ffffff;
+  }
+  &:disabled{
+    opacity: .5;
+  }
+}
+
+h3{
+  color: #9aa6b2;
+  font-size: 14px;
+  font-family: "MontSemiBold",sans-serif;
+}
+
+.green_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 36px;
+  border-radius: 2px;
+  font-family: "MontSemiBold",sans-serif;
+  width: 104px;
+  font-size: 10px;
+  color: #2CC197;
+  text-transform: uppercase;
+  border: 1px solid #2CC197;
+  &:hover{
+    background: #2CC197;
+    color: #ffffff;
+  }
+}
+
+
+.blue_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 36px;
+  border-radius: 2px;
+  font-family: "MontSemiBold",sans-serif;
+  width: 104px;
+  font-size: 10px;
+  color: #3796F6;
+  text-transform: uppercase;
+  border: 1px solid #3796F6;
+  &:disabled{
+    opacity: .5;
+  }
+  &:hover{
+    background: #3796F6;
+    color: #ffffff;
+  }
+}
+
+
+.table_header{
+  .row_item{
+    color: rgba(32, 69, 105, 0.5);
+    font-size: 10px;
+    font-family: "MontLight",sans-serif;
+  }
+  .table_row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+}
+
+.table_body{
+  .row_item{
+    color: #204569;
+    font-size: 14px;
+  }
+  .table_row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 58px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    text-decoration: none;
+  }
+}
+

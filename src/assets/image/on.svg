@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="add-product-client-copy-4" transform="translate(-280.000000, -143.000000)" stroke="#2CC197">
+            <g id="popup">
+                <g id="email-copy-3" transform="translate(220.000000, 122.000000)">
+                    <g id="Group" transform="translate(60.000000, 21.000000)">
+                        <rect id="Rectangle-Copy" x="0.5" y="0.5" width="47" height="47" rx="4"></rect>
+                        <g id="ok" transform="translate(15.000000, 15.000000)">
+                            <g id="Group">
+                                <circle id="Oval" cx="9" cy="9" r="8.5"></circle>
+                                <polyline id="Path-4" points="5.5 9 8 11.5 13 6.5"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

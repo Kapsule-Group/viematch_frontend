@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>customers_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="customers_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" fill="#FFFFFF">
+            <path d="M33,34 C35.7614237,34 38,36.2385763 38,39 L38,43 C38,43.5522847 37.5522847,44 37,44 L17,44 C16.4477153,44 16,43.5522847 16,43 L16,39 C16,36.2385763 18.2385763,34 21,34 L33,34 Z M44,35 C46.209139,35 48,36.790861 48,39 L48,42.2 C48,42.6418278 47.6418278,43 47.2,43 L40,43 L40,38 C40,36.9071548 39.7078258,35.8825506 39.1973296,35.0000394 L44,35 Z M40,23 C42.7614237,23 45,25.2385763 45,28 C45,30.7614237 42.7614237,33 40,33 C37.2385763,33 35,30.7614237 35,28 C35,25.2385763 37.2385763,23 40,23 Z M27,20 C30.3137085,20 33,22.6862915 33,26 C33,29.3137085 30.3137085,32 27,32 C23.6862915,32 21,29.3137085 21,26 C21,22.6862915 23.6862915,20 27,20 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

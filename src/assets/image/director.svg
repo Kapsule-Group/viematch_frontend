@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>director</title>
+    <desc>Created with Sketch.</desc>
+    <g id="director" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" opacity="0.200000003" x="0" y="0" width="24" height="24"></rect>
+            <path d="M17.5,14.75 L6.5,14.75 C4.42893219,14.75 2.75,16.4289322 2.75,18.5 L2.75,22 C2.75,22.1380712 2.86192881,22.25 3,22.25 L21,22.25 C21.1380712,22.25 21.25,22.1380712 21.25,22 L21.25,18.5 C21.25,16.4289322 19.5710678,14.75 17.5,14.75 Z M12,1.75 C9.10050506,1.75 6.75,4.10050506 6.75,7 C6.75,9.89949494 9.10050506,12.25 12,12.25 C14.8994949,12.25 17.25,9.89949494 17.25,7 C17.25,4.10050506 14.8994949,1.75 12,1.75 Z" id="Combined-Shape" stroke="#3796F6" stroke-width="1.5"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+.page_not_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 50px);
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 100;
+  }
+}

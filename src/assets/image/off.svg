@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="add-product-client-copy-3" transform="translate(-220.000000, -143.000000)" stroke="#E44B4B">
+            <g id="popup">
+                <g id="email-copy-3" transform="translate(220.000000, 122.000000)">
+                    <g id="Group-2" transform="translate(0.000000, 21.000000)">
+                        <rect id="Rectangle" x="0.5" y="0.5" width="47" height="47" rx="4"></rect>
+                        <g id="no" transform="translate(15.000000, 15.000000)">
+                            <g id="Group">
+                                <circle id="Oval" cx="9" cy="9" r="8.5"></circle>
+                                <path d="M6.5,11.5 L11.5,6.5 M11.5,11.5 L6.5,6.5" id="Combined-Shape"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
