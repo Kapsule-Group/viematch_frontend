@@ -62,7 +62,7 @@ class SignUp extends Component {
         return (
 
             <form onSubmit={handleSubmit(this.submitForm)}>
-                <h3 className="auth-block_head">Sign up to VIEBEG</h3>
+                <h3 className="auth-block_head">Sign up to VIEMATCH</h3>
                 <h3 className="auth-block_descriptions">Please, fill out the form about your business below</h3>
                 <div className="block_field">
                     <span>Email</span>
@@ -97,7 +97,7 @@ class SignUp extends Component {
                     </DefaultButton>
                 </div>
                 <div className="info_auth">
-                    <span>Already a VIEBEG member?</span>
+                    <span>Already a VIEMATCH member?</span>
                     <Link to={`/auth/sign-in`} onClick={resetErrorUsers}>
                         SIGN IN
                     </Link>

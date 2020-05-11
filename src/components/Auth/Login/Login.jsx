@@ -55,7 +55,7 @@ class Login extends Component {
         const { reCaptcha, loading } = this.state;
         return (
             <form onSubmit={handleSubmit(this.submitForm)}>
-                <h3 className="auth-block_head">Sign in to VIEBEG</h3>
+                <h3 className="auth-block_head">Sign in to VIEMATCH</h3>
                 <h3 className="auth-block_descriptions">Provide your credentials below</h3>
                 <div className="block_field">
                     <span>Email</span>
@@ -102,7 +102,7 @@ class Login extends Component {
                     </DefaultButton>
                 </div>
                 <div className="info_auth">
-                    <span>Don’t have a VIEBEG account yet?</span>
+                    <span>Don’t have a VIEMATCH account yet?</span>
                     <Link to={`/auth/sign-up`}>
                         SIGN UP
                     </Link>

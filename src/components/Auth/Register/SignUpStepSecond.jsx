@@ -37,7 +37,7 @@ class SignUpStepSecond extends Component {
                     <img src={arrow} alt="arrow"/>
                     Step 1
                 </Link>
-                <h3 className="auth-block_head">Sign up to VIEBEG</h3>
+                <h3 className="auth-block_head">Sign up to VIEMATCH</h3>
                 <h3 className="auth-block_descriptions">Provide information about your business owner or director</h3>
                 <div className="block_field">
                     <span>Full name</span>
