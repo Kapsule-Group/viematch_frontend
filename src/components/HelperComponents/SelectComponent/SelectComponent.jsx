@@ -16,8 +16,8 @@ const DropdownIndicator = props => {
     );
 };
 
-const SelectComponent = ({value,onKeyDown, options, loading, change, placeholder, isClearable, isSearchable = true}) => (
-      <Select
+const SelectComponent = ({value,onKeyDown, options, loading, change, placeholder, isClearable, isSearchable = true}) => {
+      return <Select
           className="select_component"
           classNamePrefix="select"
           isDisabled={false}
@@ -34,6 +34,6 @@ const SelectComponent = ({value,onKeyDown, options, loading, change, placeholder
 
           components={{ DropdownIndicator }}
       />
-);
+    };
 
 export default SelectComponent;

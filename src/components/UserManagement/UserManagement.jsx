@@ -64,7 +64,7 @@ class UserManagement extends Component {
         const { users_list } = this.props;
         if (loading) return null;
         return (
-            <div className="user_management_page content_block">
+            <div className="user_management_page content_block" style={{ backgroundColor: "#EBF4FE" }}>
                 <div className="title_page">User management</div>
                 <div className="content_page">
                         <div className="user_management_table">

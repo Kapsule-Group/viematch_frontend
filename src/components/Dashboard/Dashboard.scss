@@ -1,132 +1,99 @@
-.dashboard_page{
-  display: flex;
-  flex-flow: column;
-  .info_block{
+.dashboard_page {
     display: flex;
-    margin-bottom: 32px;
-    justify-content: space-between;
-    .center_block{
-      margin: 0 33px;
-    }
-    >div{
-      padding: 32px 40px;
-      box-sizing: border-box;
-      max-width: 33.3%;
-      width: 100%;
-      height: 185px;
-      border-radius: 10px;
-      background: #FFFFFF;
-      box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
-      .descriptions{
-        color: #FFFFFF;
-        font-family: "MontSemiBold",sans-serif;
-        font-size: 16px;
-        line-height: 24px;
-        padding-bottom: 12px;
-      }
-      >a{
-        font-family: "MontSemiBold",sans-serif;
-        font-size: 16px;
-        line-height: 24px;
+    flex-flow: column;
+    padding: 48px 64px 85px !important;
+    .first-row {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-        img{
-          transition: all 0.3s linear;
+        > div {
+            margin-left: 33px;
+            height: 288px;
+            // width: 362px;
+            width: 100%;
+            padding: 32px 40px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
         }
-        &:hover{
-          img{
-            margin-right: -10px;
-          }
+        > div:first-of-type {
+            margin-left: 0;
+        }
+    }
+    .second-row {
+        padding: 32px 40px;
+        margin-top: 32px;
+        height: 330px;
+        width: 100%;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+        &-header {
+            margin-bottom: 20px;
+            > span {
+                font-family: "MontSemiBold";
+                font-size: 16px;
+                cursor: pointer;
+                color: #204569;
+                opacity: 0.3;
+            }
+            > span:first-of-type {
+                margin-right: 24px;
+            }
+            .active-header {
+                opacity: 1;
+            }
         }
 
-      }
-      >div{
-        display: flex;
-        align-items: baseline;
-        span{
-          font-family: "MontSemiBold",sans-serif;
-          font-size: 64px;
-          line-height: 85px;
-          padding-right: 12px;
-          display: flex;
+        &-content {
+            display: flex;
+            justify-content: space-between;
+            > div:first-of-type {
+                width: 100%;
+                margin-right: 64px;
+            }
         }
-        p{
-          width: 48px;
-          font-family: "MontLight",sans-serif;
-          font-size: 16px;
-          line-height: 21px;
-        }
-      }
     }
-    >div:first-of-type{
-      background: #3796F6;
-      span{
-        color: #FFFFFF;
-        font-family: "MontSemiBold",sans-serif;
-        font-size: 64px;
-        font-weight: 600;
-        line-height: 85px;
-        .small_price {
-          font-size: 32px;
-        }
-      }
-    }
-  }
+}
+.category-header {
+    margin-bottom: 20px;
+    font-family: "MontSemiBold", sans-serif;
+    color: #204569;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
 }
 
-.dashboard_block{
-  background: #ffffff;
-  box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
-  padding: 32px 40px 20px 40px;
-  border-radius: 10px;
-  .panel_dashboard{
-    padding-bottom: 12px;
+.stock-level {
     display: flex;
     justify-content: space-between;
-    span{
-      font-family: "MontSemiBold",sans-serif;
-      font-size: 16px;
-      line-height: 24px;
+    align-items: center;
+    margin-bottom: 20px;
+    > p {
+        margin-bottom: 0px !important;
+        font-family: "MontSemiBold", sans-serif;
+        color: #204569;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 24px;
     }
-    a{
-      color: #3796F6;
-      font-family: "MontSemiBold",sans-serif;
-      font-size: 10px;
-      line-height: 16px;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-    }
-  }
-  .dashboard_info_wrapper{
-    >div{
-      border-bottom:1px solid rgba(32, 69, 105, 0.25);
-      display: flex;
-      padding-top: 20px;
-      flex-flow: column;
-      >span{
-        opacity: 0.5;
-        font-family: "MontLight",sans-serif;
-        font-size: 10px;
-        line-height: 13px;
-        padding-bottom: 8px;
-        display: flex;
-      }
-      p{
-        padding-bottom: 20px;
-        font-size: 14px;
-        >span{
-          font-family: "MontSemiBold",sans-serif;
-        }
-      }
 
+    > div > span {
+        font-family: "MontRegular";
+        font-size: 14px;
+        cursor: pointer;
+        color: #8fa2b4;
     }
-    >div:last-of-type{
-      border-bottom: none;
+    .mm {
+        margin-right: 24px;
     }
-  }
+    .active {
+        color: #204569;
+    }
 }
 
-
+.chart-no-results {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 20px;
+    font-family: "MontRegular";
+}

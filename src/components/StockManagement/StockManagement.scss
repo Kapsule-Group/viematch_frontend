@@ -8,30 +8,110 @@
     box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
     border-radius: 10px;
   }
-  .block_search{
-    margin: 32px 0 16px;
-    width: fit-content;
-    .autocomplete{
-      max-height: 250px;
-    }
-    .select_component{
-      height: 40px;
-      width: 254px;
-      .select__indicators{
-        display: none;
+  .block_search {
+    .input-group {
+
+      .select_wrapper{
+        margin-right: 20px;
       }
-      .select__value-container{
-        padding-left: 30px;
-        .css-b8ldur-Input{
-          overflow: hidden;
+
+      .search_info{
+        margin-left: -1px;
+        position: relative;
+        input{
+          box-sizing: border-box;
+          height: 40px;
+          width: 254px;
+          border: 1px solid rgba(32, 69, 105, 0.3);
+          border-radius: 4px;
+          background-color: #FFFFFF;
+          padding: 0 16px 0 35px;
+          font-family: "MontRegular",sans-serif;
+          position: relative;
+          color: #204569;
+          &::placeholder{
+            opacity: 0.5;
+            color: #204569;
+            font-size: 14px;
+          }
+        }
+        &:before {
+          position: absolute;
+          content: "";
+          left: 12px;
+          top: calc(50% - 7px);
+          background: url("../../assets/image/search.svg");
+          height: 14px;
+          width: 14px;
+          z-index: 1;
         }
       }
     }
-    .search_item:hover{
-      background-color: #d2d2d2;
-    }
+    .autocomplete {
+      display: flex;
+      flex-flow: column;
+      position: absolute;
+      left: 0;
+      top: 51px;
+      box-shadow: 0 4px 8px 0 rgba(154, 166, 178, 0.25);
+      border-radius: 4px;
+      max-height: 300px;
+      padding: 12px 0;
+      box-sizing: border-box;
+      width: 254px;
+      overflow: auto;
+      background: #fff;
+      z-index: 1;
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      &::-webkit-scrollbar-track {
+        -webkit-border-radius: 2px;
 
+        background: #ffffff;
+      }
+      &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        background: #204569;
+      }
+      &::-webkit-scrollbar-thumb:window-inactive {
+        background: #204569;
+      }
+      > button {
+        color: #204569;
+        text-align: inherit;
+        background: transparent;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 4px 24px;
+        width: 100%;
+        display: flex;
+        font-family: "MontRegular", sans-serif;
+        &:focus{
+          outline: none;
+        }
+      }
+      .new {
+        align-items: center;
+        font-family: "MontSemiBold", sans-serif;
+        span {
+          color: #3796f6;
+          font-family: "MontSemiBold", sans-serif;
+          font-size: 10px;
+          text-transform: uppercase;
+          line-height: 16px;
+          padding-left: 12px;
+        }
+      }
+      .search_item:hover {
+        background-color: #d2d2d2;
+        border: 2px;
+      }
+    }
   }
+
 
   .in_stock_table{
     .table_header{
@@ -57,13 +137,20 @@
           height: 60px;
           align-items: center;
           & > :first-child {
-            width: 18%;
+            width: 62%!important;
+            div {
+              white-space: nowrap;
+              overflow: hidden;
+              padding-right: 15px;
+              text-overflow: ellipsis;
+            }
           }
           & > :nth-child(2) {
-            width: 18%;
+            width: 10%;
+            display: flex;
           }
           & > :nth-child(3) {
-            width: 16%;
+            width: 8%;
             display: flex;
             align-items: center;
             button{
@@ -83,27 +170,27 @@
             }
           }
           & > :nth-child(4) {
-            width: 16%;
+            width: 10%;
           }
           & > :nth-child(5) {
-            width: 16%;
+            width: 5%;
           }
-          & > :last-child {
-            width: 16%;
-            display: flex;
-            justify-content: space-between;
-            .btn_text{
-              font-family: "MontSemiBold",sans-serif;
-              font-size: 10px;
-              text-transform: uppercase;
-            }
-            .btn_arrow{
-              margin-right: 12px;
-              img{
-                transition: all .3s linear;
-              }
-            }
-          }
+          // & > :last-child:not(:nth-child(7)) {
+          //   width: 16%;
+          //   display: flex;
+          //   justify-content: space-between;
+          //   .btn_text{
+          //     font-family: "MontSemiBold",sans-serif;
+          //     font-size: 10px;
+          //     text-transform: uppercase;
+          //   }
+          //   .btn_arrow{
+          //     margin-right: 12px;
+          //     img{
+          //       transition: all .3s linear;
+          //     }
+          //   }
+          // }
         }
         .info{
           transition: all .2s linear;
@@ -161,8 +248,26 @@
               margin-right: 12px;
             }
           }
+          & > :nth-child(4) {
+            width: 16%;
+            display: flex;
+            span{
+              display: flex;
+              align-items: center;
+              margin-right: 12px;
+            }
+          }
+          & > :nth-child(5) {
+            width: 16%;
+            display: flex;
+            span{
+              display: flex;
+              align-items: center;
+              margin-right: 12px;
+            }
+          }
           & > :last-child {
-            width: 32%;
+            width: 16%;
             display: flex;
             span{
               display: flex;
@@ -331,7 +436,7 @@
     input{
       padding: 0 16px;
       box-sizing: border-box;
-      border: 1px solid rgba(32, 69, 105, 0.3);
+      border: 1px solid rgba(146, 148, 151, 0.3);
       border-radius: 4px;
       height: 48px;
       width: 124px;
@@ -355,5 +460,11 @@
   }
 }
 
+#stocklink{
+  color: #3796F6;
+}
 
+#stocklink:hover{
+  text-decoration: underline;
+}
 

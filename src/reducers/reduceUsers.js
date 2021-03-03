@@ -3,6 +3,7 @@ import * as types from "../actions/constants";
 const INITIAL_STATE = {
     users_list: {},
     error: {},
+    userInfo: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -15,6 +16,8 @@ export default function(state = INITIAL_STATE, action) {
             return {...state, error: action.error.response.data};
         case types.RESET_USER_ERROR:
             return { ...state, error: {} };
+        case types.GET_USER_INFO_SUCCESS:
+            return { ...state, userInfo: action.payload.data}
         default:
             return state;
     }

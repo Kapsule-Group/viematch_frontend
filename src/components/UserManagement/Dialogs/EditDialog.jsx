@@ -52,7 +52,7 @@ class EditDialog extends Component {
 
     render(){
         const { role, status } = this.state;
-        const { toggler, state, handleSubmit, fail_err, initialValues, reset } = this.props;
+        const { toggler, state, handleSubmit, fail_err, reset } = this.props;
 
         return (
             <DialogComponent

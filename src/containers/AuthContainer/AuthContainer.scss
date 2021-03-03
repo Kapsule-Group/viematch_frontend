@@ -79,7 +79,7 @@
 
       .back_error{
         color: #D0021B;
-        background-color: white;
+        background-color: transparent;
         bottom: 6px;
         left: unset;
       }
@@ -184,16 +184,10 @@
   display: flex;
   justify-content: space-between;
   .block-input{
-    input{
-      width: 320px;
-    }
+    width: 250px;
   }
   .custom_field_phone{
-    .block-input{
-      input{
-        width: 176px;
-      }
-    }
+    width: 250px;
   }
   .captcha_block{
     >div{
@@ -285,7 +279,7 @@
   }
   & > :last-child {
     width: 70%;
-    background-color: #ffffff;
+    //background-color: #ffffff;
   }
 }
 

@@ -174,6 +174,21 @@ export function createInventory(data) {
     };
 }
 
+export function createInventoryNew(data) {
+    console.log(data)
+    return {
+        type: types.CUSTOMER_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/customer_stock/`,
+                method: "POST",
+                data
+            }
+        }
+    };
+}
+
 export function patchInventory(id, data) {
     return {
         type: types.PATCH_INVENTORY,
@@ -183,6 +198,136 @@ export function patchInventory(id, data) {
                 url: `/inventory/${id}/`,
                 method: "PATCH",
                 data
+            }
+        }
+    };
+}
+
+export function getSearchList(id) {
+    return {
+        type: types.GET_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory/?id__in=${id}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function getSearchListAll(id) {
+    return {
+        type: types.GET_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory-all/?id__in=${id}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function searchStock(marker, prod) {
+    return {
+        type: types.SEARCH_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory-search/?stock=${marker}${prod && prod.length !== 0 ? `&search=${prod}` : ''}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function searchAllStock(marker, prod=null, all=null, brand=null, cat=null, subCat=null) {
+    return {
+        type: types.SEARCH_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory-search-all/?stock=${marker}${prod && prod.length !== 0 ? `&search_prod=${prod}` : ''}${all && all.length !== 0 ? `&search_all=${all}`:''}${brand && brand.length !== 0 ? `&search_brand=${brand}`:''}${cat && cat.length !== 0 ? `&search_cat=${cat}`:''}${subCat && subCat.length !== 0 ? `&search_sub_cat=${subCat}`:''}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function specialSearch(type, query) {
+    return {
+        type: types.SEARCH_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/${type}/?search=${query}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function getStock(marker, page, quantity) {
+    return {
+        type: types.GET_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory/?${quantity ? 'ordering=' + quantity + '&' : ''}${page ? 'page=' + page + '&' : ''}stock=${marker}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+
+export function searchProducts(type, value) {
+    return {
+        type: types.GET_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventorySearching/?type=${type}&value=${value}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function searchNewCategories(search) {
+    return {
+        type: types.GET_CAT,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/categories/?search=${search}`,
+                method: "GET",
+            }
+        }
+    };
+}
+export function searchNewProducts(search) {
+    return {
+        type: 'SEARCH_NEW_PRODUCTS',
+        payload: {
+            client: 'default',
+            request: {
+                url: `/products/?search=${search}`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+export function searchNewSubCategories(search) {
+    return {
+        type: 'SEARCH_NEW_SUBCATEGORIES',
+        payload: {
+            client: 'default',
+            request: {
+                url: `/subcategories/?search=${search}`,
+                method: "GET",
             }
         }
     };

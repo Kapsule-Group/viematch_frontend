@@ -1,29 +1,14 @@
-# README #
+# viebeg local deployment 
+Deploys front end react
+## Setup (tested on ubuntu 18.04)
+ 
+* install nodejs
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## Nodejs
+Responsible for running the react front end
+* `apt install nodejs npm`
+    
+* run `npm install` to install all modules on the package.json required to run the front end
+    * run the application `npm start`
+    * change the urls on `front/src/config.js` to match your url
+* access the application on the browser using  `http://127.0.0.1:3000`

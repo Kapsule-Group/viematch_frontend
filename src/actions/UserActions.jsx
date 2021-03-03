@@ -57,3 +57,16 @@ export function getUsersList() {
 export function resetErrorUsers() {
     return { type: types.RESET_USER_ERROR };
 }
+
+export function getUserInfo() {
+    return {
+        type: types.GET_USER_INFO,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/currency/`,
+                method: 'get',
+            }
+        }
+    };
+}

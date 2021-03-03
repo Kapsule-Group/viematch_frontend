@@ -20,6 +20,20 @@ const axiosMiddlewareOptions = {
                 }
                 return config;
             }
+        ],
+        response: [
+            {
+                success: ({ dispatch }, response) => {
+                    return response;
+                },
+                error: ({ dispatch }, error) => {
+                    if (error.response.status === 401) {
+                        localStorage.clear();
+                        window.location.reload();
+                    }
+                    return Promise.reject(error);
+                }
+            }
         ]
     }
 };
@@ -32,7 +46,7 @@ const store = createStoreWithMiddleware(rootReducer(history), {}, window.__REDUX
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history} children={routes}/>
+        <ConnectedRouter history={history} children={routes} />
     </Provider>,
     document.getElementById('wrapper')
 );

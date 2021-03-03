@@ -1,81 +1,143 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import moment from "moment";
 import {
-    getClinicLog,
-    getClinicDashBoard
+    getStockManagement,
+    getPurchasesByCategory,
+    getStockLevel,
+    getMonthlyGraphic,
+    getMonthlyDonut
 } from "../../actions/dashboardActions";
-import arrow_forward from '../../assets/image/arrow_forward copy.svg';
-import './Dashboard.scss';
+import "./Dashboard.scss";
+import { bindActionCreators } from "redux";
+import StockManagementGraphic from "./../HelperComponents/StockManagementGraphic/StockManagementGraphic";
+import HorizontalChart from "./../HelperComponents/HorizontalChart/HorizontalChart";
+import { push } from "connected-react-router";
+import VerticalChart from "./../HelperComponents/VerticalChart/VerticalChart";
+import SplineChart from "./../HelperComponents/SplineChart/SplineChart";
+import PieChart from "./../HelperComponents/PieChart/PieChart";
 
 class Dashboard extends Component {
     state = {
+        activeStock: 0,
+        activeMonthly: 0,
         loading: true
     };
 
-    componentDidMount(){
-        const { getClinicLog, getClinicDashBoard } = this.props;
-        getClinicLog().then(res => {
-            if(res.payload && res.payload.status && res.payload.status === 200) {
-                getClinicDashBoard().then(res => {
-                    if(res.payload && res.payload.status && res.payload.status === 200) {
-                        this.setState({ loading: false });
-                    }
-                })
-            }
-        })
+    componentDidMount() {
+        const {
+            getStockManagement,
+            getPurchasesByCategory,
+            getStockLevel,
+            getMonthlyGraphic,
+            getMonthlyDonut
+        } = this.props;
+        Promise.all([
+            getStockManagement(),
+            getPurchasesByCategory(),
+            getStockLevel("month"),
+            getMonthlyGraphic("purchase"),
+            getMonthlyDonut("purchase")
+        ]).then(res => this.setState({ loading: false }));
     }
 
-    render(){
-        const { clinicDashBoard, clinicLog } = this.props;
-        const { loading } = this.state;
+    render() {
+        const {
+            stockManagement,
+            purchasesByCategory,
+            getStockLevel,
+            push,
+            stockLevel,
+            getMonthlyGraphic,
+            getMonthlyDonut,
+            monthlyGraphicData,
+            monthlyDonutData
+        } = this.props;
+        const { activeStock, activeMonthly, loading } = this.state;
         if (loading) return null;
         return (
-            <div className="dashboard_page content_block">
+            <div className="dashboard_page content_block" style={{ backgroundColor: "rgb(235, 244, 254)" }}>
                 <div className="title_page">Dashboard</div>
-                <div className="info_block">
-                    <div>
-                        <p className="descriptions">total amount</p>
-                        <span><span className={'small_price'}>RWF</span>{clinicDashBoard.total_amount}</span>
-
-                    </div>
-                    <div className="center_block">
-                        <Link to={{pathname:"/main/stock-management", state:{tab: 0}}}  className="green_text">
-                            products in stock
-                            <img className="arrow" src={arrow_forward} alt="arrow_forward"/>
-                        </Link>
-                        <div className="info">
-                            <span>{clinicDashBoard.in_stock}</span>
+                <div className="graphics">
+                    <div className="first-row">
+                        <div>
+                            <StockManagementGraphic data={stockManagement} push={push} />
                         </div>
-                    </div>
-                    <div>
-                        <Link to={{pathname:"/main/stock-management", state:{tab: 1}}} className="red_text">
-                            products out of stock
-                            <img className="arrow" src={arrow_forward} alt="arrow_forward"/>
-                        </Link>
-                        <div className="info">
-                            <span>{clinicDashBoard.out_stock}</span>
+                        <div>
+                            <div className="category-header">
+                                {purchasesByCategory.resp_type === "category"
+                                    ? "Purchases by Category"
+                                    : "Purchases by Subcategory"}
+                            </div>
+                            {purchasesByCategory && purchasesByCategory.data && purchasesByCategory.data.length > 0 ? (
+                                <HorizontalChart data={purchasesByCategory && purchasesByCategory.data} push={push} />
+                            ) : (
+                                <div className="chart-no-results">We do not have data for this chart.</div>
+                            )}
                         </div>
-                    </div>
-                </div>
-                <div className="dashboard_block" >
-                    <div className="panel_dashboard">
-                        <span>recent actions</span>
-                        <Link to="/main/activity">view all</Link>
-                    </div>
-                    <div className="dashboard_info_wrapper" >
-                        {clinicLog.length > 0 ?
-                            clinicLog.map(el => (
-                                <div key={el.id}>
-                                    <span>{moment(el.date).format('DD/MM/YYYY HH:mm')}</span>
-                                    {/*<p><span className="name_user">Ivan Simpson</span> added <span className="count_prod">10</span> items of <span className="name_prod">Product1</span></p>*/}
-                                    <div dangerouslySetInnerHTML={{ __html: el.text }} />
+                        <div>
+                            <div className="stock-level">
+                                <p>Stock Level</p>
+                                <div>
+                                    <span
+                                        className={activeStock === 0 ? "mm active" : "mm"}
+                                        onClick={() => {
+                                            this.setState({ activeStock: 0 });
+                                            activeStock !== 0 && getStockLevel("month");
+                                        }}
+                                    >
+                                        mm
+                                    </span>
+                                    <span
+                                        className={activeStock === 1 ? "yy active" : "yy"}
+                                        onClick={() => {
+                                            this.setState({ activeStock: 1 });
+                                            activeStock !== 1 && getStockLevel("year");
+                                        }}
+                                    >
+                                        yy
+                                    </span>
                                 </div>
-                            ))
-                            :
-                            <h3>The list is empty.</h3>
-                        }
+                            </div>
+                            {stockLevel.length > 0 ? (
+                                <VerticalChart data={stockLevel && stockLevel} />
+                            ) : (
+                                <div className="chart-no-results">We do not have data for this chart.</div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="second-row">
+                        <div className="second-row-header">
+                            <span
+                                className={activeMonthly === 0 ? "active-header" : ""}
+                                onClick={() => {
+                                    this.setState({ activeMonthly: 0 });
+                                    activeMonthly !== 0 && getMonthlyGraphic("purchase");
+                                    activeMonthly !== 0 && getMonthlyDonut("purchase");
+                                }}
+                            >
+                                Monthly Purchases
+                            </span>
+                            <span
+                                className={activeMonthly === 1 ? "active-header" : ""}
+                                onClick={() => {
+                                    this.setState({ activeMonthly: 1 });
+                                    activeMonthly !== 1 && getMonthlyGraphic("consumption");
+                                    activeMonthly !== 1 && getMonthlyDonut("consumption");
+                                }}
+                            >
+                                Monthly Consumption
+                            </span>
+                        </div>
+                        <div className="second-row-content">
+                            <div>
+                                <SplineChart data={monthlyGraphicData} />
+                            </div>
+                            <div>
+                                <PieChart data={monthlyDonutData && monthlyDonutData.data} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,16 +145,28 @@ class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-        clinicLog: state.dashboard.clinicLog,
-        clinicDashBoard: state.dashboard.clinicDashBoard
-    }
+        stockManagement: state.dashboard.stockManagement,
+        purchasesByCategory: state.dashboard.purchasesByCategory,
+        stockLevel: state.dashboard.stockLevel,
+        monthlyGraphicData: state.dashboard.monthlyGraphicData,
+        monthlyDonutData: state.dashboard.monthlyDonutData
+    };
 };
 
-const mapDispatchToProps = {
-    getClinicLog,
-    getClinicDashBoard
-};
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            getStockManagement,
+            getPurchasesByCategory,
+            getStockLevel,
+            getMonthlyGraphic,
+            getMonthlyDonut,
+            push
+        },
+        dispatch
+    );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

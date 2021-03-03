@@ -13,6 +13,48 @@ export function getStock(marker, page, quantity) {
         }
     };
 }
+
+export function stockSettings(type, data) {
+    if(type === 'GET') {
+        return {
+            type: types.STOCK_SETTINGS,
+            payload: {
+                client: 'default',
+                request: {
+                    url: `/stock-settings/`,
+                    method: type,
+                }
+            }
+        };
+    } else if (type === 'PATCH') {
+        return {
+            type: types.STOCK_SETTINGS_PATCH,
+            payload: {
+                client: 'default',
+                request: {
+                    url: `/stock-settings/`,
+                    method: type,
+                    data
+                }
+            }
+        };
+    }
+    
+}
+
+export function getCartStock(activity, page) {
+    console.log(page) 
+    return {
+        type: types.GET_STOCK,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory/?page=${page}&page_size=50${activity ? ` $status=${activity}` : ''}`,
+                method: "GET",
+            }
+        }
+    };
+}
 //
 // export function switcher(marker, quantity) {
 //     return {
@@ -67,6 +109,22 @@ export function patchQuantity(id, data) {
     };
 }
 
+
+//patch cart requests
+export function patchCartQuantity(id, data) {
+    return {
+        type: types.PATCH_QUANTITY,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/cart-update/${id}/`,
+                method: "PATCH",
+                data
+            }
+        }
+    };
+}
+
 export function postRequest(data) {
     return {
         type: types.POST_REQUEST,
@@ -80,3 +138,32 @@ export function postRequest(data) {
         }
     };
 }
+
+export function getSettings() {
+    return {
+        type: types.POST_REQUEST,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory-settings/`,
+                method: "GET",
+            }
+        }
+    };
+}
+
+
+export function updateSetting(userId, data) {
+    return {
+        type: types.POST_REQUEST,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/inventory-settingsUpdate/${userId}/`,
+                method: "PUT",
+                data
+            }
+        }
+    };
+}
+

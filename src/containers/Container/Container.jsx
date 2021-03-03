@@ -8,8 +8,8 @@ import Catalog from '../../components/Catalog/Catalog';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import UserManagement from '../../components/UserManagement/UserManagement';
 import StockManagement from '../../components/StockManagement/StockManagement';
+import ShopCart from '../../components/ShoppingCart/Cart';
 import Activity from '../../components/Activity/Activity';
-
 
 
 class Container extends Component {
@@ -41,6 +41,12 @@ class Container extends Component {
                             path={`${match.url}/catalog/category/:id`}
                             render={() => role !== 'user' ? <Catalog history={history} catalog={false}/> : <Redirect to="/main/stock-management" />}
                         />
+
+                        <Route
+                            path={`${match.url}/shoppingCart`}
+                            render={() => role !== 'user' ? <ShopCart /> : <Redirect to="/main/stock-management"/>}
+                        />
+
                         <Route
                             path={`${match.url}/user-management`}
                             exact

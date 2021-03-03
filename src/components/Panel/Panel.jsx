@@ -7,6 +7,8 @@ import products from '../../assets/image/products.svg';
 import dashboard from '../../assets/image/dashboard.svg';
 import user_management from '../../assets/image/user_management.svg';
 import activity from '../../assets/image/activity.svg';
+import cart from '../../assets/image/shopping-cart.png';
+import { getUserInfo } from "../../actions/UserActions";
 import './Panel.scss';
 
 class Panel extends Component {
@@ -14,11 +16,14 @@ class Panel extends Component {
     state = {
         reloading: false
     };
-
+    componentDidMount() {
+        const { getUserInfo } = this.props; 
+        getUserInfo();
+    }
     componentDidUpdate(prevProps) {
         prevProps.location !== this.props.location && this.setState({ reloading: true })
     }
-    
+
     render() {
         const role = localStorage.role;
         return (
@@ -30,9 +35,11 @@ class Panel extends Component {
                     <div className="block_link">
                         {role !== 'user' && <NavLink to="/main/dashboard"><img src={dashboard} alt="dashboard"/></NavLink>}
                         {role !== 'user' && <NavLink to="/main/catalog"><img src={catalog} alt="catalog"/></NavLink>}
+                        {role !== 'user' && <NavLink className="fix_link" to="/main/shoppingCart"><img src={cart} alt="catalog"/></NavLink>}
                         <NavLink to="/main/stock-management"><img src={products} alt="products"/></NavLink>
                         {role === 'clinic' && <NavLink to="/main/user-management"><img src={user_management} alt="user_management"/></NavLink>}
                         {role !== 'user' && <NavLink to="/main/activity"><img src={activity} alt="activity"/></NavLink>}
+                        {/*role !== 'user' && <NavLink to="/store" target="_blank"><img src={activity} alt="activity"/></NavLink>*/}
                     </div>
                 </div>
             </div>
@@ -46,6 +53,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
+    getUserInfo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);
