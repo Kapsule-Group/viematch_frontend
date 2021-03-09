@@ -12,7 +12,7 @@ class RequestDialog extends Component {
 
     submitForm = (data) => {
         const { product_id, postRequest, toggler,reset, product_image} = this.props;
-        data.inventory_id = product_id;
+        data.product_id = product_id;
         data.incart=true;
         data.image = product_image;
         console.log(data)

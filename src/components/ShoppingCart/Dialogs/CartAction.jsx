@@ -17,7 +17,7 @@ class CartDialogue extends Component {
         if (activePage === 0) {
             activePage = 1;
         } 
-        data.product_id = requestid;
+        data.inventory_id = requestid;
         data.requestid = requestid
         console.log(data)
         postRequest(data).then(res => {
