@@ -1,0 +1,70 @@
+.stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > p {
+        margin-bottom: 0px !important;
+        font-family: "MontSemiBold", sans-serif;
+        color: #204569;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 24px;
+    }
+}
+
+.in-stock,
+.low-stock,
+.out-stock {
+    display: flex;
+    align-items: center;
+    margin-top: 26px;
+    > img {
+        margin-right: 12px;
+        margin-top: 5px;
+    }
+    > div {
+        width: 100%;
+    }
+    &-data {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .bar-name {
+            color: #204569;
+            font-size: 14px;
+            font-family: "MontRegular";
+            line-height: 18px;
+        }
+        .amount {
+            color: #204569;
+            font-family: "MontSemiBold", sans-serif;
+            font-size: 18px;
+            line-height: 20px;
+            margin-right: 6px;
+        }
+        .percents {
+            opacity: 0.5;
+            color: #204569;
+            font-family: "MontLight";
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
+    &-bar {
+        margin-top: 3.5px;
+        height: 1px;
+        border: 1px solid rgba(32, 69, 105, 0.15);
+        &-fill {
+            height: 1px;
+            background-color: #2cc197;
+        }
+    }
+}
+
+.low-stock-bar-fill {
+    background-color: #fda45c;
+}
+.out-stock-bar-fill {
+    background-color: #e44b4b;
+}

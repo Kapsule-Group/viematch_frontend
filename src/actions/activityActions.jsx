@@ -22,7 +22,8 @@ export function getActivity(activity, page) {
             client: 'default',
             request: {
                  //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
-                 url: `/requests/?page=${page}&page_size=10`,
+                //  url: `/requests/?page=${page}&page_size=10`,
+                url: `/cart/?page=${page}&page_size=10`,
                  //url: `/order/?status=${status}`,
                 method: 'get'
             }

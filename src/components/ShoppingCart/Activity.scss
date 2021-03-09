@@ -1,0 +1,84 @@
+
+.activity_page{
+  display: flex;
+  flex-flow: column;
+  h3{
+    padding: 20px 0;
+  }
+  .pagination_info_wrapper{
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+  }
+  .activity_block{
+    padding-bottom:10px ;
+  }
+}
+
+.in_stock_table{
+  .title_block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .cart_buttons{
+      margin: 0;
+    }
+  }
+  .cart_container{
+    .cart_items{
+
+      margin: 0;
+    }
+  }
+}
+.cart_items{
+  .cart_list{
+    border: none;
+    box-shadow: none;
+    .cart_item{
+      border: solid 1px #e8e8e8;
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+  }
+}
+.activity_block{
+  background: #ffffff;
+  box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
+  padding: 32px 40px;
+  border-radius: 10px;
+  .panel_activity{
+    padding-bottom: 12px;
+  }
+  .activity_info_wrapper{
+   >div{
+     >div{
+       border-bottom:1px solid rgba(32, 69, 105, 0.25);
+       display: flex;
+       padding-top: 20px;
+       flex-flow: column;
+       >span{
+         opacity: 0.5;
+         font-family: "MontLight",sans-serif;
+         font-size: 10px;
+         line-height: 13px;
+         padding-bottom: 8px;
+         display: flex;
+       }
+       p{
+         padding-bottom: 20px;
+         font-size: 14px;
+         span{
+           font-family: "MontSemiBold",sans-serif;
+         }
+       }
+     }
+   }
+    >div:last-of-type{
+      >div{
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+

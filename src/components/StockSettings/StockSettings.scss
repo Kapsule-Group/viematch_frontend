@@ -1,0 +1,134 @@
+.user_management_page {
+  display: flex;
+  flex-flow: column;
+  .content_page {
+    background: #ffffff;
+    padding: 36px 40px;
+    margin-bottom: 72px;
+    box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+    border-radius: 10px;
+    &.limits {
+      & > div {
+        display: inline-block;
+        .change_limit_wrapper {
+          display: flex;
+          margin-left: 15px;
+          input,
+          button {
+            text-align: center;
+            line-height: 24px;
+          }
+          input {
+            height: 24px;
+            width: 36px;
+            border-radius: 2px;
+            background-color: #ebf4fe;
+          }
+          button {
+            height: 24px;
+            width: 24px;
+          }
+        }
+      }
+      & > span {
+        display: inline-block;
+      }
+      & > button {
+        margin-top: 50px;
+        & + .error {
+          color: red;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .table_panel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    button {
+      margin-right: 24px;
+      color: #3796f6;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-family: "MontSemiBold", sans-serif;
+    }
+  }
+  .user_management_table {
+    .transactions_columns {
+      .table_row {
+        & > :first-child {
+          width: 30%;
+        }
+        & > :nth-child(2) {
+          width: 38%;
+        }
+        & > :nth-child(3) {
+          width: 22%;
+        }
+        & > :last-child {
+          width: 10%;
+          button {
+            margin-right: 24px;
+            text-transform: uppercase;
+            font-family: "MontSemiBold", sans-serif;
+            font-size: 10px;
+            &:hover {
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+      .cap {
+        color: #9aa6b2;
+        font-size: 14px;
+        font-family: "MontSemiBold", sans-serif;
+      }
+    }
+  }
+}
+
+.inputFields {
+  margin-top: 40px;
+}
+
+.stepper-input {
+  display: flex;
+  font-size: 15px;
+  padding-bottom: 15px;
+}
+
+.addButton {
+  cursor: pointer;
+  padding: 5px;
+  color: #fff;
+  background-color: #3796f6;
+  border: 1px solid #3796f6;
+}
+.addButton:hover {
+  background-color: #fff;
+  color: #3796f6;
+}
+
+.btn-left {
+  border-radius: 10px 0 0 10px;
+}
+
+.btn-right {
+  border-radius: 0 10px 10px 0;
+}
+
+.stocklink {
+  color: #3796f6;
+}
+
+.stocklink:hover {
+  text-decoration: underline;
+}
+
+.input-box {
+  border: 1px solid #3796f6;
+  text-align: center;
+  width: 90px;
+}

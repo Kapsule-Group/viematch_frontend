@@ -1,0 +1,359 @@
+.stock_management_page{
+  display: flex;
+  flex-flow: column;
+  .content_page{
+    background: #ffffff;
+    padding: 32px 40px;
+    margin-bottom: 72px;
+    box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
+    border-radius: 10px;                                                                                                               
+  }
+  .block_search{                                                              
+    margin: 32px 0 16px;
+    width: fit-content;
+    .autocomplete{
+      max-height: 250px;
+    }
+    .select_component{
+      height: 40px;
+      width: 254px;
+      .select__indicators{
+        display: none;
+      }
+      .select__value-container{
+        padding-left: 30px;
+        .css-b8ldur-Input{
+          overflow: hidden;
+        }
+      }
+    }
+    .search_item:hover{
+      background-color: #d2d2d2;
+    }
+
+  }
+
+  .in_stock_table{
+    .table_header{
+      .table_row{
+        height: 50px!important;
+      }
+    }
+    .table_body{
+      .table_row:last-of-type{
+        border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+      }
+    }
+    .transactions_columns {
+      .table_row {
+        height: auto;
+        flex-flow: column;
+        .table_header{
+
+        }
+        .row{
+          width: 100%;
+          display: flex;
+          height: 60px;
+          align-items: center;
+          & > :first-child {
+            width: 18%;
+          }
+          & > :nth-child(2) {
+            width: 18%;
+          }
+          & > :nth-child(3) {
+            width: 16%;
+            display: flex;
+            align-items: center;
+            button{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+            }
+            div{
+              height: 24px;
+              width: 36px;
+              border-radius: 2px;
+              background-color: #EBF4FE;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+          & > :nth-child(4) {
+            width: 16%;
+          }
+          & > :nth-child(5) {
+            width: 16%;
+          }
+          & > :last-child {
+            width: 16%;
+            display: flex;
+            justify-content: space-between;
+            .btn_text{
+              font-family: "MontSemiBold",sans-serif;
+              font-size: 10px;
+              text-transform: uppercase;
+            }
+            .btn_arrow{
+              margin-right: 12px;
+              img{
+                transition: all .3s linear;
+              }
+            }
+          }
+        }
+        .info{
+          transition: all .2s linear;
+          height: 0;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          border-radius: 4px;
+          background-color: #EBF4FE;
+          margin: 0;
+          overflow: hidden;
+          .row_item{
+            >span{
+              opacity: 0.5;
+              color: #204569;
+              font-family: "MontLight",sans-serif;
+              font-size: 10px;
+              line-height: 14px;
+            }
+          }
+          & > :first-child {
+            width: 36%;
+            display: flex;
+            align-items: flex-end;
+            span{
+              display: flex;
+              align-items: flex-end;
+              margin-right: 12px;
+              padding-left: 40px;
+            }
+            a{
+              margin-bottom: -2px;
+              color: #3796F6;
+              font-family: "MontSemiBold",sans-serif;
+              font-size: 14px;
+              line-height: 18px;
+            }
+          }
+          & > :nth-child(2) {
+            width: 16%;
+            display: flex;
+            align-items: center;
+            span{
+              display: flex;
+              align-items: center;
+              margin-right: 12px;
+            }
+          }
+          & > :nth-child(3) {
+            width: 16%;
+            display: flex;
+            span{
+              display: flex;
+              align-items: center;
+              margin-right: 12px;
+            }
+          }
+          & > :last-child {
+            width: 32%;
+            display: flex;
+            span{
+              display: flex;
+              align-items: center;
+              margin-right: 12px;
+            }
+          }
+        }
+        .info_open{
+          margin-bottom: 20px;
+          height: 66px;
+        }
+      }
+    }
+  }
+  .out_of_stock_table{
+    .table_body{
+      .table_row:last-of-type{
+        border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+      }
+    }
+    .transactions_columns {
+      .table_row {
+        & > :first-child {
+          width: 18%;
+
+        }
+        & > :nth-child(2) {
+          width: 30%;
+          a{
+            color: #3796F6;
+            font-family: "MontSemiBold",sans-serif;
+            font-size: 14px;
+            line-height: 18px;
+          }
+        }
+        & > :nth-child(3) {
+          width: 8%;
+        }
+        & > :nth-child(4) {
+          width: 18%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+          }
+          div{
+            height: 24px;
+            width: 36px;
+            border-radius: 2px;
+            background-color: #EBF4FE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        & > :nth-child(5) {
+          width: 13%;
+        }
+        & > :last-child {
+          width: 13%;
+          .btn_text{
+            text-transform: uppercase;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+
+  }
+  .btn_arrow_open{
+    img{
+      transform: rotate(180deg);
+    }
+  }
+  .btn_sort{
+    color: rgba(32, 69, 105, 0.5);
+    font-size: 10px;
+    font-family: "MontLight",sans-serif;
+    .sort{
+      width: auto!important;
+      background-color: transparent!important;
+      display: flex;
+      flex-flow: column;
+      margin-left: 3px;
+      opacity: 0.5;
+      img{
+        margin: 0.5px 0;
+      }
+
+    }
+  }
+  .stub{
+    cursor: default!important;
+  }
+  .hided{
+    font-size: 10px;
+    color: grey!important;
+    font-family: "MontSemiBold",sans-serif;
+    cursor: default;
+  }
+
+}
+
+
+.tab_block{
+  button{
+    color: rgba(32, 69, 105, 0.3);
+    font-family: "MontSemiBold",sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin-right: 32px;
+    position: relative;
+    &:hover{
+      color: rgba(32, 69, 105, 1);
+    }
+    span{
+      position: absolute;
+      border-radius: 50%;
+      top: 1px;
+      right: -7px;
+      height: 6px;
+      width: 6px;
+      background-color: #3796F6;
+    }
+  }
+  .active{
+    color: rgba(32, 69, 105, 1);
+  }
+}
+
+.quantity_dialog{
+  display: flex;
+  flex-flow: column;
+  .title{
+    padding-bottom: 32px;
+    font-family: "MontSemiBold",sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 42px;
+  }
+  .descriptions{
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom: 24px;
+    .name{
+      font-family: "MontSemiBold", sans-serif;
+    }
+  }
+
+  .block_field{
+    display: flex;
+    flex-flow: column;
+    span{
+      font-family: "MontSemiBold",sans-serif;
+      font-size: 10px;
+      line-height: 13px;
+      padding-bottom: 8px;
+    }.error{
+       bottom: -25px!important;
+     }
+    input{
+      padding: 0 16px;
+      box-sizing: border-box;
+      border: 1px solid rgba(32, 69, 105, 0.3);
+      border-radius: 4px;
+      height: 48px;
+      width: 124px;
+      font-family: "MontRegular",sans-serif;
+      font-size: 14px;
+      &::placeholder{
+        color:  rgba(32, 69, 105, 0.5);
+      }
+    }
+  }
+
+  .btn_wrapper{
+    display: flex;
+    padding-top: 2px;
+    .cancel_btn{
+      margin-right: 16px;
+    }
+    button{
+      margin-right: 16px;
+    }
+  }
+}
+
+
+
