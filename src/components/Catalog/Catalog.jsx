@@ -1021,6 +1021,7 @@ class Catalog extends CatalogInterface {
                     </div>
                 </DialogComponent>
                 <RequestDialog
+                    useProductId
                     toggler={this.toggleRequestDialog}
                     product_quantity={product_quantity}
                     product_name={product_name}
