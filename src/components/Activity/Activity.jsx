@@ -25,6 +25,7 @@ import imageData from "../../assets/image/logo.png";
 import { groupBy } from "../../actions/dashboardActions";
 import SelectComponent from "../HelperComponents/SelectComponent/SelectComponent";
 import { getOption } from "../HelperComponents/functions";
+import { toast } from "react-toastify";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -152,6 +153,16 @@ class Activity extends Component {
         nextStep(id).then(res => {
             if (res.payload && res.payload.status && res.payload.status === 200) {
                 this.doRequest();
+            } else {
+                toast(
+                    `${res.error &&
+                        res.error.response.data.non_field_errors &&
+                        res.error.response.data.non_field_errors[0]}`,
+                    {
+                        progressClassName: "red-progress"
+                    }
+                );
+                console.log(res.error.response.data.non_field_errors[0]);
             }
         });
     };
@@ -222,7 +233,7 @@ class Activity extends Component {
             [
                 {
                     content:
-                        "VAT EXEMPTED\r\nTIN: 107902413\r\nccount Number: 21102347510015100000 / GT Bank, Main Branch \r\n Delivery: Immediately",
+                        "VAT EXEMPTED\r\nTIN: 107902413\r\nccount Number: 21102347510015100000 / GT Bank, Main Branch\r\nDelivery: Immediately \r\nDISCLAIMER: This invoice is not an official invoice and is only valid together with the EBM invoice provided by VIEBEG upon delivery of the goods.",
                     colSpan: 4,
                     styles: { font: "italic", fontSize: 10, fontStyle: "bold" }
                 }
@@ -345,11 +356,12 @@ class Activity extends Component {
                                                             }
                                                             notification={`You need to add file first.`}
                                                             onClick={e => {
-                                                                el.status === "proforma"
-                                                                    ? fileName === ""
-                                                                        ? e.target.nextElementSibling.nextElementSibling.click()
-                                                                        : this.nextStep(el.id)
-                                                                    : this.nextStep(el.id);
+                                                                // el.status === "proforma"
+                                                                //     ? fileName === ""
+                                                                //         ? e.target.nextElementSibling.nextElementSibling.click()
+                                                                //         : this.nextStep(el.id)
+                                                                //     : this.nextStep(el.id);
+                                                                this.nextStep(el.id);
                                                             }}
                                                             style={{ marginRight: "10px" }}
                                                         >

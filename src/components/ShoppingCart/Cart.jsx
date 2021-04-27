@@ -48,7 +48,7 @@ class Activity extends Component {
             label: <div></div>,
             value: "supply_requests"
         },
-
+        cartLength: 0,
         switcherState: "quantity"
     };
 
@@ -125,14 +125,15 @@ class Activity extends Component {
         }));
     };
 
-    toggleDeleteDialog = (sign, name, quantity, id) => {
+    toggleDeleteDialog = (sign, name, quantity, id, cartLength1) => {
         this.setState(({ openDeleteDialog }) => ({
             openDeleteDialog: !openDeleteDialog,
             sign: typeof sign === "string" ? sign : "",
             product_name: name,
             product_quantity: quantity,
             product_id: id,
-            InfoIsOpen: false
+            InfoIsOpen: false,
+            cartLength: cartLength1
         }));
     };
     toggleRequestDialog = (name, quantity, id, product_image) => {
@@ -251,7 +252,6 @@ class Activity extends Component {
         //const totalItems = activityLog.results.length;
         if (loading) return null;
         let g = activityLog.results.filter(item => item.incart === "True" && item.quantity > 0);
-        console.log(activityLog.count);
         return (
             <div className="stock_management_page content_block" style={{ backgroundColor: "#EBF4FE" }}>
                 <div className="title_page">Shopping cart</div>
@@ -265,13 +265,7 @@ class Activity extends Component {
                                             {/*console.log(activityLog.results.filter(item => item.incart==="True"))*/}
                                             <span style={{ fontWeight: "100 !important" }}>
                                                 Cart Total Item{" "}
-                                            </span> ({" "}
-                                            <b>
-                                                {
-                                                    activityLog.count
-                                                }
-                                            </b>{" "}
-                                            )
+                                            </span> ( <b>{activityLog.count}</b> )
                                         </div>
                                         <div className="cart_buttons">
                                             {combinedCart.length > 0 ? (
@@ -364,7 +358,7 @@ class Activity extends Component {
                                                                                                     200
                                                                                             ) {
                                                                                                 this.doRequest(
-                                                                                                    activePage + 1
+                                                                                                    activePage
                                                                                                 );
                                                                                             }
                                                                                         })
@@ -392,7 +386,7 @@ class Activity extends Component {
                                                                                                     200
                                                                                             ) {
                                                                                                 this.doRequest(
-                                                                                                    activePage + 1
+                                                                                                    activePage
                                                                                                 );
                                                                                             }
                                                                                         })
@@ -420,7 +414,7 @@ class Activity extends Component {
                                                                                                     200
                                                                                             ) {
                                                                                                 this.doRequest(
-                                                                                                    activePage + 1
+                                                                                                    activePage
                                                                                                 );
                                                                                             }
                                                                                         })
@@ -456,7 +450,7 @@ class Activity extends Component {
                                                                                     row.product_name,
                                                                                     row.quantity,
                                                                                     row.id,
-                                                                                    row.incart
+                                                                                    combinedCart.length
                                                                                 )
                                                                             }
                                                                         ></a>
@@ -519,27 +513,11 @@ class Activity extends Component {
                                 </div>
                                 <div className="table_container transactions_columns">
                                     <div className="table_header">
-                                        <div className="table_row">
+                                        <div className="table_row1">
                                             <div className="row">
-                                                <div className="row_item" style={{ width: "70%" }}>
-                                                    Name
-                                                </div>
-                                                <div className="row_item">Code</div>
-                                                <div className="row_item" style={{ width: "10%" }}>
-                                                    <button
-                                                        onClick={this.handleSwitch}
-                                                        className="btn_sort"
-                                                        style={{ display: "flex" }}
-                                                    >
-                                                        Quantity
-                                                        <div className="sort">
-                                                            <img src={sort_up} alt="sort_up" />
-                                                            <img src={sort_down} alt="sort_down" />
-                                                        </div>
-                                                    </button>
-                                                </div>
-                                                <div className="row_item">Actions</div>
-                                                <div className="row_item">Expand</div>
+                                                <div className="row_item suggested1">Name</div>
+                                                <div className="row_item suggested2">Code</div>
+                                                <div className="row_item suggested3">Actions</div>
                                             </div>
                                         </div>
                                     </div>
@@ -549,12 +527,12 @@ class Activity extends Component {
                                             stock_list.results.length &&
                                             stock_list.results.length < 1) ||
                                         stockLoad ? (
-                                            <div className="table_row">
+                                            <div className="table_row1">
                                                 <div className="row">no items</div>
                                             </div>
                                         ) : (
                                             stock_list.results.map((row, idx) => (
-                                                <div className="table_row" key={idx}>
+                                                <div className="table_row1" key={idx}>
                                                     <div className="row">
                                                         <>
                                                             <OverlayTrigger
@@ -563,7 +541,7 @@ class Activity extends Component {
                                                                 overlay={
                                                                     <Tooltip id="tooltip-top">
                                                                         <div
-                                                                            className="row_item"
+                                                                            className="row_item suggested1"
                                                                             style={{
                                                                                 textAlign: "left",
                                                                                 fontSize: "14px"
@@ -608,7 +586,7 @@ class Activity extends Component {
                                                                         )}
 
                                                                         <div
-                                                                            className="row_item"
+                                                                            className="row_item suggested1"
                                                                             style={{
                                                                                 textAlign: "left",
                                                                                 fontSize: "12px"
@@ -619,7 +597,15 @@ class Activity extends Component {
                                                                     </Tooltip>
                                                                 }
                                                             >
-                                                                <span variant="light" style={{ width: "70%" }}>
+                                                                <span
+                                                                    variant="light suggested1"
+                                                                    style={{
+                                                                        width: "80%",
+                                                                        color: "#204569",
+                                                                        fontSize: "16px",
+                                                                        fontFamily: "MontRegular, sans-serif"
+                                                                    }}
+                                                                >
                                                                     {row.deleted === false ? (
                                                                         <div style={{ width: "100%" }}>
                                                                             {row.product_name}
@@ -632,40 +618,12 @@ class Activity extends Component {
                                                         </>
 
                                                         {row.code ? (
-                                                            <div className="row_item">#{row.code}</div>
+                                                            <div className="row_item suggested2">#{row.code}</div>
                                                         ) : (
-                                                            <div className="row_item">-</div>
+                                                            <div className="row_item suggested2">-</div>
                                                         )}
-                                                        <div className="row_item" style={{ width: "10%" }}>
-                                                            <button
-                                                                disabled={row.quantity <= 0}
-                                                                onClick={() =>
-                                                                    this.toggleQuantityDialog(
-                                                                        "-",
-                                                                        row.product_name,
-                                                                        row.quantity,
-                                                                        row.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                <img src={minus} alt="minus" />
-                                                            </button>
-                                                            <div>{row.quantity}</div>
-                                                            <button
-                                                                onClick={() =>
-                                                                    this.toggleQuantityDialog(
-                                                                        "+",
-                                                                        row.product_name,
-                                                                        row.quantity,
-                                                                        row.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                <img src={plus} alt="plus" />
-                                                            </button>
-                                                        </div>
 
-                                                        <div className="row_item">
+                                                        <div className="row_item suggested3">
                                                             {row.deleted && row.code ? (
                                                                 <div className="btn_text">Not available</div>
                                                             ) : row.code ? (
@@ -686,31 +644,15 @@ class Activity extends Component {
                                                                             )
                                                                         }
                                                                     >
-                                                                        REQUEST SUPPLY
+                                                                        ADD TO CART
                                                                     </button>
                                                                 </div>
                                                             ) : (
                                                                 <div className="row_item">-</div>
                                                             )}
                                                         </div>
-                                                        <div className="row_item">
-                                                            <button
-                                                                className={
-                                                                    InfoIsOpen && product_id === row.id
-                                                                        ? "btn_arrow_open btn_arrow row_item"
-                                                                        : "btn_arrow"
-                                                                }
-                                                                onClick={() =>
-                                                                    product_id === row.id
-                                                                        ? this.closeMenu(row.id)
-                                                                        : this.openMenu(row.id)
-                                                                }
-                                                            >
-                                                                <img src={roll_down} alt="roll_down" />
-                                                            </button>
-                                                        </div>
                                                     </div>
-                                                    <div
+                                                    {/* <div
                                                         className={
                                                             InfoIsOpen && product_id === row.id
                                                                 ? "info info_open"
@@ -757,7 +699,7 @@ class Activity extends Component {
                                                             <span>Auto supply qty</span>
                                                             {row.deleted ? "-" : row.supply_quantity}
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             ))
                                         )}
@@ -812,6 +754,10 @@ class Activity extends Component {
                     startValue={""}
                     activePage={activePage}
                     doRequest={this.doRequest}
+                    cartLength={this.state.cartLength}
+                    changePage={page => {
+                        this.setState({ activePage: page });
+                    }}
                 />
                 <RequestDialog
                     toggler={this.toggleRequestDialog}

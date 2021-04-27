@@ -37,6 +37,9 @@ export const RESET_USER_ERROR = "RESET_USER_ERROR";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
 
+export const GET_CART_COUNT = "GET_CART_COUNT";
+export const GET_CART_COUNT_SUCCESS = "GET_CART_COUNT_SUCCESS";
+
 ////////////////////////////stock actions//////////////////////////////////
 
 export const GET_STOCK = "GET_STOCK";
