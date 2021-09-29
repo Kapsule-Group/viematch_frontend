@@ -72,6 +72,9 @@ class Panel extends Component {
                         {role !== "user" && (
                             <NavLink to="/main/activity">
                                 <img src={activity} alt="activity" />
+                                {cartCount && cartCount.orders_count && cartCount.orders_count > 0 ? (
+                                    <div className="cart-count">{cartCount.orders_count > 99 ? "99+" : cartCount.orders_count}</div>
+                                ) : null}
                             </NavLink>
                         )}
                         {/*role !== 'user' && <NavLink to="/store" target="_blank"><img src={activity} alt="activity"/></NavLink>*/}

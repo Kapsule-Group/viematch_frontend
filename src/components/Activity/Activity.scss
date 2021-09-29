@@ -29,7 +29,7 @@
         position: absolute;
         bottom: calc(100% + 5px);
         left: 80%;
-        background: rgba(51, 51, 51, .9);
+        background: rgba(51, 51, 51, 0.9);
         width: 100px;
         text-align: left;
         padding: 5px 10px;
@@ -156,4 +156,17 @@ thead tr th,
 }
 
 .proftd {
+}
+
+#my-table {
+  background-color: #ebf4fe;
+  tr {
+    background-color: #ebf4fe;
+    td {
+      background-color: #ebf4fe;
+      .lol {
+        background-color: #ebf4fe;
+      }
+    }
+  }
 }

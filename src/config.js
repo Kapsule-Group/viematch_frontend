@@ -1,5 +1,9 @@
 let BASE_URL, SECOND_URL;
-if (window.location.host === "localhost:3000" || window.location.host.includes("4-com")) {
+if (
+    window.location.host === "localhost:3000" ||
+    window.location.host.includes("4-com") ||
+    window.location.host === "localhost:3001"
+) {
     BASE_URL = "http://api.viebeg.4-com.pro/api/v0"; //https://viebeg.vieprocure.com/api/v0/
 } else {
     BASE_URL = "https://viebeg.vieprocure.com/api/v0/"; //'http://localhost:8000/api/v0

@@ -19,9 +19,9 @@ class DeleteDialog extends Component {
             doRequest,
             cartLength,
             changePage,
-            product_quantity
+            product_quantity,
+            activePage
         } = this.props;
-        let { activePage } = this.props;
         let obj = { ...data };
         if (activePage === 0) {
             activePage = 1;
@@ -34,7 +34,11 @@ class DeleteDialog extends Component {
             if (res.payload && res.payload.status && res.payload.status === 200) {
                 reset("DeleteDialog");
                 toggler();
-                if (cartLength === 1 && +obj.quantity.substring(1, obj.quantity.length) === product_quantity) {
+                if (
+                    cartLength === 1 &&
+                    +obj.quantity.substring(1, obj.quantity.length) === product_quantity &&
+                    activePage !== 1
+                ) {
                     changePage(this.props.activePage - 1);
                     doRequest(activePage - 1);
                 } else {

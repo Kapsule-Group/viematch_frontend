@@ -156,8 +156,8 @@ class Activity extends Component {
             } else {
                 toast(
                     `${res.error &&
-                        res.error.response.data.non_field_errors &&
-                        res.error.response.data.non_field_errors[0]}`,
+                    res.error.response.data.non_field_errors &&
+                    res.error.response.data.non_field_errors[0]}`,
                     {
                         progressClassName: "red-progress"
                     }
@@ -178,19 +178,27 @@ class Activity extends Component {
         });
     };
 
+    /* renderTableForPrint = data => {
+        console.log(data)
+        return (
+            <div id="my-table" style={{ backgroundColor: '#fff' }}>
+                        <img src={imageData} />
+            </div>
+        )
+    } */
+
     generatePDF = client_data => {
         var doc = new jsPDF("p", "pt");
         let imageData = data_image;
         const pdfdat1 = client_data.items;
         const pdfdata = pdfdat1.map(elt => [
-            elt.product_name,
-            elt.quantity,
-            Number(elt.price_per_unit).toFixed(2),
-            Number(+elt.quantity * +elt.price_per_unit).toFixed(2)
+            { content: elt.product_name, styles: { fontStyle: "bold" } },
+            { content: elt.quantity, styles: { halign: 'right' } },
+            { content: Number(elt.price_per_unit).toFixed(2), styles: { halign: 'right' } },
+            { content: Number(+elt.quantity * +elt.price_per_unit).toFixed(2), styles: { halign: 'right' } }
         ]);
-
         pdfdata.sort(sortFunction);
-        doc.addImage(imageData, "PNG", 30, 40, 250, 75);
+        doc.addImage(imageData, "PNG", 30, 60, 160, 50);
         const reducer = (accumulator, currentValue) => Number(accumulator) + Number(currentValue);
         var total = [];
 
@@ -198,54 +206,131 @@ class Activity extends Component {
         pdfdata.forEach(element => total.splice(z, 0, Number(element[3]).toFixed(2)));
         ++z;
         var total1 = total.reduce(reducer, 0);
-
-        doc.setFont("times");
-        doc.setFontType("italic");
+        doc.setFont("Helvetica");
+        doc.setTextColor("#204569");
+        doc.setFontSize(8);
+        doc.setFontType("bold");
+        doc.text(250, 70, "Viebeg Medical and Dental Supplies Ltd");
+        doc.setFontType("normal");
+        doc.text(250, 85, "K&M Building 1st Floor Opposite Sonatubes Kicukiro");
+        doc.text(250, 100, "Kigali, Kigali 20093 RW");
+        doc.text(250, 115, "+250 789700776");
+        doc.text(250, 130, "alex@viebeg.com");
+        doc.text(250, 145, "www.viebeg.com");
+        doc.text(250, 160, "Govt. UID 107902413");
         doc.setFontSize(10);
-        doc.text(290, 50, "Address: K&M Building 1st Floor Opposite Sonatube kicukiro kigali");
-        doc.text(290, 65, "Email: alex@viebeg.com / tobias@viebeg.com");
-        doc.text(290, 80, "Website: www.viebeg.com");
-        doc.text(290, 95, "Office line: +250782205366 Tel: +250787104894");
         var pdfbody = [
             [
                 {
-                    content: `${
-                        client_data.status === "delivered"
-                            ? "Delivery Note"
-                            : this.state.namesOfStatuses[client_data.status]
-                    }`,
+                    content: `${client_data.status === "delivered"
+                        ? "Delivery Note"
+                        : this.state.namesOfStatuses[client_data.status].toUpperCase()
+                        }`,
                     colSpan: 4,
-                    styles: { halign: "center", fontSize: 12, font: "times", fontStyle: "bold" }
+                    styles: { halign: "left", fontSize: 20, fontStyle: "light", textColor: '#204569' }
+                }
+            ],
+            [
+                {
+                    content: `BILL TO`,
+                    colSpan: 2,
+                    rowSpan: 1,
+                    styles: { fontSize: 10, fontStyle: "bold", valign: 'bottom' }
+                },
+                {
+                    content: `Invoice no.\r\nDate\r\nDue Date\r\nTerms`.toUpperCase(),
+                    colSpan: 1,
+                    rowSpan: 2,
+                    styles: { fontSize: 10, halign: "right", fontStyle: "bold" }
+                },
+                {
+                    content:
+                        `${client_data.request}` +
+                        `\r\n${moment(client_data.date_requested).format("MM/DD/YYYY")}` +
+                        `\r\n${client_data.due_date === null ? '—' : moment(client_data.due_date).format("MM/DD/YYYY")}` +
+                        `\r\nNet 30`,
+                    colSpan: 1,
+                    rowSpan: 2,
+                    styles: { fontSize: 10 }
+                }
+            ],
+            [{
+                content: client_data.customer_name.toUpperCase(),
+                colSpan: 2,
+                rowSpan: 1,
+                styles: { fontSize: 10, valign: 'top' }
+            }, "", ""],
+            [{
+                content: "———————————————————————————————————————————————————",
+                colSpan: 4, styles: { valign: 'middle', halign: "center", cellPadding: 0, textColor: '#e3e7ec', fontStyle: "bold", minCellHeight: 20 }
+            }],
+            [
+                { content: "", styles: { fillColor: '#EBF4FE' } },
+                { content: "QTY", styles: { fillColor: '#EBF4FE', halign: 'right' } },
+                { content: "RATE", styles: { fillColor: '#EBF4FE', halign: 'right' } },
+                { content: "AMOUNT", styles: { fillColor: '#EBF4FE', halign: 'right' } },
+            ],
+            [{
+                content: "—  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —",
+                colSpan: 4, styles: { valign: 'middle', halign: "center", cellPadding: 0, textColor: '#e3e7ec', fontStyle: "bold", minCellHeight: 20 }
+            }],
+            [{
+                content: `Account Number: 21 102347510015100000 -` +
+                    `\r\nGT Bank, Main Branch` +
+                    `\r\nPayment upon delivery` +
+                    `\r\nDelivery: Immediately` +
+                    `\r\nGoods installed and commisioned`,
+                colSpan: 2,
+                rowSpan: 2,
+                styles: { halign: "left", fontSize: 8 }
+            }, { content: "PAYMENT", rowSpan: 1, styles: { valign: 'bottom' } },
+            { content: Number(client_data.total).toFixed(2), rowSpan: 1, styles: { valign: 'bottom', halign: 'right' } }
+            ],
+            [
+                { content: 'BALANCE DUE', rowSpan: 1, styles: { valign: 'middle' } },
+                { content: `${client_data.balance !== null ? `RF${client_data.balance}` : '—'}`, rowSpan: 1, styles: { valign: 'top', fontSize: 20, fontStyle: "bold", halign: 'right' } }
+            ],
+            //margin
+            [{ content: ``, colSpan: 4, styles: { minCellHeight: 20 } }],
+            [
+                {
+                    content:
+                        `Prepared by` +
+                        `\r\n\r\nName: ______________________________________` +
+                        `\r\n\r\nSignature: ___________________________________`,
+                    colSpan: 4,
+                    styles: { fontSize: 8 }
                 }
             ],
             [
                 {
                     content:
-                        `Client Name: ${client_data.customer_name}\r\nPI#: ${client_data.request}\r\nDate: ${moment(
-                            client_data.date_requested
-                        ).format("DD/MM/YYYY   hh-mm-ss")}\r\n` + "" /* `Sales Rep: Cecile` */,
+                        `\r\nReceived by` +
+                        `\r\n\r\nName: ______________________________________` +
+                        `\r\n\r\nSignature: ___________________________________`,
                     colSpan: 4,
-                    styles: { font: "italic", fontSize: 10, fontStyle: "bold" }
+                    styles: { fontSize: 8 }
                 }
             ],
-            ["ITEM DESCRIPTION", "QTY", "UNIT PRICE", "SUB TOTAL"],
-            [{ content: "", colSpan: 2, styles: { halign: "center" } }, "Total", Number(total1).toFixed(2)],
+            //margin
+            [{ content: ``, colSpan: 4, styles: { minCellHeight: 20 } }],
             [
                 {
-                    content:
-                        "VAT EXEMPTED\r\nTIN: 107902413\r\nccount Number: 21102347510015100000 / GT Bank, Main Branch\r\nDelivery: Immediately \r\nDISCLAIMER: This invoice is not an official invoice and is only valid together with the EBM invoice provided by VIEBEG upon delivery of the goods.",
+                    content: `Thank you! All cheques payable to Viebeg Medical and Dental Supplies Ltd.` +
+                        `\r\n\r\n` +
+                        `DISCLAIMER: This invoice is not an official invoice and is only valid together with the EBM invoice provided by VIEBEG upon delivery of the goods.`,
                     colSpan: 4,
-                    styles: { font: "italic", fontSize: 10, fontStyle: "bold" }
+                    styles: { fontSize: 8, textColor: '#8fa2b4' }
                 }
             ]
         ];
-        var k = 3;
+        var k = 5;
         pdfdata.forEach(element => pdfbody.splice(k, 0, element));
         ++k;
         doc.autoTable({
             theme: "grid",
-            margin: { top: 150 },
-            styles: { lineColor: "black", lineWidth: 1 },
+            margin: { top: 190 },
+            styles: { lineColor: "black", lineWidth: 0, textColor: '#204569' },
             body: pdfbody
         });
 
@@ -336,19 +421,18 @@ class Activity extends Component {
                                                     {el.status === "invoice"
                                                         ? "Complete payment"
                                                         : el.status === "receipt"
-                                                        ? "Order completed"
-                                                        : el.status === "request"
-                                                        ? "Request submitted"
-                                                        : el.status === "order"
-                                                        ? "P.O. submitted"
-                                                        : namesOfStatuses[el.status]}
+                                                            ? "Order completed"
+                                                            : el.status === "request"
+                                                                ? "Request submitted"
+                                                                : el.status === "order"
+                                                                    ? "P.O. submitted"
+                                                                    : namesOfStatuses[el.status]}
                                                 </div>
                                                 {(el.status === "proforma" || el.status === "delivered") && (
                                                     <>
                                                         <button
-                                                            className={`btn btn-success btn-sm waiting${
-                                                                fileTargetId !== el.id ? ` notification_for_file` : ""
-                                                            }${el.status === "delivered" ? " no_tooltip" : ""}`}
+                                                            className={`btn btn-success btn-sm waiting${fileTargetId !== el.id ? ` notification_for_file` : ""
+                                                                }${el.status === "delivered" ? " no_tooltip" : ""}`}
                                                             disabled={
                                                                 fileName !== "" &&
                                                                 fileTargetId === el.id &&
@@ -400,8 +484,8 @@ class Activity extends Component {
                                                                 fileTargetId === el.id || fileTargetId === ""
                                                                     ? e.target.nextElementSibling.click()
                                                                     : alert(
-                                                                          "Complete the operation you started first."
-                                                                      );
+                                                                        "Complete the operation you started first."
+                                                                    );
                                                             }}
                                                         >
                                                             {fileName !== "" &&
@@ -564,11 +648,10 @@ class Activity extends Component {
                                                     <td
                                                         style={{
                                                             position: "relative",
-                                                            paddingRight: `${
-                                                                activityOrder.status === "proforma"
-                                                                    ? "calc(.75rem + 50px)"
-                                                                    : ".75rem"
-                                                            }`
+                                                            paddingRight: `${activityOrder.status === "proforma"
+                                                                ? "calc(.75rem + 50px)"
+                                                                : ".75rem"
+                                                                }`
                                                         }}
                                                         key={index}
                                                     >
@@ -588,9 +671,8 @@ class Activity extends Component {
                                                     </td>
                                                     <td>
                                                         {el.price_per_unit
-                                                            ? `${(el.price_per_unit * el.quantity).toFixed(2)} ${
-                                                                  this.props.userInfo.currency
-                                                              }`
+                                                            ? `${(el.price_per_unit * el.quantity).toFixed(2)} ${this.props.userInfo.currency
+                                                            }`
                                                             : "Waiting to be processed"}
                                                     </td>
                                                     <td>
@@ -598,8 +680,8 @@ class Activity extends Component {
                                                         {activityOrder.status === "delivered"
                                                             ? "Completed"
                                                             : el.delivery_date
-                                                            ? moment(el.delivery_date).format("DD/MM/YYYY")
-                                                            : "Processing"}{" "}
+                                                                ? moment(el.delivery_date).format("DD/MM/YYYY")
+                                                                : "Processing"}{" "}
                                                     </td>
                                                     {/* <td> {namesOfStatuses[activityOrder.status]} </td> */}
                                                 </tr>
@@ -623,8 +705,8 @@ class Activity extends Component {
                                         <td id="clientDesc">
                                             {JSON.stringify(activityOrder) !== "{}"
                                                 ? `${activityOrder.items
-                                                      .reduce((x, y) => x + y.price_per_unit * y.quantity, 0)
-                                                      .toFixed(2)} ${this.props.userInfo.currency}`
+                                                    .reduce((x, y) => x + y.price_per_unit * y.quantity, 0)
+                                                    .toFixed(2)} ${this.props.userInfo.currency}`
                                                 : ""}
                                         </td>
                                         <td></td>
@@ -637,6 +719,7 @@ class Activity extends Component {
                         </Modal.Footer>
                     </div>
                 </DialogComponent>
+                {/* {this.renderTableForPrint()} */}
             </div>
         );
     }
