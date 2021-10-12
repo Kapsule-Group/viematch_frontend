@@ -251,7 +251,8 @@ class Catalog extends CatalogInterface {
             history: {
                 location: { pathname }
             },
-            stock_list
+            stock_list,
+            catalog
         } = this.props;
         let lastSlug = pathname.split("/")[pathname.split("/").length - 1];
 
@@ -328,8 +329,9 @@ class Catalog extends CatalogInterface {
                                     <div className="table_header">
                                         <div className="table_row">
                                             <div className="row_item">Name</div>
+                                            {!catalog && <div className="row_item">Brand</div>}
                                             <div className="row_item">Code</div>
-                                            {<div className="row_item">Request</div>}
+                                            <div className="row_item">Request</div>
                                             <div className="row_item">Actions</div>
                                         </div>
                                     </div>
@@ -375,7 +377,7 @@ class Catalog extends CatalogInterface {
                                                                                           className="row_item"
                                                                                           style={{
                                                                                               textAlign: "left",
-                                                                                              userSelect: 'text'
+                                                                                              userSelect: "text"
                                                                                           }}
                                                                                       >
                                                                                           {el.description
@@ -534,9 +536,7 @@ class Catalog extends CatalogInterface {
                                                                                       </div>
                                                                                   )}
 
-                                                                                  <div
-                                                                                      className="row_item popover_text"
-                                                                                  >
+                                                                                  <div className="row_item popover_text">
                                                                                       {el.description
                                                                                           ? el.description
                                                                                           : el.name}
@@ -567,6 +567,11 @@ class Catalog extends CatalogInterface {
                                                                   ))}
                                                               </>
                                                           </div>
+                                                          {!catalog && (
+                                                              <div className="row_item">
+                                                                  {el.brand !== null ? el.brand : "-"}
+                                                              </div>
+                                                          )}
                                                           <div className="row_item">
                                                               {el.code ? "#" + el.code : "-"}
                                                           </div>
@@ -658,27 +663,24 @@ class Catalog extends CatalogInterface {
                                     </div>
                                 </div>
                             )}
-                            {stock_list.count < 1 ? (
-                                totalItemsCount < 10 ? null : (
-                                    <div className="pagination_info_wrapper">
-                                        <div className="pagination_block">
-                                            <Pagination
-                                                active={activePage - 1}
-                                                pageCount={totalPagesCount}
-                                                onChange={this.changePage}
-                                            />
-                                        </div>
-                                        <div className="info">
-                                            {" "}
-                                            page {activePage} of {totalPagesCount}, items {activePage * 10 - 9} to{" "}
-                                            {activePage * 10 > totalItemsCount ? totalItemsCount : activePage * 10} of{" "}
-                                            {totalItemsCount}
-                                        </div>
+                            {lastSlug === "catalog" && totalItemsCount > 10 ? (
+                                <div className="pagination_info_wrapper">
+                                    <div className="pagination_block">
+                                        <Pagination
+                                            active={activePage - 1}
+                                            pageCount={Math.ceil(totalItemsCount / 10)}
+                                            onChange={this.changePage}
+                                        />
                                     </div>
-                                )
-                            ) : (
-                                <></>
-                            )}
+                                    <div className="info">
+                                        {" "}
+                                        page {activePage} of {Math.ceil(totalItemsCount / 10)}, items{" "}
+                                        {activePage * 10 - 9} to{" "}
+                                        {activePage * 10 > totalItemsCount ? totalItemsCount : activePage * 10} of{" "}
+                                        {totalItemsCount}
+                                    </div>
+                                </div>
+                            ) : null}
                         </div>
                     )}
                 </div>

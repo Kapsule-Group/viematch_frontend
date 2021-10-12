@@ -29,7 +29,7 @@
     .transactions_columns {
       .table_row {
         & > :first-child {
-          width: 37%;
+          width: 35%;
           a {
             font-family: "MontSemiBold", sans-serif;
             color: #3796f6;
@@ -38,13 +38,16 @@
           }
         }
         & > :nth-child(2) {
-          width: 26%;
+          width: 20.5%;
         }
         & > :nth-child(3) {
-          width: 26%;
+          width: 20.5%;
         }
-        & > :last-child {
-          width: 11%;
+        & > :nth-child(4) {
+          width: 12%;
+        }
+        & > :nth-child(5) {
+          width: 12%;
           button {
             margin-right: 24px;
             text-transform: uppercase;
@@ -556,10 +559,10 @@ option {
   background-color: #3796f6;
 }
 
-.popover_text{
+.popover_text {
   text-align: left;
   user-select: text;
   &::selection {
-    background: #b6e7fc; 
+    background: #b6e7fc;
   }
 }

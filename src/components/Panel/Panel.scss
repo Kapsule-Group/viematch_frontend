@@ -34,10 +34,24 @@
             font-size: 18px;
             border-radius: 10px;
             text-decoration: none;
-            margin-bottom: 32px;
+            margin-bottom: 45px;
             position: relative;
+            .panel_title {
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, 5px);
+                text-align: center;
+                font-size: 12px;
+                line-height: 14px;
+                color: #444;
+                transition: color 200ms;
+            }
             &:hover {
                 background: #3796f6;
+                .panel_title { 
+                    color: #222;
+                }
             }
             .cart-count {
                 position: absolute;
@@ -58,6 +72,9 @@
         .active {
             box-shadow: 0 4px 8px 0 rgba(24, 113, 204, 0.25);
             background: #3796f6;
+            .panel_title { 
+                color: #000;
+            }
         }
     }
 }

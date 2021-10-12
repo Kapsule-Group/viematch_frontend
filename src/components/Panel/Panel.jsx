@@ -46,11 +46,13 @@ class Panel extends Component {
                         {role !== "user" && (
                             <NavLink to="/main/dashboard">
                                 <img src={dashboard} alt="dashboard" />
+                                <span className="panel_title">Dashboard</span>
                             </NavLink>
                         )}
                         {role !== "user" && (
                             <NavLink to="/main/catalog">
                                 <img src={catalog} alt="catalog" />
+                                <span className="panel_title">Catalogue</span>
                             </NavLink>
                         )}
                         {role !== "user" && (
@@ -59,14 +61,17 @@ class Panel extends Component {
                                 {cartCount && cartCount.count && cartCount.count > 0 ? (
                                     <div className="cart-count">{cartCount.count > 99 ? "99+" : cartCount.count}</div>
                                 ) : null}
+                                <span className="panel_title">Shopping Cart</span>
                             </NavLink>
                         )}
                         <NavLink to="/main/stock-management">
                             <img src={products} alt="products" />
+                                <span className="panel_title">Stock Management</span>
                         </NavLink>
                         {role === "clinic" && (
                             <NavLink to="/main/user-management">
                                 <img src={user_management} alt="user_management" />
+                                <span className="panel_title">Users</span>
                             </NavLink>
                         )}
                         {role !== "user" && (
@@ -75,6 +80,7 @@ class Panel extends Component {
                                 {cartCount && cartCount.orders_count && cartCount.orders_count > 0 ? (
                                     <div className="cart-count">{cartCount.orders_count > 99 ? "99+" : cartCount.orders_count}</div>
                                 ) : null}
+                                <span className="panel_title">My Purchases</span>
                             </NavLink>
                         )}
                         {/*role !== 'user' && <NavLink to="/store" target="_blank"><img src={activity} alt="activity"/></NavLink>*/}
