@@ -1,0 +1,65 @@
+.filter-menu {
+    width: 368px;
+    border: 2px solid rgba(55, 150, 246, 0.1);
+    background-color: #ffffff;
+    padding: 32px 16px 32px 64px;
+    .categories-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 32px;
+        .view-more {
+            font-family: "MontSemiBold";
+            color: #3796f6;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        > p {
+            color: #204569;
+            font-size: 16px;
+            font-family: "MontSemiBold";
+        }
+
+        .category,
+        .category-child {
+            color: #204569;
+            font-family: "MontLight";
+            font-size: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            &:hover {
+                font-family: "MontBold";
+            }
+        }
+        .category-child {
+            margin-left: 16px;
+        }
+        .active {
+            font-family: "MontBold";
+        }
+        .mt16 {
+            margin-top: 8px;
+        }
+    }
+    .manufacturer-wrapper {
+        > p {
+            color: #204569;
+            font-size: 16px;
+            font-family: "MontSemiBold";
+        }
+
+        .manufacturers {
+            .single-man {
+                display: flex;
+                align-items: center;
+                .man-text {
+                    font-size: 12px;
+                    color: #204569;
+                    font-family: "MontLight";
+                }
+                .active {
+                    font-family: "MontBold";
+                }
+            }
+        }
+    }
+}

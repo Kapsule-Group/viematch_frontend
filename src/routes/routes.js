@@ -13,9 +13,10 @@ export default (
             <Route
                 path="/"
                 exact
-                render={() =>
-                    !!localStorage.token ? <Redirect to="/main/dashboard" /> : <Redirect to="/auth/sign-in" />
-                }
+                // render={() =>
+                //     !!localStorage.token ? <Redirect to="/main/dashboard" /> : <Redirect to="/auth/sign-in" />
+                // }
+                render={() => <Redirect to="/main/catalog" />}
             />
             <Route path="/auth" component={AuthContainer} />
             <Route path="/main" component={Container} />

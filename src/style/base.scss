@@ -3,7 +3,7 @@ body {
     overflow: auto;
     box-sizing: border-box;
     background: #ebf4fe;
-    font-family: "MontRegular", sans-serif;
+    font-family: "Montserrat", sans-serif;
     &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
@@ -274,4 +274,20 @@ button:focus {
 
 .red-progress {
     background: red !important;
+}
+
+ul,
+ol {
+    padding-left: 40px;
+}
+
+ul {
+    li {
+        list-style: initial;
+    }
+}
+ol {
+    li {
+        list-style: decimal;
+    }
 }

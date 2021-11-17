@@ -82,3 +82,42 @@ export function getCartCount() {
         }
     };
 }
+
+export function getSearchCategories() {
+    return {
+        type: types.GET_SEARCH_CATEGORIES,
+        payload: {
+            client: "default",
+            request: {
+                url: `/basic-category/`,
+                method: "get"
+            }
+        }
+    };
+}
+
+export function liveSearchHeader(search = "", category_id = null) {
+    return {
+        type: types.GET_LIVE_SEARCH,
+        payload: {
+            client: "default",
+            request: {
+                url: `/live-search/?search=${search}${category_id ? "&category_id=" + category_id : ""}`,
+                method: "get"
+            }
+        }
+    };
+}
+
+export function getBanners() {
+    return {
+        type: types.GET_BANNERS,
+        payload: {
+            client: "default",
+            request: {
+                url: `/banner/`,
+                method: "get"
+            }
+        }
+    };
+}

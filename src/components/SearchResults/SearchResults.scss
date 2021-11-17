@@ -1,0 +1,141 @@
+.search-results-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 240px);
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        .results-wrapper {
+            background-color: #ebf4fe;
+            width: 100%;
+            height: 100%;
+            padding: 32px 32px 64px 32px;
+            > h1 {
+                font-size: 32px;
+                color: #204569;
+                font-family: "MontSemiBold";
+                margin-bottom: 32px;
+            }
+            .no-results {
+                font-size: 24px;
+                color: #204569;
+                font-family: "MontSemiBold";
+            }
+            .results {
+                display: flex;
+                flex-direction: column;
+                border-radius: 10px;
+                background-color: #ffffff;
+                box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+                padding: 32px;
+            }
+        }
+        .search-pagination {
+            padding: 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.search-element {
+    display: flex;
+    align-items: center;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba($color: #204569, $alpha: 0.25);
+    margin-bottom: 32px;
+    cursor: pointer;
+    &:last-of-type {
+        border: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    > img {
+        width: 128px;
+        height: 128px;
+    }
+    .details-wrapper {
+        margin-left: 24px;
+        .category {
+            color: #3796f6;
+            font-family: "MontSemiBold";
+            font-size: 10px;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+        .name {
+            font-family: "MontSemiBold";
+            color: #204569;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .description {
+            height: 32px;
+            color: #204569;
+            font-family: "MontLight";
+            font-size: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+    }
+
+    .row-wrapper {
+        display: flex;
+        align-items: center;
+
+        > span {
+            color: #fda45c;
+            font-family: "MontBold";
+            font-size: 14px;
+            margin-right: 50px;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            margin-right: 16px;
+            > input {
+                width: 42px;
+                height: 28px;
+                border: 1px solid #dee4e9;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 14px;
+                font-family: "MontRegular";
+                color: #204569;
+            }
+            > button {
+                font-family: "MontRegular";
+                color: #204569;
+                font-size: 14px;
+                &:disabled {
+                    opacity: 0.3;
+                }
+                &:first-of-type {
+                    margin-right: 8px;
+                }
+                &:last-of-type {
+                    margin-left: 8px;
+                }
+            }
+        }
+        .add-cart {
+            height: 36px;
+            width: 62px;
+            border-radius: 4px;
+            background-color: #ebf4fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #3796f6;
+            font-family: "MontBold";
+            text-transform: uppercase;
+            > img {
+                margin-right: 2px;
+            }
+        }
+    }
+}

@@ -1234,15 +1234,16 @@ select {
 }
 .cart_item {
 	width: 100%;
-	padding: 15px;
+	padding: 15px 0px;
 	padding-right: 46px;
 }
 .cart_item_image {
-	width: 133px;
-	height: 133px;
+	width: 80px;
+	height: 80px;
 	float: left;
 	img {
-		max-width: 100%;
+		width: 80px;
+		height: 80px;	
 	}
 }
 .cart_item_info {

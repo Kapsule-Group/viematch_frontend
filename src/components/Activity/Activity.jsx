@@ -28,6 +28,9 @@ import { getOption } from "../HelperComponents/functions";
 import { toast } from "react-toastify";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
+import DownloadImg from "../../assets/image/download_tax.svg";
+import ConfirmImg from "../../assets/image/confirm.svg";
+import DownloadDoc from "../../assets/image/download_doc.svg";
 
 class Activity extends Component {
     state = {
@@ -162,7 +165,6 @@ class Activity extends Component {
                         progressClassName: "red-progress"
                     }
                 );
-                console.log(res.error.response.data.non_field_errors[0]);
             }
         });
     };
@@ -391,16 +393,18 @@ class Activity extends Component {
             requestNamesOfStatuses,
             waitingForFile
         } = this.state;
-        const { activityLog, activityOrder } = this.props;
+        const { activityLog, activityOrder, history } = this.props;
         const addtopdf = [];
         const ModalTotal = [];
 
+        const token = localStorage.getItem("token");
+        if (!token) history.push("/main/catalog");
         if (loading) return null;
         const groupedRequest = activityLog;
 
         return (
             <div className="activity_page content_block" style={{ backgroundColor: "#EBF4FE" }}>
-                <div className="title_page">My Purchases</div>
+                <div className="title_page">Orders</div>
                 <div className="activity_block">
                     <div className="select_wrapper">
                         <SelectComponent
@@ -414,13 +418,198 @@ class Activity extends Component {
                             placeholder="Select search option"
                         />
                     </div>
-                    <Table striped bordered hover size="sm">
+                    <div className="in_stock_table">
+                        <div className="table_container transactions_columns">
+                            <div className="table_header">
+                                <div className="table_row">
+                                    <div className="row">
+                                        <div className="row_item">Date/time</div>
+                                        <div className="row_item">Status</div>
+                                        <div className="row_item">Actions</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="table_body">
+                                {activityLog.length < 1 ? (
+                                    <div className="table_row">
+                                        <div className="row">no items</div>
+                                    </div>
+                                ) : (
+                                    activityLog.map((el, idx) => (
+                                        <div className="table_row" key={idx}>
+                                            <div className="row">
+                                                <div className="row_item">
+                                                    {moment(el.date_requested).format("DD/MM/YYYY   hh:mm")}
+                                                </div>
+                                                <div className="row_item">
+                                                    <span>{el.status}</span>
+
+                                                    <button
+                                                        onClick={() => {
+                                                            this.GetCurrOrder(el.id, true);
+                                                        }}
+                                                        type="primary"
+                                                    >
+                                                        View
+                                                    </button>
+                                                    {/* <div>•</div> */}
+                                                    <button
+                                                        onClick={() => this.GetCurrOrder(el.id, false)}
+                                                        type="primary"
+                                                        className="download"
+                                                    >
+                                                        Download PDF
+                                                    </button>
+                                                </div>
+
+                                                <div className="row_item">
+                                                    {el.tax_invoice_file && (
+                                                        <a
+                                                            target="_blank"
+                                                            download
+                                                            style={{ marginRight: "25px" }}
+                                                            href={el.tax_invoice_file}
+                                                        >
+                                                            <img src={DownloadImg} alt="" />
+                                                        </a>
+                                                    )}
+
+                                                    {(el.status === "proforma" || el.status === "delivered") && (
+                                                        <>
+                                                            <button
+                                                                className="confirm-btn"
+                                                                disabled={
+                                                                    fileName !== "" &&
+                                                                    fileTargetId === el.id &&
+                                                                    waitingForFile
+                                                                }
+                                                                notification={`You need to add file first.`}
+                                                                onClick={e => {
+                                                                    // el.status === "proforma"
+                                                                    //     ? fileName === ""
+                                                                    //         ? e.target.nextElementSibling.nextElementSibling.click()
+                                                                    //         : this.nextStep(el.id)
+                                                                    //     : this.nextStep(el.id);
+                                                                    this.nextStep(el.id);
+                                                                }}
+                                                                style={{ marginRight: "10px" }}
+                                                            >
+                                                                <img src={ConfirmImg} alt="" />
+                                                                {el.status === "delivered" ? "Confirm" : "Approve"}
+                                                            </button>
+                                                            {el.invoice_file && (
+                                                                <>
+                                                                    <button
+                                                                        className="btn btn-success btn-sm"
+                                                                        onClick={e => {
+                                                                            e.target.nextElementSibling.click();
+                                                                        }}
+                                                                    >
+                                                                        Invoice
+                                                                    </button>
+                                                                    <a
+                                                                        style={{ display: "none" }}
+                                                                        target="_blank"
+                                                                        href={el.invoice_file}
+                                                                    />
+                                                                </>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                    {el.status === "proforma" && (
+                                                        <>
+                                                            <button
+                                                                style={{ marginLeft: "15px" }}
+                                                                className="download-btn"
+                                                                disabled={
+                                                                    fileName !== "" &&
+                                                                    fileTargetId === el.id &&
+                                                                    waitingForFile
+                                                                }
+                                                                onClick={e => {
+                                                                    fileTargetId === el.id || fileTargetId === ""
+                                                                        ? e.target.nextElementSibling.click()
+                                                                        : alert(
+                                                                              "Complete the operation you started first."
+                                                                          );
+                                                                }}
+                                                            >
+                                                                <img src={DownloadDoc} alt="" />
+                                                                Add file
+                                                            </button>
+                                                            <input
+                                                                type="file"
+                                                                onChange={e => {
+                                                                    this.addFile(e, el.id);
+                                                                }}
+                                                                style={{ display: "none" }}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    {el.status === "receipt" &&
+                                                        (el.invoice_file || el.receipt_file ? (
+                                                            <>
+                                                                {el.invoice_file && (
+                                                                    <>
+                                                                        <button
+                                                                            className="btn btn-success btn-sm"
+                                                                            onClick={e => {
+                                                                                e.target.nextElementSibling.click();
+                                                                            }}
+                                                                            style={{ marginRight: "10px" }}
+                                                                        >
+                                                                            Invoice
+                                                                        </button>
+                                                                        <a
+                                                                            style={{ display: "none" }}
+                                                                            target="_blank"
+                                                                            href={el.invoice_file}
+                                                                        />
+                                                                    </>
+                                                                )}
+                                                                {el.receipt_file && (
+                                                                    <>
+                                                                        <button
+                                                                            className="btn btn-success btn-sm"
+                                                                            onClick={e => {
+                                                                                e.target.nextElementSibling.click();
+                                                                            }}
+                                                                        >
+                                                                            Receipt
+                                                                        </button>
+                                                                        <a
+                                                                            style={{ display: "none" }}
+                                                                            target="_blank"
+                                                                            href={el.receipt_file}
+                                                                        />
+                                                                    </>
+                                                                )}
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <button
+                                                                    className="btn btn-success btn-sm"
+                                                                    disabled={true}
+                                                                    style={{ cursor: "not-allowed" }}
+                                                                >
+                                                                    No additional invoice file
+                                                                </button>
+                                                            </>
+                                                        ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    {/* <Table striped bordered hover size="sm">
                         <thead>
                             <tr>
                                 <th>DATE</th>
                                 <th>REQUEST</th>
                                 <th>PDF</th>
-                                {/* <th>EMAIL</th> */}
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -433,14 +622,15 @@ class Activity extends Component {
                                                 {moment(el.date_requested).format("DD/MM/YYYY   hh-mm-ss")}
                                             </td>
                                             <td>
-                                                <button
-                                                    onClick={() => {
-                                                        this.GetCurrOrder(el.id, true);
-                                                    }}
-                                                    type="primary"
-                                                >
-                                                    {requestNamesOfStatuses[el.status]}
-                                                </button>
+                                                {el.status === "invoice"
+                                                    ? "Complete payment"
+                                                    : el.status === "receipt"
+                                                    ? "Order completed"
+                                                    : el.status === "request"
+                                                    ? "Request submitted"
+                                                    : el.status === "order"
+                                                    ? "P.O. submitted"
+                                                    : namesOfStatuses[el.status]}
                                             </td>
                                             <td>
                                                 <div>
@@ -452,11 +642,7 @@ class Activity extends Component {
                                                     </button>
                                                 </div>
                                             </td>
-                                            {/* <td>
-                                                <div>
-                                                    <button onClick={() => { alert("Email Action") }} type="primary">Send Email</button>
-                                                </div>
-                                            </td> */}
+
                                             <td>
                                                 <div>
                                                     {el.status === "invoice"
@@ -469,6 +655,18 @@ class Activity extends Component {
                                                         ? "P.O. submitted"
                                                         : namesOfStatuses[el.status]}
                                                 </div>
+                                                {el.tax_invoice_file && (
+                                                    <a
+                                                        className="btn btn-success btn-sm"
+                                                        target="_blank"
+                                                        download
+                                                        style={{ marginRight: "25px" }}
+                                                        href={el.tax_invoice_file}
+                                                    >
+                                                        Tax file
+                                                    </a>
+                                                )}
+
                                                 {(el.status === "proforma" || el.status === "delivered") && (
                                                     <>
                                                         <button
@@ -482,11 +680,6 @@ class Activity extends Component {
                                                             }
                                                             notification={`You need to add file first.`}
                                                             onClick={e => {
-                                                                // el.status === "proforma"
-                                                                //     ? fileName === ""
-                                                                //         ? e.target.nextElementSibling.nextElementSibling.click()
-                                                                //         : this.nextStep(el.id)
-                                                                //     : this.nextStep(el.id);
                                                                 this.nextStep(el.id);
                                                             }}
                                                             style={{ marginRight: "10px" }}
@@ -606,22 +799,7 @@ class Activity extends Component {
                                 </tr>
                             )}
                         </tbody>
-                    </Table>
-                    {/* {activityLog.count < 10 &&
-                        <div className="pagination_info_wrapper">
-                            <div className="pagination_block">
-
-                                <Pagination
-                                    current={activePage}
-                                    pageCount={activityLog.total_pages}
-                                    onChange={this.changePage}
-                                />
-
-                            </div>
-                            <div className="info">Displaying page {activePage} of {activityLog.total_pages},
-                            items {activePage * 10 - 9} to {activePage * 10 > activityLog.count ? activityLog.count : activePage * 10} of {activityLog.count}</div>
-                        </div>
-                    } */}
+                    </Table> */}
                 </div>
                 <DialogComponent open={model} onClose={this.hideModal} classes={"contained-modal-title-vcenter"}>
                     <div className="modal-content">

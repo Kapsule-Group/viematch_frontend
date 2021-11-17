@@ -3,12 +3,11 @@ import Chart from "highcharts-react-official";
 import * as Highcharts from "highcharts";
 import "./VerticalChart.scss";
 import moment from "moment";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 class VerticalChart extends Component {
     render() {
         const { data, userInfo } = this.props;
-        console.log(data.map(el => el.date_val));
         const options = {
             plotOtions: {
                 column: {
@@ -41,7 +40,7 @@ class VerticalChart extends Component {
                 gridLineWidth: 1,
                 showLastLabel: true,
                 lineWidth: 1,
-                lineColor: "#8FA2B4",
+                lineColor: "#8FA2B4"
             },
             legend: {
                 enabled: false

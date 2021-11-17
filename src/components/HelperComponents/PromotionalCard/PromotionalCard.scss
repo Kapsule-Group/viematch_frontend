@@ -1,0 +1,45 @@
+.promotional-cart {
+    height: 384px;
+    width: 304px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+    margin-bottom: 32px;
+    margin-left: 16px;
+    text-decoration: none !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-position: center/100%;
+    background-size: cover;
+    transition: all 0.5s;
+    &:hover {
+        transform: scale(1.05);
+    }
+    > p {
+        margin-top: 120px;
+        color: #c56519;
+        font-size: 20px;
+        font-family: "MontSemiBold";
+        margin-bottom: 32px;
+        text-align: center;
+    }
+    > a {
+        height: 36px;
+        width: 104px;
+        border-radius: 4px;
+        background-color: #fda45c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-family: "MontSemiBold";
+        font-size: 10px;
+        text-transform: uppercase;
+        text-decoration: none !important;
+        &:hover {
+            color: #ffffff;
+        }
+    }
+}

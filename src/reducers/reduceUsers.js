@@ -4,7 +4,10 @@ const INITIAL_STATE = {
     users_list: {},
     error: {},
     userInfo: {},
-    cartCount: {}
+    cartCount: {},
+    categories: [],
+    liveSearch: [],
+    banners: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -23,6 +26,21 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 cartCount: action.payload.data
+            };
+        case types.GET_SEARCH_CATEGORIES_SUCCESS:
+            return {
+                ...state,
+                categories: action.payload.data
+            };
+        case types.GET_LIVE_SEARCH_SUCCESS:
+            return {
+                ...state,
+                liveSearch: action.payload.data
+            };
+        case types.GET_BANNERS_SUCCESS:
+            return {
+                ...state,
+                banners: action.payload.data
             };
         default:
             return state;

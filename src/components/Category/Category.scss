@@ -1,0 +1,60 @@
+.category-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 240px);
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        .results-wrapper {
+            background-color: #ebf4fe;
+            width: 100%;
+            padding: 32px 32px 64px 32px;
+            .breadcrams {
+                display: flex;
+                align-items: center;
+                margin-bottom: 12px;
+                .breadcram-single {
+                    margin-right: 8px;
+                    display: flex;
+                    align-items: center;
+                    color: #3796f6;
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    font-family: "MontSemiBold";
+                    > img {
+                        margin-right: 4px;
+                        display: block;
+                    }
+                    > a {
+                        display: block;
+                        font-size: 10px;
+                        line-height: 10px;
+                    }
+                }
+            }
+            > h1 {
+                font-size: 32px;
+                color: #204569;
+                font-family: "MontSemiBold";
+                margin-bottom: 32px;
+            }
+            .no-results {
+                font-size: 24px;
+                color: #204569;
+                font-family: "MontSemiBold";
+            }
+            .results {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+        .search-pagination {
+            padding: 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

@@ -42,6 +42,7 @@
 .cart_title {
     color: #204569;
     font-family: MontRegular, sans-serif;
+    font-size: 16px;
 }
 .title_block {
     border: none;
@@ -83,12 +84,90 @@ hr {
     .cart_list {
         border: none;
         box-shadow: none;
+        padding-left: 0;
         .cart_item {
-            border: solid 1px #e8e8e8;
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+            padding: 15px 0px;
+            padding-bottom: 32px;
+            list-style: none !important;
         }
     }
+    .cart_item_image {
+        width: 80px;
+        height: 80px;
+        float: left;
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+        }
+    }
+}
+.cart_item_text {
+    margin-top: 6px;
+    color: #204569;
+    font-size: 16px;
+    font-family: "MontSemiBold";
+    .row {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        > input {
+            border: 1px solid #dee4e9;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: "MontRegular";
+            color: #204569;
+            width: 42px;
+            height: 28px;
+            text-align: center;
+        }
+        > button {
+            color: #204569;
+
+            &:first-of-type {
+                margin-right: 8px;
+            }
+            &:last-of-type {
+                margin-left: 8px;
+            }
+        }
+    }
+}
+.cart_buttons {
+    text-align: left;
+    > button {
+        height: 48px;
+        width: 180px;
+        border-radius: 4px;
+        background-color: #3796f6;
+        color: #ffffff;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-family: "MontBold";
+        padding: 0;
+    }
+}
+.suggested-wrapper {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+    padding: 32px 40px;
+    .suggested1 {
+        width: 50% !important;
+    }
+    .suggested2 {
+        width: 25% !important;
+    }
+}
+.cart_item_title {
+    color: #204569;
+    font-size: 10px;
+    opacity: 0.5;
+}
+.cart_item_name {
+    margin-left: 24px;
 }
 .activity_block {
     background: #ffffff;
@@ -128,4 +207,8 @@ hr {
             }
         }
     }
+}
+
+.cart-page {
+    min-height: calc(100vh - 240px);
 }

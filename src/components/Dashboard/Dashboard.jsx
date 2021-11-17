@@ -52,13 +52,16 @@ class Dashboard extends Component {
             getMonthlyGraphic,
             getMonthlyDonut,
             monthlyGraphicData,
-            monthlyDonutData
+            monthlyDonutData,
+            history
         } = this.props;
+        const token = localStorage.getItem("token");
+        if (!token) history.push("/main/catalog");
         const { activeStock, activeMonthly, loading } = this.state;
         if (loading) return null;
         return (
             <div className="dashboard_page content_block" style={{ backgroundColor: "rgb(235, 244, 254)" }}>
-                <div className="title_page">Dashboard</div>
+                <div className="title_page">Analytics</div>
                 <div className="graphics">
                     <div className="first-row">
                         <div>

@@ -1,0 +1,105 @@
+.search-wrapper {
+    border: 1px solid #dee4e9;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    position: relative;
+    width: 100%;
+    margin-right: 65px;
+    .filter-props {
+        position: absolute;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        padding: 12px 16px;
+        z-index: 100;
+        top: 42px;
+        > div {
+            color: #204569;
+            font-size: 12px;
+            font-family: "MontRegular";
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            &:hover {
+                font-size: 12px;
+                font-family: "MontSemiBold";
+                color: #204569;
+            }
+        }
+        > div:last-of-type {
+            margin-bottom: 0;
+        }
+        .activeFilter {
+            font-size: 12px;
+            font-family: "MontSemiBold";
+            color: #204569;
+            display: flex;
+            align-items: center;
+            > img {
+                margin-left: 4px;
+            }
+        }
+    }
+    .search-props {
+        position: absolute;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        padding: 12px 16px;
+        z-index: 100;
+        top: 42px;
+        left: 60px;
+        > div {
+            color: #204569;
+            font-size: 12px;
+            font-family: "MontRegular";
+            margin-bottom: 10px;
+            cursor: pointer;
+            &:hover {
+                font-size: 12px;
+                font-family: "MontSemiBold";
+                color: #204569;
+            }
+        }
+        > div:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    .filter {
+        display: flex;
+        align-items: center;
+        background-color: #ebf4fe;
+        height: 100%;
+        padding: 9px 12px;
+        cursor: pointer;
+        .reverse {
+            transform: rotate(180deg);
+        }
+        > span {
+            font-size: 14px;
+            color: #204569;
+            font-family: "MontSemiBold";
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+    }
+    input {
+        // color: rgba($color: #204569, $alpha: 0.5);
+        color: #204569;
+        font-size: 14px;
+        font-family: "MontRegular";
+        height: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+        width: 100%;
+    }
+}

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
 import ReCAPTCHA from "react-google-recaptcha";
 import ReCAPTCHAComp from "../ReCaptcha/ReCaptcha";
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import RenderField from "../../HelperComponents/RenderField/RenderField";
-import DefaultButton from '../../Buttons/DefaultButton/DefaultButton';
-import { Link } from 'react-router-dom';
-import { postLogin } from '../../../actions/authActions';
-import { resetErrorUsers } from '../../../actions/UserActions';
+import DefaultButton from "../../Buttons/DefaultButton/DefaultButton";
+import { Link } from "react-router-dom";
+import { postLogin } from "../../../actions/authActions";
+import { resetErrorUsers } from "../../../actions/UserActions";
 
 const recaptchaRef = React.createRef();
 
@@ -18,14 +18,13 @@ class Login extends Component {
         //console.log(window.location);
         this.state = {
             reCaptcha: false,
-            loading: false,
+            loading: false
         };
         //this.SITE_KEY = window.location.hostname === "localhost" ? "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" : "6LdzbuQZAAAAAPezfj-KwP3mSOGF5WWNHA4gGms-"
-        this.SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+        this.SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
     }
 
-
-    submitForm = (data) => {
+    submitForm = data => {
         const { postLogin, history, resetErrorUsers } = this.props;
         // const recaptchaValue = recaptchaRef.current.getValue();
         this.setState({ loading: true });
@@ -38,19 +37,19 @@ class Login extends Component {
                 localStorage.username = res.payload.data.username;
                 localStorage.role = res.payload.data.role;
                 resetErrorUsers();
-                history.push(`/main/dashboard/`)
+                history.push(`/main/catalog/`);
             } else {
                 this.setState({ loading: false, reCaptcha: false });
                 recaptchaRef.current.reset();
             }
-        })
+        });
     };
 
-    onChange = (key) => {
+    onChange = key => {
         this.setState({
             reCaptcha: true,
             recaptchaKey: key
-        })
+        });
     };
 
     render() {
@@ -62,12 +61,8 @@ class Login extends Component {
                 <h3 className="auth-block_descriptions">Provide your credentials below</h3>
                 <div className="block_field">
                     <span>Email</span>
-                    <Field name="email"
-                        type="text"
-                        component={RenderField}
-                        placeholder="Type here…"
-                    />
-                    <span className='back_error'>{!!error_login && error_login.email}</span>
+                    <Field name="email" type="text" component={RenderField} placeholder="Type here…" />
+                    <span className="back_error">{!!error_login && error_login.email}</span>
                 </div>
                 <div className="block_custom_field">
                     <div className="block_field">
@@ -75,17 +70,18 @@ class Login extends Component {
                             <span>Password</span>
                             <Link to={`/auth/password-recovery/first-step`}>Forgot password?</Link>
                         </div>
-                        <Field name="password"
+                        <Field
+                            name="password"
                             type="password"
                             component={RenderField}
                             placeholder="Type here…"
-                            onChange={(e) => (error_login ? resetErrorUsers() : e)}
+                            onChange={e => (error_login ? resetErrorUsers() : e)}
                         />
-                        <span className='back_error'>{!!error_login && error_login.password}</span>
+                        <span className="back_error">{!!error_login && error_login.password}</span>
                     </div>
                     <div className="captcha_block">
                         <ReCAPTCHAComp onChange={this.onChange} />
-                        <span className='back_error'>{!!error_login && error_login.recaptcha}</span>
+                        <span className="back_error">{!!error_login && error_login.recaptcha}</span>
                     </div>
                 </div>
                 <div className="auth_btn_wrapper">
@@ -101,9 +97,7 @@ class Login extends Component {
                 </div>
                 <div className="info_auth">
                     <span>Don’t have a VIEBEG account yet?</span>
-                    <Link to={`/auth/sign-up`}>
-                        SIGN UP
-                    </Link>
+                    <Link to={`/auth/sign-up`}>SIGN UP</Link>
                 </div>
             </form>
         );
@@ -113,45 +107,48 @@ class Login extends Component {
 const validate = values => {
     const errors = {};
     if (!values.company) {
-        errors.company = 'Required'
+        errors.company = "Required";
     } else if (values.company.length < 3) {
-        errors.company = 'Must be 3 characters or more'
+        errors.company = "Must be 3 characters or more";
     }
     if (!values.email) {
-        errors.email = 'Required'
+        errors.email = "Required";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,5}$/i.test(values.email)) {
-        errors.email = 'Invalid email'
+        errors.email = "Invalid email";
     }
     if (!values.password) {
-        errors.password = 'Required'
+        errors.password = "Required";
     } else if (values.password.length < 8) {
-        errors.password = 'Must be 8 characters or more'
+        errors.password = "Must be 8 characters or more";
     }
     if (!values.phone) {
-        errors.phone = 'Required'
+        errors.phone = "Required";
     }
     if (!values.address) {
-        errors.address = 'Required'
+        errors.address = "Required";
     }
-    return errors
+    return errors;
 };
 
 Login = reduxForm({
-    form: 'LoginForm',
+    form: "LoginForm",
     validate
 })(Login);
 
 function mapStateToProps(state, props) {
     return {
-        error_login: state.auth.error,
-    }
+        error_login: state.auth.error
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        postLogin,
-        resetErrorUsers
-    }, dispatch);
+    return bindActionCreators(
+        {
+            postLogin,
+            resetErrorUsers
+        },
+        dispatch
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

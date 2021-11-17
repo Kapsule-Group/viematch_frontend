@@ -1,0 +1,575 @@
+.product-details {
+    min-height: calc(100vh - 240px);
+    background-color: #ebf4fe;
+    width: 100%;
+    padding: 32px 64px 64px 64px;
+    display: flex;
+    flex-direction: column;
+
+    > h1 {
+        margin-top: 20px;
+        font-family: "MontSemiBold";
+        color: #204569;
+        font-size: 32px;
+    }
+    .content-wrapper {
+        display: flex;
+        align-items: center;
+        margin-top: 32px;
+        p {
+            margin-bottom: 0;
+        }
+        .main-info {
+            width: 100%;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+            padding: 32px;
+            margin-right: 0px;
+            display: flex;
+            .text-wrapper {
+                font-family: "MontRegular";
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .description {
+                    font-family: "MontRegular";
+                    font-size: 14px;
+                    padding-top: 14px;
+                    color: #204569;
+                }
+                .manufacturer {
+                    display: flex;
+                    align-items: center;
+                    color: #204569;
+                    margin-top: 16px;
+                    .tag {
+                        font-family: "MontLight";
+                        font-size: 14px;
+                    }
+                    .name {
+                        font-family: "MontBold";
+                        font-size: 14px;
+                        color: #204569;
+                        margin-left: 4px;
+                    }
+                }
+                .row-wrapper {
+                    > span {
+                        font-size: 32px;
+                        margin-right: 65px;
+                    }
+                    > button {
+                        height: 48px;
+                        width: 150px;
+                        border-radius: 4px;
+                        background-color: #3796f6;
+                        color: #ffffff;
+                        font-size: 14px;
+                        transition: all 0.5s;
+                    }
+                }
+            }
+            .photo {
+                display: flex;
+                flex-flow: row;
+
+                .more_img {
+                    display: flex;
+                    flex-direction: column;
+                    .photo-detail {
+                        margin-bottom: 10px;
+                        cursor: pointer;
+                        border: 1.5px solid transparent;
+                        border-radius: 4px;
+                        width: 48px;
+                        height: 48px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        img {
+                            background-size: 100% 100%;
+                            width: 48px;
+                            height: 48px;
+                            border-radius: 4px;
+                            object-fit: cover;
+                        }
+                    }
+                    .slick-slider {
+                        width: 90px;
+                        margin-top: 30px;
+                    }
+                    .slick-track {
+                        > div > div > div {
+                            margin-bottom: 10px;
+                            cursor: pointer;
+                            border: 1.5px solid transparent;
+                            border-radius: 8px;
+                            width: 95% !important;
+                            height: 75px;
+                            display: flex !important;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+
+                            img {
+                                background-size: 100% 100%;
+                                max-width: 73px;
+                                max-height: 73px;
+                                border-radius: 8px;
+                                object-fit: contain;
+                            }
+                        }
+                    }
+                    .slick-prev,
+                    .slick-next {
+                        height: 36px;
+                        width: 36px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        position: absolute;
+                    }
+
+                    .slick-prev {
+                        /* place button top right */
+                        background-image: url("../../assets/image/up-arrow.png");
+                        top: -43px;
+                        left: 50%;
+                        z-index: 10;
+                        transform: translateX(-50%);
+                    }
+                    .slick-prev:before {
+                        content: none;
+                    }
+                    .slick-next {
+                        /* place button bottom right */
+                        background-image: url("../../assets/image/down-arrow.png");
+                        left: 50%;
+                        top: 100% !important;
+                        z-index: 20;
+                        transform: translateX(-50%);
+                    }
+                    .slick-next:before {
+                        content: none;
+                    }
+                    .slick-disabled {
+                        display: none !important;
+                    }
+                    .active {
+                        border: 1.5px solid #fda45c;
+
+                        > img {
+                            width: 46px;
+                            height: 46px;
+                        }
+                    }
+                }
+
+                .img {
+                    cursor: pointer;
+                    margin: 0 32px;
+                    display: flex;
+                    justify-content: center;
+
+                    img {
+                        width: 400px;
+                        height: 400px;
+                        background-size: 100% 100%;
+                        object-fit: cover;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+        .advertising {
+            height: 464px;
+            width: 304px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 64px 40px;
+            background-color: #f6d1b2;
+            .name {
+                color: #c56519;
+                font-family: "MontSemiBold";
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+            .description {
+                color: #c56519;
+                font-size: 10px;
+                font-family: "MontRegular";
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            .choose-plan {
+                color: #c56519;
+                font-size: 10px;
+                font-family: "MontRegular";
+                margin-bottom: 16px;
+            }
+            .option {
+                display: flex;
+                align-items: center;
+                border: 1px solid #fae5d3;
+                border-radius: 4px;
+                background-color: #fae5d3;
+                height: 40px;
+                width: 224px;
+                margin-bottom: 8px;
+                padding-left: 16px;
+                cursor: pointer;
+                &:last-of-type {
+                    margin-bottom: 32px;
+                }
+                > p {
+                    color: #c56519;
+                    font-family: "MontRegular";
+                    font-size: 14px;
+                    margin-left: 12px;
+                }
+                .empty-radio {
+                    height: 16px;
+                    width: 16px;
+                    border: 1px solid #fda45c;
+                    opacity: 0.5;
+                    border-radius: 50%;
+                }
+            }
+            > button {
+                height: 36px;
+                width: 104px;
+                border-radius: 4px;
+                background-color: #fda45c;
+                display: flex;
+                font-family: "MontSemiBold";
+                align-items: center;
+                text-transform: uppercase;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 10px;
+            }
+        }
+    }
+    .breadcrams {
+        display: flex;
+        align-items: center;
+        .breadcram-single {
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            color: #3796f6;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-family: "MontSemiBold";
+            > img {
+                margin-right: 4px;
+                margin: block;
+            }
+            > a {
+                display: block;
+                font-size: 10px;
+                line-height: 10px;
+            }
+        }
+    }
+    .row-wrapper {
+        display: flex;
+        align-items: center;
+
+        > span {
+            color: #fda45c;
+            font-family: "MontBold";
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            margin-right: 16px;
+            > input {
+                width: 42px;
+                height: 28px;
+                border: 1px solid #dee4e9;
+                border-radius: 4px;
+                text-align: center;
+                font-size: 14px;
+                font-family: "MontRegular";
+                color: #204569;
+            }
+            > button {
+                font-family: "MontRegular";
+                color: #204569;
+                font-size: 14px;
+                &:disabled {
+                    opacity: 0.3;
+                }
+                &:first-of-type {
+                    margin-right: 8px;
+                }
+                &:last-of-type {
+                    margin-left: 8px;
+                }
+            }
+        }
+        .add-cart {
+            height: 36px;
+            width: 62px;
+            border-radius: 4px;
+            background-color: #ebf4fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #3796f6;
+            font-family: "MontBold";
+            text-transform: uppercase;
+
+            > img {
+                margin-right: 2px;
+            }
+        }
+    }
+    .recommended-wrapper {
+        padding: 32px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+        margin-top: 32px;
+        .head-text {
+            color: #204569;
+            font-size: 16px;
+            font-family: "MontSemiBold";
+            margin-bottom: 32px;
+        }
+    }
+    .slider-wrapper {
+        width: 100%;
+        margin-bottom: 32px;
+        padding: 0 64px;
+        .slick-next {
+            right: -64px;
+            top: 90px;
+            background: url("../../assets/image/forward-rec.svg") no-repeat;
+            width: 48px;
+            height: 48px;
+            &:before {
+                content: "";
+            }
+        }
+        .slick-prev {
+            left: -64px;
+            top: 90px;
+            background: url("../../assets/image/back-rec.svg") no-repeat;
+            width: 48px;
+            height: 48px;
+            z-index: 1;
+            &:before {
+                content: "";
+            }
+        }
+        .slider-el {
+            height: 346px;
+            width: 256px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            > img {
+                height: 192px;
+                width: 256px;
+                object-fit: cover;
+                margin-bottom: 16px;
+            }
+            .name {
+                color: #204569;
+                font-size: 14px;
+                font-family: "MontSemiBold";
+                margin-bottom: 8px;
+            }
+            .description {
+                color: #204569;
+                font-size: 10px;
+                font-family: "MontLight";
+                max-height: 32px;
+                overflow: hidden;
+            }
+            .recomended {
+                position: absolute;
+                bottom: 0;
+                width: 256px;
+                display: flex;
+                justify-content: space-between;
+                > div {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+        .slick-slide {
+            // width: 256px !important;
+            display: flex;
+            justify-content: center;
+            > div {
+                width: 256px !important;
+            }
+        }
+    }
+}
+
+.dialog_product_slider {
+    background: transparent !important;
+    // width: 900px;
+    &.paper_custom_dialog {
+        overflow: visible;
+    }
+
+    .dialog_product {
+        // width: 900px;
+        // height: 800px;
+    }
+
+    .dialog_wrapper {
+        padding: 0;
+        background: transparent !important;
+        overflow: visible;
+    }
+
+    .dialog_close_button {
+        top: 0;
+        right: -185px;
+        width: 36px;
+        height: 36px;
+        z-index: 999;
+        img {
+            display: none;
+        }
+    }
+
+    .dialog_slider {
+        width: 100%;
+    }
+
+    .slick-prev {
+        height: 100px;
+        width: 36px;
+        background: rgba(0, 0, 0, 0.3);
+        //left: 4px;
+        font-size: 0;
+        position: absolute;
+        z-index: 20;
+        //
+        right: calc(100% + 100vw / 12);
+        transform: translate(50%, -50%);
+        left: auto;
+        padding: 100px 50px;
+        border-radius: 10px;
+        transition: transform 100ms;
+
+        &:before {
+            position: absolute;
+            content: "\F053";
+            font-family: "FontAwesome", serif;
+            font-size: 32px;
+            line-height: 200px;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            right: 0;
+            top: 0;
+            opacity: 1;
+            transition: opacity 250ms;
+        }
+        &:hover {
+            &:before {
+                opacity: 0.7;
+            }
+        }
+        &:active {
+            transform: translate(50%, -50%) scale(0.9);
+        }
+    }
+
+    .slick-next {
+        height: 100px;
+        width: 36px;
+        background: rgba(0, 0, 0, 0.3);
+        font-size: 0;
+        position: absolute;
+        z-index: 20;
+        left: calc(100% + 100vw / 12);
+        transform: translate(-50%, -50%);
+        right: auto;
+        padding: 100px 50px;
+        border-radius: 10px;
+        transition: transform 100ms;
+
+        &:before {
+            position: absolute;
+            content: "\F054";
+            font-family: "FontAwesome", serif;
+            font-size: 32px;
+            line-height: 200px;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+            right: 0;
+            top: 0;
+            opacity: 1;
+            transition: opacity 250ms;
+        }
+        &:hover {
+            &:before {
+                opacity: 0.7;
+            }
+        }
+        &:active {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+    }
+
+    .slick-slider {
+        // padding: 0 25px;
+        width: 100%;
+        max-width: 100vh;
+    }
+
+    .slider_items {
+        display: flex !important;
+        flex-flow: column;
+        align-items: center;
+        .icon {
+            width: 100%;
+            height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 15px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                background-size: 100% 100%;
+                object-fit: contain;
+            }
+        }
+
+        span {
+            display: flex;
+            justify-content: center;
+            padding: 2px 20px;
+            margin-top: 5px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            text-shadow: 0 1px 2px #222;
+            color: #fff;
+            font-weight: bold;
+            line-height: 24px;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>8FC8534C-0556-470E-AC74-054422C5C969</title>
+    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="search-dropdown" transform="translate(-1033.000000, -13.000000)">
+            <g id="search" transform="translate(222.000000, 12.000000)">
+                <g id="search_btn" transform="translate(811.000000, 1.000000)">
+                    <path d="M0,0 L35,0 C36.6568542,-3.04359188e-16 38,1.34314575 38,3 L38,35 C38,36.6568542 36.6568542,38 35,38 L0,38 L0,38 L0,0 Z" id="Rectangle" fill="#3796F6"></path>
+                    <g id="Group" transform="translate(12.000000, 12.000000)">
+                        <rect id="Rectangle" x="0" y="0" width="14" height="14"></rect>
+                        <path d="M6.125,11.375 C9.02449494,11.375 11.375,9.02449494 11.375,6.125 C11.375,3.22550506 9.02449494,0.875 6.125,0.875 C3.22550506,0.875 0.875,3.22550506 0.875,6.125 C0.875,9.02449494 3.22550506,11.375 6.125,11.375 Z M9.625,9.625 L13.125,13.125" id="Combined-Shape" stroke="#FFFFFF" stroke-width="1.5"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

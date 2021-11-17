@@ -1,0 +1,61 @@
+footer {
+    width: 100%;
+    background-color: #364e65;
+    padding: 32px 64px;
+    .upper-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        > div {
+            transition: all 1.5s;
+            display: flex;
+            align-items: center;
+            > a {
+                text-decoration: none;
+                font-size: 14px;
+                color: #ffffff;
+                font-family: "MontSemiBold";
+                margin-left: 20px;
+            }
+        }
+        .active {
+            opacity: 0.5;
+        }
+        .singin,
+        .singup {
+            text-transform: uppercase;
+            transition: all 1.5s;
+        }
+        .singin {
+            height: 40px;
+            width: 98px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                border: 1px solid #ffffff;
+            }
+        }
+        .singup {
+            &:hover {
+                border: 1px solid #ffffff;
+            }
+            border-radius: 4px;
+            height: 40px;
+            width: 98px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .down-wrapper {
+        padding-top: 32px;
+        opacity: 0.5;
+        color: #ffffff;
+        font-family: "MontLight";
+        font-size: 10px;
+    }
+}
