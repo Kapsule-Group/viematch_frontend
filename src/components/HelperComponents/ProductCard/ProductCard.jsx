@@ -34,8 +34,10 @@ const ProductCard = ({
             <p className="description">{description && description.replace(/<[^>]+>/g, "")}</p>
             <div className="row-wrapper">
                 <span>
-                    {currency || "USD"} {price}
+                    {/* {currency || "USD"} {price} */}
+                    Price on Request
                 </span>
+
                 {token && (
                     <div>
                         <div className="input-wrapper">

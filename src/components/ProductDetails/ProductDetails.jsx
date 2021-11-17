@@ -64,7 +64,7 @@ const ProductDetails = ({
 
     const settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1
@@ -117,7 +117,6 @@ const ProductDetails = ({
     }
 
     let token = localStorage.getItem("token");
-    console.log(photoArr);
     return (
         <div className="product-details">
             <div className="breadcrams">
@@ -186,7 +185,8 @@ const ProductDetails = ({
 
                             <div className="row-wrapper">
                                 <span>
-                                    {currency || "USD"} {price}
+                                    {/* {currency || "USD"} {price} */}
+                                    Price on Request
                                 </span>
                                 {token && (
                                     <>

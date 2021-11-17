@@ -23,7 +23,8 @@ const RecommendedElem = ({ image, id, name, description, price, info: { currency
             {description && <p className="description">{description && description.replace(/<[^>]+>/g, "")}</p>}
             <div className="row-wrapper recomended">
                 <span>
-                    {currency || "USD"} {price}
+                    {/* {currency || "USD"} {price} */}
+                    Price on Request
                 </span>
                 {token && (
                     <div>

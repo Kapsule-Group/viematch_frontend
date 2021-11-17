@@ -33,6 +33,10 @@ const SearchResults = ({
         });
         getSearchResultsCategories(query.get("id"));
         getBrands(query.get("search"), query.get("id"));
+        window.scrollTo({
+            top: 1000,
+            behavior: "smooth"
+        });
     }, []);
 
     useEffect(() => {

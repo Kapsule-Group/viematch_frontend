@@ -217,7 +217,7 @@ class Activity extends Component {
 
         let combinedCart = [];
         if (activityLog.results && activityLog.results.length > 0) {
-            combinedCart = activityLog.results.filter(item => item.incart === "True" && item.quantity > 0);
+            combinedCart = activityLog.results.filter(item => item.quantity > 0);
         }
 
         const cartId = makeid(100000000000);
@@ -242,7 +242,13 @@ class Activity extends Component {
                                             <ul className="cart_list">
                                                 {/*map start*/}
                                                 {combinedCart.map(row => (
-                                                    <li className="cart_item clearfix">
+                                                    <li
+                                                        className="cart_item clearfix"
+                                                        onClick={() =>
+                                                            row.product_id &&
+                                                            history.push(`/main/product-details/${row.product_id}`)
+                                                        }
+                                                    >
                                                         <div className="cart_item_image">
                                                             {row.image.includes("http") ? (
                                                                 <img src={row.image} alt={row.name} />
@@ -279,7 +285,8 @@ class Activity extends Component {
                                                                         <div className="row">
                                                                             <button
                                                                                 disabled={row.quantity <= 0}
-                                                                                onClick={() =>
+                                                                                onClick={e => {
+                                                                                    e.stopPropagation();
                                                                                     this.props
                                                                                         .patchCartQuantity(row.id, {
                                                                                             quantity: -1
@@ -295,14 +302,15 @@ class Activity extends Component {
                                                                                                     activePage
                                                                                                 );
                                                                                             }
-                                                                                        })
-                                                                                }
+                                                                                        });
+                                                                                }}
                                                                             >
                                                                                 -
                                                                             </button>
                                                                             <input
                                                                                 type="text"
                                                                                 value={row.quantity}
+                                                                                onClick={e => e.stopPropagation()}
                                                                                 onChange={e =>
                                                                                     this.props
                                                                                         .patchCartQuantity(row.id, {
@@ -327,7 +335,8 @@ class Activity extends Component {
                                                                             {/* <button className="col alert alert-light"
                                                                             defaultValue={row.quantity}>{row.quantity}</button> */}
                                                                             <button
-                                                                                onClick={() =>
+                                                                                onClick={e => {
+                                                                                    e.stopPropagation();
                                                                                     this.props
                                                                                         .patchCartQuantity(row.id, {
                                                                                             quantity: 1
@@ -343,8 +352,8 @@ class Activity extends Component {
                                                                                                     activePage
                                                                                                 );
                                                                                             }
-                                                                                        })
-                                                                                }
+                                                                                        });
+                                                                                }}
                                                                             >
                                                                                 +
                                                                             </button>
@@ -359,15 +368,16 @@ class Activity extends Component {
                                                                             src={DeleteImg}
                                                                             alt=""
                                                                             style={{ cursor: "pointer" }}
-                                                                            onClick={() =>
+                                                                            onClick={e => {
+                                                                                e.stopPropagation();
                                                                                 this.toggleDeleteDialog(
                                                                                     "-",
                                                                                     row.product_name,
                                                                                     row.quantity,
                                                                                     row.id,
                                                                                     combinedCart.length
-                                                                                )
-                                                                            }
+                                                                                );
+                                                                            }}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -461,89 +471,31 @@ class Activity extends Component {
                                         </div>
                                     ) : (
                                         stock_list.results.map((row, idx) => (
-                                            <div className="table_row1" key={idx}>
+                                            <div
+                                                className="table_row1"
+                                                key={idx}
+                                                onClick={() =>
+                                                    row.product_id &&
+                                                    history.push(`/main/product-details/${row.product_id}`)
+                                                }
+                                            >
                                                 <div className="row">
                                                     <>
-                                                        <OverlayTrigger
-                                                            key={"bottom"}
-                                                            placement={"bottom"}
-                                                            overlay={
-                                                                <Tooltip id="tooltip-top">
-                                                                    <div
-                                                                        className="row_item suggested1"
-                                                                        style={{
-                                                                            textAlign: "left",
-                                                                            fontSize: "14px"
-                                                                        }}
-                                                                    >
-                                                                        {row.product_name ? row.product_name : ""}
-                                                                    </div>
-                                                                    <hr />
-                                                                    {row.image ? (
-                                                                        <>
-                                                                            <div>
-                                                                                <Image
-                                                                                    src={
-                                                                                        API_BASE_URL.replace(
-                                                                                            "api/v0",
-                                                                                            "media"
-                                                                                        ) + row.image
-                                                                                    }
-                                                                                    alt={`no_image`}
-                                                                                    style={{
-                                                                                        width: "100%",
-                                                                                        height: "100%"
-                                                                                    }}
-                                                                                />
-                                                                            </div>
-                                                                            <hr />
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <div>
-                                                                                <Image
-                                                                                    src={logo_sidebar}
-                                                                                    style={{
-                                                                                        width: "100%",
-                                                                                        height: "100%"
-                                                                                    }}
-                                                                                    alt={`no_image`}
-                                                                                />
-                                                                            </div>
-                                                                            <hr />
-                                                                        </>
-                                                                    )}
-
-                                                                    <div
-                                                                        className="row_item suggested1"
-                                                                        style={{
-                                                                            textAlign: "left",
-                                                                            fontSize: "12px"
-                                                                        }}
-                                                                    >
-                                                                        {row.description ? row.description : ""}
-                                                                    </div>
-                                                                </Tooltip>
-                                                            }
+                                                        <span
+                                                            variant="light suggested1"
+                                                            style={{
+                                                                width: "50%",
+                                                                color: "#204569",
+                                                                fontSize: "16px",
+                                                                fontFamily: "MontRegular, sans-serif"
+                                                            }}
                                                         >
-                                                            <span
-                                                                variant="light suggested1"
-                                                                style={{
-                                                                    width: "50%",
-                                                                    color: "#204569",
-                                                                    fontSize: "16px",
-                                                                    fontFamily: "MontRegular, sans-serif"
-                                                                }}
-                                                            >
-                                                                {row.deleted === false ? (
-                                                                    <div style={{ width: "100%" }}>
-                                                                        {row.product_name}
-                                                                    </div>
-                                                                ) : (
-                                                                    <></>
-                                                                )}
-                                                            </span>
-                                                        </OverlayTrigger>{" "}
+                                                            {row.deleted === false ? (
+                                                                <div style={{ width: "100%" }}>{row.product_name}</div>
+                                                            ) : (
+                                                                <></>
+                                                            )}
+                                                        </span>
                                                     </>
 
                                                     {row.code ? (
@@ -564,14 +516,15 @@ class Activity extends Component {
                                                                             : "hided"
                                                                     }
                                                                     disabled={role === "user"}
-                                                                    onClick={() =>
+                                                                    onClick={e => {
+                                                                        e.stopPropagation();
                                                                         this.toggleRequestDialog(
                                                                             row.product_name,
                                                                             row.quantity,
                                                                             row.id,
                                                                             row.image
-                                                                        )
-                                                                    }
+                                                                        );
+                                                                    }}
                                                                 >
                                                                     ADD TO CART
                                                                 </button>

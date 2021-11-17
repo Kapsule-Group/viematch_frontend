@@ -15,6 +15,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    cursor: pointer;
     height: 58px;
     border-top: 1px solid rgba(32, 69, 105, 0.25);
     text-decoration: none;
@@ -86,6 +87,7 @@ hr {
         box-shadow: none;
         padding-left: 0;
         .cart_item {
+            cursor: pointer;
             margin-bottom: 20px;
             border-bottom: 1px solid rgba(32, 69, 105, 0.25);
             padding: 15px 0px;
