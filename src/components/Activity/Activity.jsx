@@ -380,6 +380,31 @@ class Activity extends Component {
         doc.save(client_data.customer_name + "_profomer.pdf");
     };
 
+    returnStatusName = status => {
+        switch (status) {
+            case "delivered":
+                return "P.O. delivered";
+            case "delivery":
+                return "Delivery note";
+            case "receipt":
+                return "Receipt";
+            case "order":
+                return "Purchase Order";
+            case "proforma":
+                return "Proforma";
+            case "request":
+            case "sales_to_approve":
+            case "sales_review":
+            case "sales_rejected":
+                return "Request";
+            case "invoice":
+                return "Invoice";
+
+            default:
+                return null;
+        }
+    };
+
     render() {
         const {
             activePage,
@@ -442,7 +467,7 @@ class Activity extends Component {
                                                     {moment(el.date_requested).format("DD/MM/YYYY   hh:mm")}
                                                 </div>
                                                 <div className="row_item">
-                                                    <span>{el.status}</span>
+                                                    <span>{this.returnStatusName(el.status)}</span>
 
                                                     <button
                                                         onClick={() => {

@@ -250,24 +250,28 @@ class Activity extends Component {
                                                         }
                                                     >
                                                         <div className="cart_item_image">
-                                                            {row.image.includes("http") ? (
-                                                                <img src={row.image} alt={row.name} />
+                                                            {row.image ? (
+                                                                row.image.includes("http") ? (
+                                                                    <img src={row.image} alt={row.name} />
+                                                                ) : (
+                                                                    <>
+                                                                        {row.image === "" || row.image === "Request" ? (
+                                                                            <img src={logo_sidebar} alt={row.name} />
+                                                                        ) : (
+                                                                            <img
+                                                                                src={
+                                                                                    API_BASE_URL.replace(
+                                                                                        "api/v0",
+                                                                                        "media"
+                                                                                    ) + row.image
+                                                                                }
+                                                                                alt={row.name}
+                                                                            />
+                                                                        )}
+                                                                    </>
+                                                                )
                                                             ) : (
-                                                                <>
-                                                                    {row.image === "" || row.image === "Request" ? (
-                                                                        <img src={logo_sidebar} alt={row.name} />
-                                                                    ) : (
-                                                                        <img
-                                                                            src={
-                                                                                API_BASE_URL.replace(
-                                                                                    "api/v0",
-                                                                                    "media"
-                                                                                ) + row.image
-                                                                            }
-                                                                            alt={row.name}
-                                                                        />
-                                                                    )}
-                                                                </>
+                                                                <img src={logo_sidebar} alt={row.name} />
                                                             )}
                                                         </div>
                                                         <div className="cart_item_info d-flex flex-md-row flex-column justify-content-between">

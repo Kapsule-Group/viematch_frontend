@@ -23,7 +23,7 @@ const SearchElement = ({
     const [inputValue, setInputValue] = useState(1);
     return (
         <div className="search-element" key={idx} onClick={() => history.push(`/main/product-details/${id}`)}>
-            <img src={NoImg || image} alt="" />
+            <img src={image || NoImg} alt="" />
             <div className="details-wrapper">
                 <p
                     className="category"

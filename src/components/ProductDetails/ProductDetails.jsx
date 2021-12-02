@@ -64,7 +64,7 @@ const ProductDetails = ({
 
     const settings = {
         dots: false,
-        infinite: false,
+        infinite: results && results.length > 4,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1
