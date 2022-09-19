@@ -1,0 +1,45 @@
+.margin-32 {
+  margin-bottom: 32px;
+}
+
+#select__region__dropdown {
+  font-family: 'MontRegular', sans-serif;
+  .select__single-value {
+    font-family: 'MontRegular', sans-serif;
+    top: 58%;
+  }
+  .select__placeholder {
+    top: 0% !important;
+  }
+  input {
+    padding-left: 16px !important;
+  }
+}
+
+.select__single-value {
+  font-family: 'MontRegular', sans-serif !important;
+}
+
+.name.region__dropdown {
+  max-width: 208px;
+  width: 100%;
+  input {
+  }
+  div.select__single-value + div,
+  div.select__placeholder {
+    height: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 20px !important;
+  }
+  .select__value-container {
+    > div {
+      &:last-child {
+        height: 48px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-left: 20px !important;
+      }
+    }
+  }
+}

@@ -1,144 +1,32 @@
 .header_wrapper {
-    z-index: 100;
-    border-bottom: 1px solid #ebf4fe;
-    .logo_head {
-        max-width: 94px;
-        > img {
-            width: 100%;
-        }
-        margin-right: 64px;
+  height: 80px;
+  width: 100%;
+  border-bottom: 1px solid rgba(55, 150, 246, 0.1);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  box-sizing: border-box;
+  .name {
+    margin-right: 16px;
+    color: #204569;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .logout {
+    &:hover {
+      transform: scale(0.9);
     }
-    height: 64px;
-    width: 100%;
-    border-bottom: 1px solid rgba(55, 150, 246, 0.1);
-    background-color: #ffffff;
+  }
+  .logo_head {
+    > img {
+      height: 1px;
+      width: 1px;
+    }
+  }
+  .right-wrapper {
     display: flex;
     align-items: center;
-    // justify-content: space-between;
-    padding: 0 64px;
-    box-sizing: border-box;
-    .name-wrapper {
-        margin-right: 16px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin-left: auto;
-        .name {
-            color: #204569;
-            font-size: 14px;
-            font-family: "MontRegular";
-            white-space: nowrap;
-        }
-        .email {
-            font-size: 10px;
-            color: #204569;
-            font-family: "MontLight";
-        }
-    }
-    .dropdown-wrapper {
-        position: relative;
-        > img {
-            cursor: pointer;
-        }
-    }
-    .cart-wrapper {
-        position: relative;
-
-        .shopping-cart {
-            width: 16px;
-            margin-right: 32px;
-            cursor: pointer;
-        }
-        .cart-count {
-            position: absolute;
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background-color: #c32e45;
-            font-family: "Rubik", sans-serif;
-            font-size: 10px;
-            color: #ffffff;
-            top: -6px;
-            right: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-
-    .drop-menu {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        background-color: #ffffff;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
-        width: 192px;
-        border-radius: 4px;
-        z-index: 100;
-        padding: 16px 24px;
-        top: 37px;
-        right: 0px;
-
-        > a {
-            color: #204569;
-            font-size: 12px;
-            font-family: "MontRegular";
-            text-decoration: none;
-            margin-bottom: 16px;
-        }
-
-        > div {
-            font-family: "MontRegular";
-            color: #8fa2b4;
-            font-size: 12px;
-            cursor: pointer;
-            border-top: 1px solid rgba(32, 69, 105, 0.15);
-            padding-top: 16px;
-        }
-    }
-
-    .singin,
-    .singup {
-        border-radius: 4px;
-        background-color: #ebf4fe;
-        height: 40px;
-        width: 98px;
-        color: #3796f6;
-        font-family: "MontBold";
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition: all 0.5s;
-        box-sizing: border-box;
-    }
-
-    .singin {
-        margin-right: 12px;
-        transition: all 0.5s;
-        &:hover {
-            // background-color: #3796f6;
-            // color: #ffffff;
-            border: 1px solid #3796f6;
-        }
-    }
-    .singup {
-        background-color: #3796f6;
-        color: #ffffff;
-        &:hover {
-            background-color: #ebf4fe;
-            color: #3796f6;
-            border: 1px solid #3796f6;
-        }
-    }
-
-    .logout {
-        margin-left: 16px;
-
-        &:hover {
-            transform: scale(0.9);
-        }
-    }
+  }
 }

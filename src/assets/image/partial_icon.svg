@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>5EE0CB71-3BA1-4689-BFEC-DAC5878AE2BF</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1152" height="861" rx="10"></rect>
+        <filter x="-2.3%" y="-2.6%" width="104.5%" height="106.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.603921569   0 0 0 0 0.650980392   0 0 0 0 0.698039216  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="customer-statements---customer-page" transform="translate(-548.000000, -1150.000000)">
+            <rect id="Rectangle" fill="#EBF4FE" x="0" y="0" width="1440" height="1398"></rect>
+            <g id="table" transform="translate(224.000000, 457.000000)">
+                <g id="Rectangle">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="1-copy-8" transform="translate(40.000000, 685.000000)">
+                    <g id="Group" transform="translate(276.000000, 0.000000)">
+                        <rect id="Rectangle" fill="#FDA45C" opacity="0.100000001" x="0" y="0" width="72" height="28" rx="14"></rect>
+                        <g id="Group" transform="translate(8.000000, 8.000000)">
+                            <circle id="Oval" stroke="#FDA45C" cx="6" cy="6" r="5.5"></circle>
+                            <path d="M6,9.33333333 C6,7.11111111 6,6 6,6 C6,6 7.11111111,6 9.33333333,6 C9.33333333,4.15905083 7.84094917,2.66666667 6,2.66666667 C4.15905083,2.66666667 2.66666667,4.15905083 2.66666667,6 C2.66666667,7.84094917 4.15905083,9.33333333 6,9.33333333 Z" id="Oval" fill="#FDA45C" transform="translate(6.000000, 6.000000) scale(-1, -1) translate(-6.000000, -6.000000) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

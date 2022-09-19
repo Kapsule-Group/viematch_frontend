@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const recaptchaRef = React.createRef();
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +11,14 @@ class Login extends Component {
     }
 
     render() {
-        return <ReCAPTCHA theme="light" ref={recaptchaRef} sitekey={this.SITE_KEY} onChange={this.props.onChange} />;
+        return (
+            <ReCAPTCHA
+                theme="light"
+                ref={this.props.ownRef}
+                sitekey={this.SITE_KEY}
+                onChange={this.props.onChange}
+            />
+        );
     }
 }
 function mapStateToProps() {
@@ -24,4 +29,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login);

@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="124px" height="100px" viewBox="0 0 124 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 58 (101010) - https://sketch.com -->
-    <title>2FEF6474-49CC-49E1-A266-4D39503453E4</title>
-    <desc>Created with sketchtool.</desc>
-    <defs>
-        <circle id="path-1" cx="19.9907842" cy="19.7419363" r="19.7419363"></circle>
-        <filter x="-15.2%" y="-15.2%" width="130.4%" height="130.4%" filterUnits="objectBoundingBox" id="filter-2">
-            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0.0862745098   0 0 0 0 0.588235294   0 0 0 0 0.447058824  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="reset-password-2" transform="translate(-910.000000, -387.000000)">
-            <g id="right" transform="translate(696.000000, 202.000000)">
-                <g id="email_sent" transform="translate(0.000000, 162.000000)">
-                    <g id="email" transform="translate(214.000000, 27.000000)">
-                        <g transform="translate(0.000000, 8.000000)" id="Group">
-                            <g>
-                                <rect id="Rectangle" opacity="0.200000003" x="0" y="0" width="100" height="100"></rect>
-                                <g id="Shape-2" transform="translate(0.000000, 12.500000)" fill="#3796F6" fill-rule="nonzero">
-                                    <path d="M90.4470831,6.66133815e-14 L9.35666664,6.66133815e-14 C4.19708332,6.66133815e-14 1.70234197e-13,4.1970835 1.70234197e-13,9.35666703 L1.70234197e-13,65.4962525 C1.70234197e-13,70.6558361 4.19708332,74.8529196 9.35666664,74.8529196 L90.4470831,74.8529196 C95.6066664,74.8529196 99.8037497,70.6558361 99.8037497,65.4962525 L99.8037497,9.35666703 C99.8037497,4.1970835 95.6066664,6.66133815e-14 90.4470831,6.66133815e-14 Z M90.4470799,6.23770853 C90.8708299,6.23770853 91.2739548,6.3256252 91.6424965,6.47916687 L49.9018732,42.6560432 L8.16104164,6.47916687 C8.52958329,6.32583353 8.93270827,6.23770853 9.35645825,6.23770853 L90.4470799,6.23770853 Z M90.447081,68.6149995 L9.35666677,68.6149995 C7.63583349,68.6149995 6.23770853,67.2170828 6.23770853,65.4960412 L6.23770853,13.0693754 L47.8581239,49.1404164 C48.4460406,49.6489581 49.1739572,49.9018748 49.9018739,49.9018748 C50.6297905,49.9018748 51.3577072,49.6491664 51.9456238,49.1404164 L93.5660392,13.0693754 L93.5660392,65.4962495 C93.5660392,67.2170828 92.1679142,68.6149995 90.447081,68.6149995 L90.447081,68.6149995 Z" id="Shape"></path>
-                                </g>
-                            </g>
-                        </g>
-                        <g id="tick" transform="translate(80.000000, 0.000000)" fill-rule="nonzero">
-                            <g id="Oval">
-                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                                <use fill="#2CC197" xlink:href="#path-1"></use>
-                            </g>
-                            <polyline id="Path-8" stroke="#FFFFFF" stroke-width="2" points="13.6036872 19.84997 17.7907427 24.0967752 26.3778812 15.3870974"></polyline>
-                        </g>
-                    </g>
-                </g>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>email</title>
+    <desc>Created with Sketch.</desc>
+    <g id="email" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" opacity="0.200000003" x="0" y="0" width="24" height="24"></rect>
+            <g id="Shape-2" transform="translate(0.000000, 3.000000)" fill="#3796F6" fill-rule="nonzero">
+                <path d="M21.7073,1.59872116e-14 L2.2456,1.59872116e-14 C1.0073,1.59872116e-14 4.08562073e-14,1.0073 4.08562073e-14,2.2456 L4.08562073e-14,15.7191 C4.08562073e-14,16.9574 1.0073,17.9647 2.2456,17.9647 L21.7073,17.9647 C22.9456,17.9647 23.9529,16.9574 23.9529,15.7191 L23.9529,2.2456 C23.9529,1.0073 22.9456,1.59872116e-14 21.7073,1.59872116e-14 Z M21.7073,1.49705 C21.809,1.49705 21.90575,1.51815 21.9942,1.555 L11.97645,10.23745 L1.95865,1.555 C2.0471,1.5182 2.14385,1.49705 2.24555,1.49705 L21.7073,1.49705 Z M21.7073,16.4676 L2.2456,16.4676 C1.8326,16.4676 1.49705,16.1321 1.49705,15.71905 L1.49705,3.13665 L11.48595,11.7937 C11.62705,11.91575 11.80175,11.97645 11.97645,11.97645 C12.15115,11.97645 12.32585,11.9158 12.46695,11.7937 L22.45585,3.13665 L22.45585,15.7191 C22.45585,16.1321 22.1203,16.4676 21.7073,16.4676 L21.7073,16.4676 Z" id="Shape"></path>
             </g>
         </g>
     </g>

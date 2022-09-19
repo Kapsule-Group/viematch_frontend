@@ -1,29 +1,30 @@
 @font-face {
-    font-family: "MontLight";
-    src: url("../assets/fonts/Mont-Light.ttf") format("truetype");
+  font-family: "MontLight";
+  src: url('../assets/fonts/Mont-Light.ttf') format("truetype");
 }
 
 @font-face {
-    font-family: "MontBold";
-    src: url("../assets/fonts/Mont-Bold.ttf") format("truetype");
+  font-family: "MontBold";
+  src: url('../assets/fonts/Mont-Bold.ttf') format("truetype");
 }
 
 @font-face {
-    font-family: "MontSemiBold";
-    src: url("../assets/fonts/Mont-SemiBold.ttf") format("truetype");
+  font-family: "MontSemiBold";
+  src: url('../assets/fonts/Mont-SemiBold.ttf') format("truetype");
 }
 
 @font-face {
-    font-family: "MontRegular";
-    src: url("../assets/fonts/Mont-Regular.ttf") format("truetype");
+  font-family: "MontRegular";
+  src: url('../assets/fonts/Mont-Regular.ttf') format("truetype");
 }
 
 @font-face {
-    font-family: "FontAwesome";
-    src: url("../assets/fonts/FontAwesome.otf") format("OpenType");
+  font-family: "MontBook";
+  src: url('../assets/fonts/Mont-Book.ttf') format("truetype");
 }
 
 //@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=cyrillic-ext');
+
 
 @import "./reset";
 @import "./base";

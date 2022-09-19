@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>7507FEBB-CE97-4FC0-9F3D-1AC58DA27F55</title>
+    <g id="Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="confirm-payment-to-mark-as-paid-popup" transform="translate(-80.000000, -228.000000)">
+            <g id="Group" transform="translate(64.000000, 212.000000)">
+                <g id="alert" transform="translate(16.000000, 16.000000)">
+                    <circle id="Oval" stroke="#FDA45C" stroke-width="1.66666667" cx="10" cy="10" r="9.16666667"></circle>
+                    <path d="M10.9895833,11.1523437 L10.9895833,4.56380208 L9.01692708,4.56380208 L9.01692708,11.1523437 L10.9895833,11.1523437 Z M11.0351562,15.0833333 L11.0351562,13 L8.97135417,13 L8.97135417,15.0833333 L11.0351562,15.0833333 Z" id="!" fill="#FDA45C" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

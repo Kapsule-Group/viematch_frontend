@@ -1,0 +1,735 @@
+.customers_statements_inner {
+  display: flex;
+  flex-flow: column;
+  font-family: 'MontRegular', sans-serif;
+  .content_page {
+    background: #ffffff;
+    padding: 32px 40px 10px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+    border-radius: 10px;
+  }
+  .custom_title_wrapper {
+    .title_page {
+      padding-bottom: 8px;
+    }
+    span {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 24px;
+      margin-bottom: 32px;
+      display: flex;
+    }
+  }
+  .light {
+    color: rgba(32, 69, 105, 0.5);
+  }
+
+  .descriptions {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'MontSemiBold', sans-serif;
+
+    span {
+      color: #204569;
+      font-family: 'MontSemiBold', sans-serif;
+      letter-spacing: 0;
+      line-height: 24px;
+      font-size: 16px;
+    }
+    button {
+      cursor: pointer;
+      margin-right: 24px;
+      color: #3796f6;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-family: 'MontSemiBold', sans-serif;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .total_inner {
+    display: flex;
+    align-items: center;
+    padding-bottom: 22px;
+    > div {
+      width: 25%;
+      padding: 16px 0;
+      box-sizing: border-box;
+      > div {
+        opacity: 0.5;
+        color: #204569;
+        font-size: 10px;
+        line-height: 13px;
+        margin-bottom: 4px;
+      }
+    }
+    > div:nth-child(1) {
+      p {
+        color: #204569;
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 16px;
+        letter-spacing: -0.25px;
+        line-height: 24px;
+      }
+    }
+    > div:nth-child(2) {
+      padding-left: 40px;
+      border-left: 1px solid rgba(32, 69, 105, 0.25);
+      p {
+        color: #204569;
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 16px;
+        letter-spacing: -0.25px;
+        line-height: 24px;
+        span {
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 16px;
+          margin-left: 8px;
+          letter-spacing: 0;
+        }
+        .ok {
+          color: #2cc197;
+        }
+        .up {
+          color: #e44b4b;
+        }
+        .down {
+          color: #fda45c;
+        }
+      }
+    }
+
+    > div:nth-child(3) {
+      padding-left: 40px;
+      border-left: 1px solid rgba(32, 69, 105, 0.25);
+      span {
+        display: flex;
+        align-items: center;
+        color: #204569;
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 16px;
+        letter-spacing: -0.25px;
+        line-height: 24px;
+        p {
+          display: flex;
+          align-items: center;
+          margin-left: 8px;
+        }
+      }
+    }
+    > div:nth-child(4) {
+      display: flex;
+      border: 1px dashed rgba(32, 69, 105, 0.25);
+      border-radius: 10px;
+      flex-direction: column;
+      padding: 16px 24px;
+      div {
+        display: flex;
+      }
+
+      p {
+        display: flex;
+        color: #204569;
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 16px;
+        letter-spacing: -0.25px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .payments_table {
+    .transactions_columns {
+      .table_row {
+        border: none;
+        border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+
+        & > :nth-child(1) {
+          width: 15%;
+        }
+        & > :nth-child(2) {
+          width: 25%;
+          display: flex;
+          align-items: center;
+          > div {
+            display: flex;
+            align-items: center;
+            font-family: 'MontSemiBold', sans-serif;
+          }
+          span {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            margin-left: 16px;
+            border-radius: 14px;
+            padding: 8px;
+            justify-content: center;
+            font-family: 'MontSemiBold', sans-serif;
+            font-size: 10px;
+            height: 28px;
+            img {
+              margin-right: 6px;
+            }
+          }
+          .paid {
+            background: rgba(44, 193, 151, 0.1);
+            color: #2cc197;
+          }
+          .partial {
+            background: rgba(253, 164, 92, 0.1);
+            color: #fda45c;
+          }
+          .new {
+            background: rgba(55, 150, 246, 0.1);
+            color: #3796f6;
+          }
+        }
+        & > :nth-child(3) {
+          width: 20%;
+        }
+        & > :nth-child(4), :nth-child(5) {
+          width: 15%;
+          display: flex;
+          align-items: center;
+          font-family: 'MontSemiBold', sans-serif;
+          font-size: 14px;
+          line-height: 19px;
+          span {
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          }
+        }
+        & > :nth-child(6) {
+          width: 20%;
+          text-align: center;
+          .different {
+            color: #fda45c;
+            font-family: 'MontSemiBold', sans-serif;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 14px;
+            img {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+      .table_body {
+        .table_row {
+          .row_item {
+            font-size: 14px;
+            letter-spacing: -0.25px;
+            line-height: 24px;
+            &:nth-child(3) {
+              text-transform: capitalize;
+            }
+          }
+          p {
+            margin-right: 5px;
+          }
+        }
+      }
+      .table_header {
+        .row_item {
+          font-size: 10px !important;
+          font-family: 'MontLight', sans-serif !important;
+        }
+      }
+      .up {
+        z-index: 10;
+        padding: 0 40px;
+        margin: -1px -40px 0;
+        background: rgba(44, 193, 151, 0.05);
+        border-top: 1px solid rgba(32, 69, 105, 0.25);
+        border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+
+        & > :nth-child(1) {
+          font-family: 'MontBold', sans-serif;
+        }
+        & > :nth-child(2) {
+          width: 45%;
+          display: flex;
+          align-items: center;
+          p {
+            display: flex;
+            color: #204569;
+            font-family: 'MontSemiBold', sans-serif;
+            letter-spacing: -0.25px;
+            line-height: 24px;
+            align-items: center;
+            font-size: 14px;
+            p {
+              padding-right: 3px;
+              font-family: 'MontBold', sans-serif;
+            }
+          }
+        }
+        & > :nth-child(3) {
+          display: none;
+        }
+        & > :nth-child(4), :nth-child(4) {
+          width: 15%;
+          display: flex;
+          align-items: center;
+          font-family: 'MontBold', sans-serif;
+          font-size: 14px;
+          line-height: 19px;
+          span {
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+          }
+        }
+        & > :nth-child(6) {
+          width: 20%;
+          .different {
+            color: #fda45c;
+            font-family: 'MontSemiBold', sans-serif;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 14px;
+            img {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+
+      .down {
+        z-index: 10;
+        padding: 0 40px;
+        margin: -1px -40px 0;
+        background: rgba(228, 75, 75, 0.05);
+        border-top: 1px solid rgba(228, 75, 75, 0.25);
+        border-bottom: 1px solid rgba(228, 75, 75, 0.25);
+
+        & > :nth-child(1) {
+          font-family: 'MontBold', sans-serif;
+        }
+        & > :nth-child(2) {
+          width: 45%;
+          display: flex;
+          align-items: center;
+          p {
+            display: flex;
+            color: #204569;
+            font-family: 'MontSemiBold', sans-serif;
+            letter-spacing: -0.25px;
+            line-height: 24px;
+            align-items: center;
+            font-size: 14px;
+            p {
+              padding-right: 3px;
+              font-family: 'MontBold', sans-serif;
+            }
+          }
+        }
+        & > :nth-child(3) {
+          display: none;
+        }
+        & > :nth-child(4) {
+          width: 20%;
+          display: flex;
+          align-items: center;
+          font-family: 'MontBold', sans-serif;
+          font-size: 14px;
+          line-height: 19px;
+          span {
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+          }
+        }
+        & > :nth-child(5) {
+          width: 20%;
+          .different {
+            color: #fda45c;
+            font-family: 'MontSemiBold', sans-serif;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 14px;
+            img {
+              margin-right: 4px;
+            }
+          }
+        }
+        & > :nth-child(6) {
+          width: 15%;
+          .different {
+            color: #fda45c;
+            font-family: 'MontSemiBold', sans-serif;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 14px;
+            img {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .total_pay {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-family: 'MontBold', sans-serif;
+    font-size: 14px;
+    line-height: 19px;
+    div:nth-child(1) {
+      width: 54.6%;
+    }
+    div:nth-child(2) {
+      width: 35%;
+    }
+  }
+
+  .payments_panel {
+    display: flex;
+    align-items: center;
+    padding: 24px 0 16px;
+    .date {
+      margin-right: 24px;
+      border: 1px solid rgba(32, 69, 105, 0.3);
+      width: 190px;
+      height: 40px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      &:hover {
+        border: 1px solid rgba(32, 69, 105, 0.3);
+      }
+      > span {
+        padding: 0 0 0 16px;
+        opacity: 0.5;
+        color: #204569;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      > div {
+        width: 100%;
+      }
+      div {
+        border-radius: 4px;
+      }
+    }
+    .calendar-input {
+      display: flex;
+      justify-content: space-between;
+      background: #ffffff;
+      height: 40px;
+      align-items: center;
+      cursor: pointer;
+      > input {
+        padding-left: 8px;
+        border: none !important;
+        font-size: 14px;
+        font-family: 'MontRegular', sans-serif;
+        color: #204569;
+        box-sizing: border-box;
+        width: 107px;
+      }
+      > img {
+        padding-right: 12px;
+      }
+    }
+    > a {
+      button {
+        margin-left: 12px;
+        color: #3796f6;
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        img {
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+.dialog_pay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .block_field {
+    &.invoices {
+      margin-bottom: 16px;
+      .select_component {
+        .select__control {
+          .select__value-container.select__value-container--has-value {
+            padding: 15px !important;
+          }
+        }
+      }
+    }
+  }
+  h2 {
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 42px;
+    margin-bottom: 32px;
+  }
+  .payment-data-row {
+    margin-top: 16px;
+  }
+  .block_add_field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .block_field {
+      position: relative;
+      margin: 0 26px;
+      width: 100%;
+      max-width: 176px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        color: #204569;
+        font-size: 10px;
+        line-height: 13px;
+      }
+      input {
+        height: 48px;
+        border: 1px solid rgba(32, 69, 105, 0.3);
+        border-radius: 4px;
+        padding: 0 16px 0 16px;
+      }
+      p {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        opacity: 0.5;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+    .date {
+      display: flex;
+      flex-direction: column;
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 13px;
+        padding-bottom: 8px;
+      }
+      .calendar-input {
+        border: 1px solid rgba(32, 69, 105, 0.3);
+        display: flex;
+        justify-content: space-between;
+        background: #ffffff;
+        height: 48px;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 4px;
+        width: 184px;
+        &:hover {
+          border: 1px solid rgba(32, 69, 105, 0.3);
+        }
+        > input {
+          padding-left: 20px;
+          border: none !important;
+          font-size: 14px;
+          font-family: 'MontRegular', sans-serif;
+          color: #204569;
+          box-sizing: border-box;
+          width: 130px;
+        }
+        > img {
+          padding-right: 16px;
+        }
+      }
+    }
+    .method {
+      display: flex;
+      flex-direction: column;
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 13px;
+        padding-bottom: 8px;
+      }
+      .select_component {
+        width: 176px;
+        height: 48px;
+        .select__control .select__single-value {
+          padding-left: 10px !important;
+        }
+      }
+    }
+  }
+  .btn_wrapper {
+    width: 100%;
+    padding-top: 32px;
+    //margin-top: 32px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    display: flex;
+    align-items: center;
+    > button {
+      margin-right: 16px;
+    }
+  }
+}
+
+.dialog_edit {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  h2 {
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 42px;
+    margin-bottom: 32px;
+  }
+  .block_add_field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .block_field {
+      position: relative;
+      width: 100%;
+      max-width: 248px;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 13px;
+      }
+      input {
+        height: 48px;
+        border: 1px solid rgba(32, 69, 105, 0.3);
+        border-radius: 4px;
+        padding: 0 16px 0 16px;
+      }
+      p {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        opacity: 0.5;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+    > span {
+      width: 185px;
+      font-family: 'MontRegular', sans-serif;
+      color: #204569;
+      font-size: 14px;
+      line-height: 22px;
+      margin-left: 32px;
+      display: flex;
+      padding-top: 21px;
+    }
+  }
+  .btn_wrapper {
+    width: 100%;
+    padding-top: 32px;
+    margin-top: 32px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    display: flex;
+    align-items: center;
+    > button {
+      margin-right: 16px;
+    }
+  }
+}
+
+.dialog_change {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #204569;
+  h2 {
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: 42px;
+    margin-bottom: 32px;
+  }
+  .block_add_field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .block_field {
+      position: relative;
+      width: 100%;
+      max-width: 248px;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 13px;
+        color: #204569;
+      }
+      input {
+        height: 48px;
+        border: 1px solid rgba(32, 69, 105, 0.3);
+        border-radius: 4px;
+        padding: 0 16px 0 16px;
+        color: #204569;
+      }
+      p {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        opacity: 0.5;
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+    > p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 21px 32px 0;
+      height: 32px;
+      width: 32px;
+      background-color: rgba(55, 150, 246, 0.05);
+      border-radius: 50%;
+    }
+  }
+  .btn_wrapper {
+    width: 100%;
+    padding-top: 32px;
+    margin-top: 32px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    display: flex;
+    align-items: center;
+    > button {
+      margin-right: 16px;
+    }
+  }
+}
+
+.row_item.notes {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre;
+}
+
+.due-date-checkbox.refund {
+  display: flex;
+  align-items: center;
+  input {
+    margin-bottom: 4px;
+  }
+}

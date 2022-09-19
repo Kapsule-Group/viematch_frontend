@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>E9616A2D-4CD8-4577-82F5-F185713744CD</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1152" height="822" rx="10"></rect>
+        <filter x="-2.3%" y="-2.7%" width="104.5%" height="106.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.603921569   0 0 0 0 0.650980392   0 0 0 0 0.698039216  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="orders" transform="translate(-1158.000000, -599.000000)">
+            <rect id="Rectangle" fill="#EBF4FE" x="0" y="0" width="1440" height="1100"></rect>
+            <g id="table" transform="translate(224.000000, 202.000000)">
+                <g id="Rectangle">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="1-copy-4" transform="translate(40.000000, 389.000000)">
+                    <g id="Group" transform="translate(886.000000, 0.000000)">
+                        <rect id="Rectangle" fill="#E44B4B" opacity="0.100000001" x="0" y="0" width="82" height="28" rx="14"></rect>
+                        <g id="Group" transform="translate(8.000000, 8.000000)" stroke="#E44B4B">
+                            <circle id="Oval" cx="6" cy="6" r="5.5"></circle>
+                            <path d="M4.33333333,7.66666667 L7.66666667,4.33333333 M7.66666667,7.66666667 L4.33333333,4.33333333" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

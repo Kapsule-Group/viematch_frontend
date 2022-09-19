@@ -1,0 +1,356 @@
+.subscriptions_page {
+    display: flex;
+    flex-flow: column;
+    h3 {
+        padding: 30px 0;
+        border-top: 1px solid rgba(32, 69, 105, 0.25);
+        margin-top: 18px;
+    }
+    .tab_customers {
+        padding-bottom: 32px;
+    }
+    .content_page {
+        background: #ffffff;
+        padding: 32px 40px 32px;
+        margin-bottom: 72px;
+        box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+        border-radius: 10px;
+    }
+}
+.demands_block {
+    .table_panel {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        .select_component .select__control .select__single-value {
+            padding-left: 10px !important;
+        }
+        .select__control {
+            width: 208px;
+            min-height: 40px;
+        }
+        .block_search {
+            margin-right: 24px;
+            .input-group {
+                .search_info {
+                    margin-left: -1px;
+                    position: relative;
+                    > input {
+                        position: relative;
+                        height: 40px;
+                        width: 280px;
+                        border: 1px solid rgba(32, 69, 105, 0.3);
+                        border-radius: 4px;
+                        padding: 0 12px 0 34px;
+                        box-sizing: border-box;
+                        font-family: "MontRegular", sans-serif;
+                        font-size: 14px;
+                        &::placeholder {
+                            opacity: 0.5;
+                            color: #204569;
+                            font-size: 14px;
+                            letter-spacing: 0;
+                        }
+                    }
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        left: 12px;
+                        top: calc(50% - 7px);
+                        background: url("../../assets/image/search.svg");
+                        height: 14px;
+                        width: 14px;
+                        z-index: 1;
+                    }
+                }
+            }
+        }
+    }
+    .demands_table {
+        .table_body .table_row .row {
+            height: 60px;
+            > div {
+                margin-right: 20px;
+            }
+        }
+        .table_header .table_row .row {
+            height: 45px;
+        }
+        .transactions_columns {
+            .table_row {
+                .row {
+                    width: 100%;
+                    display: flex;
+                    margin: 0;
+                    align-items: center;
+                    > div {
+                        margin-right: 20px;
+                    }
+                    & > :first-child {
+                        width: 10%;
+                    }
+                    & > :nth-child(2) {
+                        width: 10%;
+                    }
+                    & > :nth-child(3) {
+                        width: 10%;
+                    }
+                    & > :nth-child(4) {
+                        width: 25%;
+                    }
+                    & > :nth-child(5) {
+                        width: 10%;
+                    }
+                    & > :nth-child(6) {
+                        width: 10%;
+                    }
+                    & > :nth-child(7) {
+                        width: 10%;
+                    }
+                    & > :nth-child(8) {
+                        width: 10%;
+                    }
+                    & > :last-of-type {
+                        width: 5%;
+                        justify-content: center;
+                        display: flex;
+                    }
+                }
+                .status {
+                    font-family: "MontSemiBold", sans-serif;
+                    font-size: 14px;
+                    line-height: 19px;
+                    text-transform: capitalize;
+                    .demand {
+                        color: #204569;
+                        span {
+                            position: relative;
+
+                            &:before {
+                                position: absolute;
+                                content: "";
+                                height: 6px;
+                                width: 6px;
+                                background-color: #3796f6;
+                                top: -4px;
+                                right: -7px;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+                    .confirmed {
+                        color: #2cc197;
+                    }
+                    .canceled {
+                        color: rgba(32, 69, 105, 0.5);
+                    }
+                }
+                .link {
+                    a {
+                        color: #3796f6;
+                        font-family: "MontSemiBold", sans-serif;
+                        font-size: 14px;
+                        line-height: 19px;
+                        display: flex;
+                        margin-right: 20px;
+                        &:hover {
+                            text-decoration: none;
+                            opacity: 0.7;
+                        }
+                        span {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+                .time {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .amount {
+                    display: flex;
+                    align-content: center;
+                    span {
+                        font-family: "MontSemiBold", sans-serif;
+                        display: flex;
+                        align-content: center;
+                    }
+                    p {
+                        margin: 0 3px;
+                        color: #8fa2b4;
+                        display: flex;
+                        align-content: center;
+                        font-family: "MontRegular", sans-serif;
+                    }
+                }
+                .semi_bold {
+                    font-family: "MontSemiBold", sans-serif;
+                }
+            }
+        }
+    }
+    .pagination_info_wrapper {
+        border-top: 1px solid rgba(32, 69, 105, 0.25);
+        .pagination-container {
+            .pagination-list {
+                margin: 0;
+                padding: 0;
+                li a {
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                .pagination-ellipsis {
+                    a {
+                        color: #3796f6;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.supply_schedule_block {
+    .supply_schedule_table {
+        .table_header .table_row {
+            border-top: none;
+            border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+            .row {
+                & > :last-of-type {
+                    display: flex;
+                    margin: 0;
+                    & > :first-child {
+                        width: 30%;
+                        margin-right: 20px;
+                    }
+                    & > :nth-child(2) {
+                        align-items: center;
+                        display: flex;
+                        width: 40%;
+                    }
+                    & > :nth-child(3) {
+                        align-items: center;
+                        display: flex;
+                        width: 15%;
+                    }
+                    & > :last-of-type {
+                        width: 15%;
+                    }
+                }
+            }
+        }
+        .table_body {
+            .table_row {
+                height: auto;
+                border-top: none;
+                border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+                .row {
+                    & > :last-of-type {
+                        display: flex;
+                        flex-direction: column;
+                        margin: 0;
+                        > div {
+                            height: 60px;
+                            align-content: center;
+                            display: flex;
+                            border-bottom: 1px solid rgba(32, 69, 105, 0.25);
+                            & > :first-child {
+                                align-items: center;
+                                display: flex;
+                                width: 30%;
+                                margin-right: 20px;
+                            }
+                            & > :nth-child(2) {
+                                align-items: center;
+                                display: flex;
+                                width: 40%;
+                            }
+                            & > :nth-child(3) {
+                                align-items: center;
+                                display: flex;
+                                width: 15%;
+                            }
+                            & > :last-of-type {
+                                align-items: center;
+                                display: flex;
+                                width: 15%;
+                                font-family: "MontSemiBold";
+                            }
+                        }
+                        > div:last-of-type {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+            .table_row:first-of-type {
+                border-bottom: 1px solid #3796f6;
+                .date {
+                    > span:first-of-type {
+                        height: 28px;
+                        width: 28px;
+                        border-radius: 14px;
+                        background-color: #3796f6;
+                        margin-right: 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #ffffff;
+                    }
+                    span {
+                        font-family: "MontSemiBold", sans-serif;
+                    }
+                }
+            }
+        }
+        .transactions_columns {
+            .table_row {
+                .row {
+                    width: 100%;
+                    display: flex;
+                    margin: 0;
+                    align-items: center;
+                    > div {
+                        margin-right: 20px;
+                    }
+                    & > :first-child {
+                        width: 25%;
+                    }
+                    & > :last-of-type {
+                        width: 75%;
+                    }
+                }
+                .link {
+                    a {
+                        color: #3796f6;
+                        font-family: "MontSemiBold", sans-serif;
+                        font-size: 14px;
+                        line-height: 19px;
+                        display: flex;
+                        margin-right: 20px;
+                        &:hover {
+                            text-decoration: none;
+                            opacity: 0.7;
+                        }
+                        span {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+                .date {
+                    display: flex;
+                    align-items: center;
+                    > span {
+                        margin-right: 3px;
+                    }
+                    p {
+                        color: #bcc7d2;
+                    }
+                }
+            }
+        }
+    }
+}

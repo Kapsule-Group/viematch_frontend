@@ -1,0 +1,208 @@
+.wrapper_multiselect{
+  position: relative;
+  .select_placeholder {
+    position: absolute;
+    color: #204569;
+    font-family: "MontRegular",sans-serif;
+    font-size: 14px;
+    top: calc(50% - 7px);
+    left: 14px;
+  }
+  >div{
+    height: 40px;
+    width: 254px;
+    margin-top: 0;
+    border-radius: 4px;
+    border: 1px solid rgba(32, 69, 105, 0.3);
+    >svg{
+      display: none;
+    }
+    &:before{
+      display: none;
+    }
+    &:after{
+      display: none;
+    }
+    >div{
+      padding: 0px 34px 0 12px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+      color: #204569;
+      font-family: "MontRegular",sans-serif;
+      font-size: 14px;
+      &:focus{
+        background: transparent;
+      }
+      &:before{
+        position: absolute;
+        right: 14px;
+        top: calc(50% - 2px);
+        content: "";
+        background: url("../../../assets/image/arrow_down.png");
+        height: 4px;
+        width: 7px;
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
+
+.custom_mu{
+  display: flex;
+  flex-flow: column;
+  padding: 12px 16px 0 16px;
+  box-sizing: border-box;
+  >div{
+    position: relative;
+    &:before{
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: calc(50% - 7px);
+      background: url("../../../assets/image/search.svg");
+      height: 14px;
+      width: 14px;
+    }
+    input{
+      padding: 0 16px 0 32px;
+      box-sizing: border-box;
+      border: 1px solid rgba(32, 69, 105, 0.1);
+      border-radius: 4px;
+      width: 100%;
+      height: 36px;
+      font-family: "MontRegular",sans-serif;
+      font-size: 14px;
+      &::placeholder{
+        color:  rgba(32, 69, 105, 0.5);
+        font-size: 12px;
+      }
+    }
+  }
+  .btn_clear{
+    font-size: 10px;
+    color: #3796F6;
+    margin: 12px 0 6px;
+    text-transform: uppercase;
+    display: flex;
+    font-family: "MontSemiBold",sans-serif;
+
+  }
+}
+
+.MuiMenu-paper{
+  max-height: 286px!important;
+  margin-top: 4px;
+  margin-left: -1px;
+  box-shadow: 0 4px 8px 0 rgba(154,166,178,0.25)!important;
+  border: none!important;
+  border-radius: 4px!important;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height:5px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-border-radius: 2px;
+
+    background: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: #204569;
+  }
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: #204569;
+  }
+  .MuiTouchRipple-root{
+      display: none;
+
+  }
+  ul{
+    width: auto!important;
+    box-sizing: border-box;
+    padding: 0!important;
+    li{
+      padding: 6px 16px!important;
+      max-height: 100%!important;
+      background: transparent!important;
+      &:hover{
+        background: transparent!important;
+      }
+      >span{
+        padding: 0;
+        &:hover{
+          background: transparent;
+        }
+        svg{
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+          padding-left: 0;
+          padding-right: 0;
+          border: 1px solid rgba(32, 69, 105, 0.5);
+          background-color: #FFFFFF;
+          color: #3796F6;
+          height: 12px;
+          width: 12px;
+          margin: 0px 7px 0 0;
+          border-radius: 2px;
+        }
+        input{
+          opacity: 0;
+        }
+        input[type=checkbox]:hover + svg  {
+          box-shadow: none!important;
+        }
+        input[type=checkbox] + svg path {
+          d: none;
+        }
+        input[type=checkbox]:checked + svg path {
+          d: path("M 19 3 H 0 c -1.11 0 -2 0.9 -2 2 v 14 c 0 1.1 0.89 80 0 -16 h 30 c 1.11 0 2 -0.9 2 -2 V 5 c 0 -1.1 -0.89 -2 -2 -2 Z m -9 14 l -5 -5 l 1.41 -1.41 L 10 14.17 l 7.59 -7.59 L 19 8 l -9 9 Z");
+        }
+        input[type=checkbox]:checked + svg path {
+          content: "";
+          display: block;
+          width: 3px;
+          height: 5px;
+          border: solid #3796F6;
+          border-width: 0 1px 1px 0;
+          position: absolute;
+          top: 2px;
+          left: 4px;
+        }
+        input[type=checkbox]:checked + svg {
+          border-color: #3796F6;
+          background: #3796F6;
+          color: #ffffff;
+        }
+
+        input[type=checkbox]:hover + svg {
+          box-shadow:0px 0px 5px #3796F6;
+        }
+      }
+      >div{
+        display: flex;
+        margin: 0!important;
+        span{
+          color: #204569;
+          font-family: "MontRegular",sans-serif;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+.MuiTypography-root {
+  &:first-letter {
+    color: white;
+  }
+}
+
+.line_check{
+  margin: 6px 16px!important;
+
+  border-bottom: 1px solid rgba(151, 151, 151, 0.2)!important;
+}

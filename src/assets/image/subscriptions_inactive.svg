@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>subscriptions_inactive</title>
+    <g id="subscriptions_inactive" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" fill="none" opacity="0" x="0" y="0" width="64" height="64" rx="10"></rect>
+            <rect id="Rectangle" x="16" y="16" width="32" height="32"></rect>
+            <g id="Group-2" transform="translate(14.000000, 20.000000)">
+                <path d="M26.9408975,15.9960594 C24.7437261,13.5433494 21.5520973,12 18,12 C11.372583,12 6,17.372583 6,24" id="Oval" stroke="#FFFFFF" stroke-width="4" transform="translate(16.470449, 18.000000) scale(1, -1) translate(-16.470449, -18.000000) "></path>
+                <path d="M30,12 C30,5.372583 24.627417,0 18,0 C14.4431888,0 11.2478035,1.54744837 9.05036031,4.00582896" id="Oval" stroke="#FFFFFF" stroke-width="4"></path>
+                <polygon id="Path" fill="#FFFFFF" points="24 12 36 12 30 18"></polygon>
+                <polygon id="Path-Copy" fill="#FFFFFF" transform="translate(6.000000, 9.000000) scale(1, -1) translate(-6.000000, -9.000000) " points="0 6 12 6 6 12"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>99874FF3-4B99-4CF2-8597-F250EBB672B4</title>
+    <g id="Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="orders" transform="translate(-1240.000000, -353.000000)">
+            <g id="table" transform="translate(224.000000, 202.000000)">
+                <g id="1" transform="translate(40.000000, 151.000000)">
+                    <g id="upload" transform="translate(988.000000, 12.000000) rotate(-90.000000) translate(-988.000000, -12.000000) translate(976.000000, 0.000000)">
+                        <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M10,4 L8,4 C5.790861,4 4,5.790861 4,8 L4,16 C4,18.209139 5.790861,20 8,20 L10,20 L10,20" id="Path-2" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                        <line x1="10" y1="12" x2="20" y2="12" id="Path-4" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                        <polyline id="Path-5" stroke="#3796F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="17 9 20 12 17 15"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

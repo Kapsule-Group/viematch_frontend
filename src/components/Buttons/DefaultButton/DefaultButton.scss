@@ -29,23 +29,9 @@
       border: 1px solid #3796F6;
     }
     &.default_button_outlined {
-      color: #ffffff;
-      border: 1px solid #ffffff;
-      &.cancel_btn {
-        border: 1px solid #7F8FA4;
-        color: #7F8FA4;
-      }
-      &.blue_btn {
-        border: 1px solid #3796F6;
-        color: #3796F6;
-        &:hover{
-          background: rgba(55, 150, 246, 0.1);
-        }
-      }
-      &.delete_btn {
-        border: 1px solid #D0021B;
-        color: #D0021B;
-      }
+      border: 1px solid #3796F6;
+      color: #3796F6;
+      background-color: #ffffff;
     }
   }
   .full_btn_width {

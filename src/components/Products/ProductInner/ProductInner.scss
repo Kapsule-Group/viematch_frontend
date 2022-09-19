@@ -1,0 +1,490 @@
+.product_inner {
+  display: flex;
+  flex-flow: column;
+  .content_page {
+    background: #ffffff;
+    padding: 36px 40px 10px;
+    margin-bottom: 72px;
+    box-shadow: 0 4px 16px 0 rgba(154, 166, 178, 0.15);
+    border-radius: 10px;
+  }
+
+  .add-btn {
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 10px;
+    color: #3796f6;
+    line-height: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .mt40 {
+    margin-top: 40px;
+  }
+  .title_block {
+    margin-bottom: 32px;
+    color: #204569;
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .general_info {
+    border-bottom: 1px dashed rgba(32, 69, 105, 0.25);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    .block-input {
+      margin-bottom: 0;
+    }
+    .block_field {
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: row;
+      > div {
+        display: flex;
+        flex-direction: column;
+        span {
+          font-family: 'MontSemiBold', sans-serif;
+          font-size: 10px;
+          line-height: 13px;
+          padding-bottom: 8px;
+          color: #204569;
+        }
+        input {
+          padding: 0 16px;
+          box-sizing: border-box;
+          border: 1px solid rgba(32, 69, 105, 0.3);
+          border-radius: 4px;
+          height: 48px;
+          font-family: 'MontRegular', sans-serif;
+          font-size: 14px;
+          &::placeholder {
+            color: rgba(32, 69, 105, 0.5);
+          }
+        }
+
+        .select_component {
+          .select__menu .select__menu-list .select__option {
+            padding: 8px 16px;
+          }
+          .select__control {
+            .select__single-value {
+              min-height: 48px;
+              height: 48px;
+              padding-left: 16px !important;
+              align-items: center;
+              display: flex;
+            }
+          }
+        }
+        .select__value-container {
+          > div {
+            margin: 0;
+            padding: 0 0 0 20px;
+          }
+        }
+        .custom-input-wrapper {
+          max-width: 100% !important;
+        }
+      }
+      > div:first-of-type {
+        margin-right: 32px;
+        input {
+          width: 520px;
+        }
+        .select_wrapper {
+          width: 520px;
+          // height: 48px;
+        }
+      }
+      > div:nth-child(2) {
+        margin-right: 32px;
+        input {
+          width: 260px;
+        }
+        .select_wrapper {
+          width: 260px;
+          // height: 48px;
+        }
+      }
+    }
+    .four-fields {
+      > div {
+        input {
+          width: 106px !important;
+        }
+        &:last-child {
+          input {
+            width: 124px !important;
+          }
+        }
+      }
+      > div:first-of-type {
+        margin-right: 32px;
+      }
+      > div:nth-child(2) {
+        margin-right: 32px;
+      }
+      > div:nth-child(3) {
+        margin-right: 32px;
+      }
+      > div:nth-child(4) {
+        margin-right: 32px;
+      }
+      > div:nth-child(5) {
+        margin-right: 32px;
+      }
+
+      .react-datepicker__close-icon {
+        right: -55px !important;
+        &::after {
+          background-color: #fff;
+          color: rgba(32, 69, 105, 0.5) !important;
+          font-size: 25px;
+        }
+      }
+      .date-picker {
+        position: relative;
+        img {
+          position: absolute;
+          top: 15px;
+          right: 8px;
+          cursor: pointer;
+        }
+        &.disabled {
+          input {
+            color: rgba(32, 69, 105, 0.5) !important;
+          }
+        }
+      }
+      .open-end-checknox.due-date-checkbox {
+        position: absolute;
+        top: 34px;
+        right: -145px;
+        cursor: pointer;
+        > input {
+          width: 30px !important;
+          cursor: pointer;
+        }
+        label {
+          cursor: pointer;
+        }
+      }
+    }
+    .description {
+      display: flex;
+      flex-direction: column;
+      width: 812px;
+      margin-bottom: 32px;
+      span {
+        font-family: 'MontSemiBold', sans-serif;
+        font-size: 10px;
+        line-height: 13px;
+        padding-bottom: 8px;
+        color: #204569;
+      }
+    }
+  }
+  .photos-header {
+    color: #204569;
+    font-family: 'MontSemiBold', sans-serif;
+    font-size: 16px;
+  }
+  .photos-description {
+    opacity: 0.5;
+    color: #204569;
+    font-size: 14px;
+    font-family: 'MontRegular';
+    margin-top: 16px;
+  }
+  .main-photos-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    > div {
+      &:first-of-type {
+        margin-right: 32px;
+      }
+      > p {
+        color: #204569;
+        font-size: 10px;
+        font-family: 'MontSemiBold', sans-serif;
+        margin-bottom: 12px;
+      }
+      label {
+        cursor: pointer;
+      }
+
+      .main-solo-photo {
+        position: relative;
+        .main-photo {
+          height: 120px;
+          width: 120px;
+          border-radius: 4px;
+          object-fit: cover;
+        }
+        .delete-icon {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .photos-wrapper {
+    display: flex;
+    align-items: center;
+
+    > div {
+      margin-right: 16px;
+      position: relative;
+    }
+    label {
+      cursor: pointer;
+    }
+    .main-photo {
+      height: 120px;
+      width: 120px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .delete-icon {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      cursor: pointer;
+    }
+  }
+  .wrapper_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 32px 0;
+    padding-top: 40px;
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    > div {
+      display: flex;
+      align-items: center;
+      button,
+      div {
+        margin-right: 24px;
+        font-family: 'MontBold', sans-serif;
+        font-size: 14px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        width: 168px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        padding-bottom: 22px;
+        padding-top: 24px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.calendar-block {
+  position: relative;
+}
+
+//REPLACE PRODUCT PAGE
+
+.subtitle_block {
+  color: #204569;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.replace {
+  display: flex;
+  margin-top: 32px;
+  justify-content: space-between;
+  max-width: 996px;
+  width: 100%;
+  > svg {
+    margin-top: 30px;
+  }
+  .btn_wrapper {
+    margin-top: 15px;
+  }
+  &__conatiner {
+    display: flex;
+    max-width: 470px;
+    width: 100%;
+  }
+  &__add--btn {
+    color: #3796f6;
+    font-size: 10px;
+    font-family: 'MontSemiBold', sans-serif;
+    line-height: 16px;
+    text-align: right;
+    display: flex;
+    margin-top: 37px;
+    margin-left: 16px;
+    white-space: nowrap;
+  }
+  &__block {
+    display: flex;
+    flex-direction: column;
+    max-width: 358px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+
+    span {
+      color: #204569;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'MontSemiBold', sans-serif;
+      letter-spacing: 0;
+      line-height: 13px;
+      margin-bottom: 8px;
+    }
+
+    .select_wrapper {
+      .select__placeholder {
+        top: -10px !important;
+      }
+      .select_component {
+        height: 48px;
+      }
+      input {
+        padding: 0 15px !important;
+      }
+      .select__single-value {
+        padding: 0 15px !important;
+      }
+    }
+  }
+
+  &__select {
+    > span {
+      color: #204569;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 13px;
+      margin-bottom: 8px;
+      font-family: 'MontSemiBold', sans-serif;
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: #f5f9fe;
+    padding: 149px 126px;
+    border-radius: 4px;
+    margin-top: 8px;
+    > span {
+      margin-top: 8px;
+      opacity: 0.5;
+      color: #204569;
+      font-family: 'MontRegular', sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
+
+  &__list {
+    margin-top: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+    height: 356px;
+    overflow-y: scroll;
+    background: #f5f9fe;
+    border-radius: 4px;
+    //scroll styles
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      width: 3px;
+      border-radius: 3px;
+      background-color: #204569;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &--item {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      p {
+        text-transform: capitalize;
+        color: #204569;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .status_block {
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'MontSemiBold', sans-serif;
+      font-size: 10px;
+      line-height: 10px;
+      margin-left: 8px;
+      border-radius: 14px;
+      align-items: center;
+
+      img {
+        margin-right: 6px;
+      }
+    }
+    .overdue {
+      color: #e44b4b;
+      background-color: rgba(228, 75, 75, 0.1);
+    }
+    .paid {
+      color: #2cc197;
+      background-color: rgba(44, 193, 151, 0.1);
+    }
+    .partial {
+      background-color: rgba(253, 164, 92, 0.1);
+      color: #fda45c;
+    }
+    .new {
+      background-color: rgba(55, 150, 246, 0.1);
+      color: #3796f6;
+    }
+    .refunded {
+      background-color: rgba(143, 162, 180, 0.1);
+      color: #8fa2b4;
+    }
+  }
+}
+
+.block_add_field.withMargin {
+  margin-bottom: 32px;
+}
+
+.date-picker.product-page {
+  width: 120px;
+}

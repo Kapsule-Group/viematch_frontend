@@ -1,0 +1,108 @@
+.expansion_modern {
+  .expansion_panel {
+    box-shadow: none;
+    .head {
+      min-height: auto;
+      padding: 0;
+      > div {
+        margin: 0;
+      }
+      .MuiIconButton-root {
+        position: absolute;
+        right: 0;
+        > span:first-of-type {
+          svg {
+            width: 16px;
+            height: 16px;
+            path {
+              color: #204569;
+            }
+          }
+        }
+        > span:last-of-type {
+          display: none;
+        }
+      }
+    }
+    .body {
+      padding: 0;
+    }
+  }
+
+  .expansion_row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    &:first-child {
+      margin-bottom: 24px;
+    }
+    &:last-child {
+      flex-direction: column;
+    }
+  }
+
+  .expansion__elem_title {
+    opacity: 0.5;
+    color: #204569;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 14px;
+  }
+
+  .expansion__elem {
+    font-family: 'MontRegular', sans-serif;
+    &.category {
+      .expansion__elem_text {
+        color: #3796f6;
+        font-size: 14px;
+        font-family: 'MontSemiBold', sans-serif;
+        font-weight: 600;
+        line-height: 19px;
+      }
+    }
+    &.fincategory {
+      margin-right: 258px;
+    }
+  }
+
+  .expansion__elem_text {
+    color: #204569;
+    font-size: 14px !important;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-top: 8px;
+    > span {
+      color: #204569;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 18px;
+      padding: 0;
+    }
+  }
+
+  .info_wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #ebf4fe;
+    overflow: hidden;
+    padding: 24px 32px;
+    box-sizing: border-box;
+    > div {
+      div {
+        color: #204569;
+        font-size: 14px;
+        line-height: 18px;
+      }
+      div:first-child:last-child {
+        opacity: 0.5;
+        padding: 10px 0;
+      }
+    }
+  }
+}

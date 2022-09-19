@@ -12,38 +12,23 @@
   }
 }
 
-
 .auth-block_head{
   font-weight: 600;
   font-size: 32px;
-  color: #204569;
   letter-spacing: -1px;
   line-height: 42px;
   padding-bottom: 16px;
   font-family: "MontSemiBold",sans-serif;
 }
 .auth-block_descriptions{
-  color: #204569;
   font-size: 14px;
   margin-bottom: 64px;
   line-height: 22px;
-  font-family: "MontRegular",sans-serif;
 }
 
 .block_field{
   display: flex;
   flex-flow: column;
-  position: relative;
-
-  .info_descriptions{
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 8px;
-    opacity: 0.5;
-    color: #204569;
-    font-size: 10px;
-  }
   .password_reset{
     display: flex;
     justify-content: space-between;
@@ -63,7 +48,9 @@
       padding-bottom: 8px;
       display: flex;
     }
-
+  }
+  >.block_field {
+    flex-flow: row;
   }
   >span{
     font-size: 10px;
@@ -76,14 +63,15 @@
       font-family: "MontRegular",sans-serif;
     }
   }
-
-      .back_error{
-        color: #D0021B;
-        background-color: transparent;
-        bottom: 6px;
-        left: unset;
-      }
-
+  >span:not(:first-child){
+    margin-left: 10px;
+    color: red;
+    font-weight: 900;
+    display: none;
+  }
+  >span.visible {
+    display: flex;
+  }
   textarea{
     font-family: "MontRegular",sans-serif;
     padding: 14px 16px;
@@ -95,6 +83,7 @@
     border: 1px solid rgba(32, 69, 105, 0.3);
     box-sizing: border-box;
     resize: none;
+    margin-bottom: 30px;
     &:focus{
       border: 1px solid #204569;
     }
@@ -152,17 +141,7 @@
   padding-top: 34px;
   display: flex;
   justify-content: center;
-  padding-bottom: 30px;
-}
-.back_error{
-  padding-bottom: 100px;
-  color: #D0021B;
-  position: absolute;
-  left: 120px;
-  font-family: "MontRegular",sans-serif!important;
-}
-.back_error.third{
-  left: 165px;
+  padding-bottom: 140px;
 }
 .back_step{
   font-family: "MontSemiBold",sans-serif;
@@ -184,10 +163,16 @@
   display: flex;
   justify-content: space-between;
   .block-input{
-    width: 250px;
+    input{
+      width: 320px;
+    }
   }
   .custom_field_phone{
-    width: 250px;
+    .block-input{
+      input{
+        width: 176px;
+      }
+    }
   }
   .captcha_block{
     >div{
@@ -279,7 +264,7 @@
   }
   & > :last-child {
     width: 70%;
-    //background-color: #ffffff;
+    background-color: #ffffff;
   }
 }
 

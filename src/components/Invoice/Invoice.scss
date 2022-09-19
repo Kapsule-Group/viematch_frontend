@@ -1,0 +1,185 @@
+.invoice_page{
+  display: flex;
+  flex-flow: column;
+  .content_page {
+    background: #fff;
+    padding: 36px 40px;
+    margin-bottom: 72px;
+    box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
+    border-radius: 10px;
+  }
+  .add_btn{
+    margin-right: 24px;
+    color: #3796F6;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-family: "MontSemiBold",sans-serif;
+  }
+  .transactions_columns {
+    .table_row {
+      & > :first-child {
+        width: 34%;
+      }
+      & > :nth-child(2) {
+        width: 33%;
+      }
+      & > :last-child {
+        width: 33%;
+      }
+    }
+  }
+
+
+}
+.dialog_invoice{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  .title {
+    font-size: 32px;
+    font-family: "MontSemiBold", sans-serif;
+    letter-spacing: -1px;
+    line-height: 42px;
+    padding-bottom: 32px;
+  }
+  .wrapper{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    .block{
+      margin: 0 0 20px;
+      display: flex;
+      .block-input{
+        margin-bottom: 0;
+      }
+      .select{
+        width: 100%;
+      }
+      .quantity{
+        margin: 0 20px;
+        width: 15%;
+        min-width: 15%;
+
+      }
+      .amount{
+        width: 15%;
+        min-width: 15%;
+      }
+      .delete_field_btn{
+        margin-top: 21px;
+        margin-left: 20px;
+      }
+    }
+
+  }
+  .wrapper {
+    >div:nth-child(2){
+      margin: 20px 0;
+    }
+    >div:nth-child(3){
+      >button{
+        z-index: -1;
+      }
+    }
+  }
+  .block_field{
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    > span {
+      display: flex;
+      padding-bottom: 8px;
+      font-family: "MontSemiBold", sans-serif;
+      font-size: 10px;
+      line-height: 13px;
+    }
+  }
+
+  .add{
+    color: #3796F6;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .btn_wrapper{
+    display: flex;
+    padding-top: 20px;
+    button{
+      margin-right: 16px;
+    }
+    .default_button_wrapper{
+      .default_button{
+        height: 36px;
+        font-size: 10px;
+        border-radius: 2px;
+        width: 104px;
+        min-width: 104px;
+      }
+
+    }
+
+  }
+  .custom_search{
+    position: relative;
+    input{
+      font-family: "MontRegular",sans-serif;
+      background: #fff;
+      display: block;
+      height: 48px;
+      width: 100%;
+      font-size: 14px;
+      padding: 0 16px;
+      color: #204569;
+      border-radius: 4px;
+      border: 1px solid rgba(32, 69, 105, 0.3);
+      box-sizing: border-box;
+      :focus {
+        border: 1px solid #204569;
+      }
+    }
+    .search_info{
+      z-index: 9;
+      display: flex;
+      flex-flow: column;
+      position: absolute;
+      background: #ffffff;
+      border-radius: 4px;
+      border: 1px solid rgba(32, 69, 105, 0.3);
+      top: 50px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      max-height: 120px;
+      overflow: auto;
+      font-size: 14px;
+      padding: 5px 12px;
+      box-sizing: border-box;
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      &::-webkit-scrollbar-track {
+        -webkit-border-radius: 2px;
+        background: #ffffff;
+      }
+      &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        background: rgba(132, 148, 185, 0.3);
+      }
+      &::-webkit-scrollbar-thumb:window-inactive {
+        background: rgba(132, 148, 185, 0.3);
+      }
+      .product_search{
+        span{
+          display: flex;
+          padding: 2px 0;
+          cursor: pointer;
+
+        }
+      }
+
+    }
+  }
+}
+

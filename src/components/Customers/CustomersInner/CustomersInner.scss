@@ -1,0 +1,140 @@
+.customers_inner_page{
+  display: flex;
+  flex-flow: column;
+  .content_page{
+    background: #ffffff;
+    padding: 32px 40px 10px;
+    margin-bottom: 72px;
+    box-shadow: 0 4px 16px 0 rgba(154,166,178,0.15);
+    border-radius: 10px;
+  }
+
+  .pagination_info_wrapper{
+    border-top: 1px solid rgba(32, 69, 105, 0.25);
+    padding-bottom: 20px;
+  }
+  .title_table{
+    font-family: "MontSemiBold",sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    padding-bottom: 15px;
+  }
+  .customers_inner_table{
+    .transactions_columns {
+      .table_row {
+        & > :first-child {
+          width: 20%;
+        }
+        & > :nth-child(2) {
+          width: 10%;
+        }
+        & > :nth-child(3) {
+          width: 15%;
+          display: flex;
+          justify-content: center;
+        }
+        & > :nth-child(4) {
+          width: 15%;
+        }
+        & > :nth-child(5) {
+          width: 10%;
+        }
+        & > :nth-child(6) {
+          width: 15%;
+          display: flex;
+          justify-content: center;
+        }
+        & > :nth-child(7) {
+          width: 10%;
+        }
+        & > :last-child {
+          width: 10%;
+        }
+      }
+    }
+
+  }
+  .demands_table{
+    .transactions_columns {
+      .table_row {
+        .row {
+          & > :first-child {
+            width: 10%;
+          }
+          & > :nth-child(2) {
+            width: 10%;
+          }
+          & > :nth-child(3) {
+            width: 35%;
+          }
+          & > :nth-child(4) {
+            width: 10%;
+          }
+          & > :nth-child(5) {
+            width: 10%;
+          }
+          & > :nth-child(6) {
+            width: 10%;
+          }
+          & > :nth-child(7) {
+            width: 10%;
+          }
+          & > :last-of-type {
+            width: 5%;
+            justify-content: center;
+            display: flex;
+          }
+        }
+
+      }
+    }
+
+  }
+
+}
+
+.custom_title_wrapper{
+  .link_req{
+    display: flex;
+    a{
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      color: #3796F6;
+      font-family: "MontSemiBold",sans-serif;
+      font-size: 10px;
+      line-height: 14px;
+      text-transform: uppercase;
+      img{
+        margin-right: 8px;
+        margin-top: -2px;
+      }
+    }
+
+  }
+  .title_page{
+    padding-bottom: 24px;
+  }
+  .info_custom{
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    >div{
+      display: flex;
+      align-items: center;
+      font-family: "MontSemiBold",sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      margin-right: auto;
+      img{
+        margin-right: 12px;
+      }
+      span{
+        padding-left: 6px;
+        font-family: "MontRegular",sans-serif;
+      }
+    }
+  }
+
+}
+

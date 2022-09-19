@@ -1,119 +1,144 @@
 .select_component {
-  height: 100%;
-  & ~ .date_wrapper {
-    margin-left: 20px;
-  }
-  .select__control--is-focused {
-    box-shadow: none;
-    border: 1px solid #65A3E8;
-    .indicator_active {
-      svg {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        transform: rotate(180deg);
-      }
+    // height: 48px;
+    &.select--is-disabled {
+        cursor: not-allowed !important;
     }
-  }
+    & ~ .date_wrapper {
+        margin-left: 20px;
+    }
+    .select__control {
+        height: 100%;
+        background-color: #ffffff;
+        border: 1px solid rgba(32,69,105,.3);
+        border-radius: 4px;
+        color: #020018 !important;
+        font-family: "MontserratSemiBold", sans-serif !important;
+        font-size: 14px;
+        &:hover {
+            cursor: pointer;
+            border: 1px solid rgba(32,69,105,.3);
+        }
+        .select__placeholder {
+            padding-left: 20px;
+            margin: 0 !important;
+            width: 100%;
+            border-radius: 4px;
+            height: 48px;
+            font-family: MontRegular,sans-serif;
+            font-size: 14px;
+            top: 0!important;
+            line-height: 48px;
+            color:  rgba(32, 69, 105, 0.5);
+            transform: translateY(0%)
+    }
 
+    .select__value-container {
+        padding: 0 !important;
+    }
 
-  .select__control {
-    height: 100%;
-    background-color: #ffffff;
-    color: #204569!important;
-    font-family: "MontRegular",sans-serif!important;
-    font-size: 14px;
-    border: 1px solid rgba(32,69,105,0.3);
-    border-radius: 4px;
-    &:hover {
-      cursor: pointer;
-      border: 1px solid rgba(32,69,105,0.3);
-    }
-    .select__placeholder {
-      color: rgba(127, 143, 164, 0.5);
-      //color: #7F8FA4;
-    }
     .select__single-value {
-      color: #204569;
-      margin: 0!important;
-      padding-left: 8px!important;
+        color: #383838;
+        margin: 0 !important;
+        padding-left: 0px !important;
+    }
+    .select__indicator {
+        padding-right: 20px;
     }
     .select__indicator-separator {
-      background: none;
+        background: none;
     }
     .select_indicator {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      svg {
-        transition: all 0.3s linear;
-        fill: #204569;
-        font-size: 14px;
-      }
-    }
-  }
-  .select__menu {
-    z-index: 9999;
-    border-radius: 4px!important;
-    box-shadow: 0 4px 8px 0 rgba(154,166,178,0.25)!important;
-    border: none!important;
-    .select__menu-list {
-      font-size: 12px;
-      font-family: "MontRegular",sans-serif!important;
-      color: #204569;
-      background: transparent;
-      .select__option{
-        background: transparent;
-        color: #204569;
-        cursor: pointer;
-        &:hover{
-          background-color: rgba(32,69,105,0.05);
-          color: #204569;
-        }
-      }
-      .select__option--is-selected {
-        color: #204569;
-        font-family: "MontSemiBold",sans-serif!important;
-      }
-      .status_select{
-        padding: 0 12px;
         display: flex;
         align-items: center;
-        background: transparent;
-        &:hover{
-          background: transparent;
+        justify-content: center;
+        img {
+            transition: all 0.3s linear;
         }
-      }
-
     }
-  }
-  input{
+}
+.select__control--is-focused {
+    box-shadow: none;
+    //border: 1px solid #020018!important;
+    &:hover {
+        //border: 1px solid #020018!important;
+    }
+    .indicator_active {
+        img {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+}
+.select__menu {
+    z-index: 9999;
+    border-radius: 4px !important;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+    border: none !important;
+    margin-top: 2px !important;
+    .select__menu-list {
+        font-size: 14px;
+        font-family: "MontserratMedium", sans-serif !important;
+        color: #020018;
+        background: transparent;
+        
+        .select__option {
+            background: transparent;
+            color: rgba(2, 0, 24, 0.5);
+            cursor: pointer;
+            transition: all 0.3s linear;
+            &:hover {
+                color: #020018;
+            }
+        }
+        .select__option--is-selected {
+            color: #020018;
+            font-family: "MontserratMedium", sans-serif !important;
+            background-color: #ffffff;
+        }
+        .status_select {
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            background: transparent;
+            &:hover {
+                background: transparent;
+            }
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            -webkit-border-radius: 2px;
+            background: #ffffff;
+        }
+        &::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            background: rgba(132, 148, 185, 0.3);
+        }
+        &::-webkit-scrollbar-thumb:window-inactive {
+            background: rgba(132, 148, 185, 0.3);
+        }
+    }
+}
+input {
     height: unset;
-  }
+}
 }
 
-.select_wrapper{
-  height: 40px;
-  width: 254px;
+@media only screen and (max-width: 1279px) {
+.select_component {
+    height: 48px;
 }
-.status{
-  display: flex;
-  align-items: center;
-  .up{
-    margin-right: 10px;
-  }
-  .down{
-    margin-right: 10px;
-    transform: rotate(180deg);
-  }
-  span{
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    margin-right: 3px;
-  }
+.status span {
+    display: none;
 }
-
-
-
+.select_component .select__menu .select__menu-list .select__option {
+    padding: 8px 0;
+}
+}

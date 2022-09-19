@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>6DFBB6D8-3677-465A-A19E-6CC91B1019E1</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1152" height="311" rx="10"></rect>
+        <filter x="-2.3%" y="-7.1%" width="104.5%" height="116.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.603921569   0 0 0 0 0.650980392   0 0 0 0 0.698039216  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="customer-statements-tooltip" transform="translate(-1173.000000, -453.000000)">
+            <rect id="Rectangle" fill="#EBF4FE" x="0" y="0" width="1440" height="1503"></rect>
+            <g id="form-copy" transform="translate(224.000000, 202.000000)">
+                <g id="Rectangle">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="1-copy-11" transform="translate(40.000000, 247.000000)" stroke="#E44B4B">
+                    <g id="Group" transform="translate(909.000000, 4.000000)">
+                        <circle id="Oval" cx="8" cy="8" r="7.5"></circle>
+                        <g id="Group-2" transform="translate(8.000000, 7.777778) scale(1, -1) translate(-8.000000, -7.777778) translate(5.333333, 5.333333)">
+                            <polyline id="Path-4" points="0 2.66666667 2.66666667 4.88888889 5.33333333 2.66666667"></polyline>
+                            <polyline id="Path-4-Copy" points="0 0 2.66666667 2.22222222 5.33333333 0"></polyline>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
