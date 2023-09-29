@@ -57,7 +57,6 @@ const ProductCard = ({
                                 onChange={e => setInputValue(+e.target.value)}
                                 onClick={e => e.stopPropagation()}
                                 onBlur={e => {
-                                    console.log(e.target.value);
                                     if (e.target.value < 1) {
                                         setInputValue(1);
                                     }
@@ -75,7 +74,6 @@ const ProductCard = ({
                         <button
                             className="add-cart"
                             onClick={e => {
-                                console.log(e);
                                 e.stopPropagation();
                                 postRequest({ product_id: id, quantity: inputValue, incart: true }).then(res => {
                                     if (res.payload && res.payload.status && res.payload.status === 201) {

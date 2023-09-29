@@ -3,12 +3,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    position: absolute;
     align-items: center;
-}
-
-.loader_small {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 19px;
 }

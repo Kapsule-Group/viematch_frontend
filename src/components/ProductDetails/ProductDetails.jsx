@@ -11,7 +11,7 @@ import RecommendedElem from "./RecommendedElem";
 import Radio from "../../assets/image/radio.svg";
 import DialogComponent from "./../HelperComponents/DialogComponent/DialogComponent";
 import { toast } from "react-toastify";
-import { postRequest } from "../../actions/stockActions";
+import { postRequest, createSub } from "../../actions/stockActions";
 import CartImg from "../../assets/image/shopping_cart_white.svg";
 import Loader from "../HelperComponents/ContentLoader/ContentLoader";
 
@@ -35,7 +35,8 @@ const ProductDetails = ({
     recommended: { results },
     info: { currency },
     postRequest,
-    history
+    history,
+    createSub
 }) => {
     const [loading, setLoading] = useState(true);
 
@@ -100,11 +101,30 @@ const ProductDetails = ({
 
     const wordArray = ["Every week", "Every month", "Every year"];
 
+    const returnPeriod = adv => {
+        switch (adv) {
+            case 0:
+                return "week";
+            case 1:
+                return "month";
+            case 2:
+                return "year";
+            default:
+                return "week";
+        }
+    };
+
     const [activeAdv, setActiveAdv] = useState(0);
 
     const [dialogOpened, setDialogOpened] = useState(false);
 
+    const [dialogAdvertising, setdialogAdvertising] = useState(false);
+
     const toggleDialog = () => setDialogOpened(!dialogOpened);
+
+    const toggleDialogAdvertising = () => setdialogAdvertising(!dialogAdvertising);
+
+    const [amountValue, setAmountValue] = useState("0");
 
     let photoArr = [];
 
@@ -207,7 +227,6 @@ const ProductDetails = ({
                                                 onChange={e => setInputValue(+e.target.value)}
                                                 onClick={e => e.stopPropagation()}
                                                 onBlur={e => {
-                                                    console.log(e.target.value);
                                                     if (e.target.value < 1) {
                                                         setInputValue(1);
                                                     }
@@ -249,19 +268,21 @@ const ProductDetails = ({
                             </div>
                         </div>
                     </div>
-                    {/* <div className="advertising">
-                    <p className="name">Subscribe to this item</p>
-                    <p className="description">Add this product to your subscription and get up to 20% discount NOW</p>
-                    <p className="choose-plan">Choose a subscription plan:</p>
-                    {wordArray.map((el, idx) => (
-                        <div className="option" onClick={() => setActiveAdv(idx)} key={idx}>
-                            {activeAdv === idx ? <img src={Radio} alt="" /> : <div className="empty-radio" />}
-                            <p>{el}</p>
-                        </div>
-                    ))}
+                    <div className="advertising">
+                        <p className="name">Subscribe to this item</p>
+                        <p className="description">
+                            Add this product to your subscription and get up to 20% discount NOW
+                        </p>
+                        <p className="choose-plan">Choose a subscription plan:</p>
+                        {wordArray.map((el, idx) => (
+                            <div className="option" onClick={() => setActiveAdv(idx)} key={idx}>
+                                {activeAdv === idx ? <img src={Radio} alt="" /> : <div className="empty-radio" />}
+                                <p>{el}</p>
+                            </div>
+                        ))}
 
-                    <button>Subscribe</button>
-                </div> */}
+                        <button onClick={toggleDialogAdvertising}>Subscribe</button>
+                    </div>
                 </div>
             )}
 
@@ -292,6 +313,78 @@ const ProductDetails = ({
                     </Slider>
                 </div>
             </DialogComponent>
+
+            <DialogComponent
+                open={dialogAdvertising}
+                onClose={() => {
+                    toggleDialogAdvertising();
+                    setAmountValue("0");
+                }}
+                paper_classes=""
+            >
+                <div className="dialog_advertising">
+                    <div className="title">Product subscription</div>
+                    <div className="descriptions">
+                        You are about to send a request to subscribe receiving the product
+                        <span> {name} </span>
+                        every
+                        <span> {returnPeriod(activeAdv)} </span>
+                        in the amount of:
+                    </div>
+                    <div className="quantity">
+                        <input
+                            type="number"
+                            placeholder="amount"
+                            value={amountValue}
+                            onChange={e => setAmountValue(e.target.value)}
+                        />
+                        <div>
+                            <button className="plus">
+                                <span onClick={() => setAmountValue(value => `${+value + 1}`)} />
+                            </button>
+                            <button className="minus">
+                                <span
+                                    onClick={() =>
+                                        setAmountValue(value => {
+                                            if (+value >= 1) {
+                                                return `${+value - 1}`;
+                                            }
+                                            return value;
+                                        })
+                                    }
+                                />
+                            </button>
+                        </div>
+                    </div>
+                    <div className="btn_wrapper">
+                        <button
+                            className="cancel_btn"
+                            onClick={() => {
+                                toggleDialogAdvertising();
+                                setAmountValue("0");
+                            }}
+                        >
+                            cancel
+                        </button>
+                        <button
+                            className="blue_btn"
+                            onClick={() => {
+                                createSub({ product: id, quantity: amountValue, period: returnPeriod(activeAdv) }).then(
+                                    res => {
+                                        if (res.payload && res.payload.status && res.payload.status === 201) {
+                                            setAmountValue("0");
+                                            toggleDialogAdvertising();
+                                            toast("The request has been created.");
+                                        }
+                                    }
+                                );
+                            }}
+                        >
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </DialogComponent>
         </div>
     );
 };
@@ -304,6 +397,6 @@ const mapStateToProps = ({ catalog, users }) => {
     };
 };
 
-const mapDispatchToProps = { getProductDetails, getRecommendedProducts, postRequest };
+const mapDispatchToProps = { getProductDetails, getRecommendedProducts, postRequest, createSub };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

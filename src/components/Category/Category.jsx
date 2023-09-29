@@ -56,7 +56,7 @@ const Category = ({
     const [activePage, setActivePage] = useState(1);
     const [activeBrands, setActiveBrands] = useState([]);
     const { path } = search_categories;
-    console.log(results);
+
     return (
         <div className="category-wrapper">
             <CategoriesFilter

@@ -572,13 +572,11 @@ class StockManagement extends Component {
         let data = {
             /* auto_supply: autoSup, */
         };
-        console.log(quantity);
         if (quantity) data.quantity = +quantity;
         /* if (supply_quantity) data.supply_quantity = +supply_quantity;
         if (min_supply_quantity) data.min_supply_quantity = +min_supply_quantity; */
         if (buyingPrice) data.unit_price = +buyingPrice;
         if (stock_name) data.product_name = stock_name;
-        console.log(data);
 
         /* data.product_id = targetId; */
         createInventoryNew(data).then(res => {
@@ -634,7 +632,16 @@ class StockManagement extends Component {
             openSettings,
             limits
         } = this.state;
-        const { stock_list, search_list, list, stock_settings, userInfo, stockSettings, history } = this.props;
+        const {
+            stock_list,
+            search_list,
+            list,
+            stock_settings,
+            userInfo,
+            stockSettings,
+            history,
+            loadingPage
+        } = this.props;
 
         const token = localStorage.getItem("token");
         if (!token) history.push("/main/catalog");
@@ -799,7 +806,11 @@ class StockManagement extends Component {
                                                             </>
                                                         ))}
                                                         <div className="row_item">
-                                                            {row.price ? `${row.price} ${userInfo.currency}` : "-"}
+                                                            {row.price
+                                                                ? `${new Intl.NumberFormat("en-US").format(
+                                                                      Number(row.price).toFixed(2)
+                                                                  )} ${userInfo.currency}`
+                                                                : "-"}
                                                         </div>
                                                         <div className="row_item">
                                                             <button
@@ -889,18 +900,20 @@ class StockManagement extends Component {
                                                                     {openSearch ? null : role !== "user" ? (
                                                                         <Link
                                                                             className={role !== "user" ? "" : "hided"}
-                                                                            to={`/main/catalog/category/${
+                                                                            to={`/main/catalog/category/${row.product_subcategory !==
+                                                                                null &&
                                                                                 row.product_subcategory[0][
                                                                                     row.product_subcategory[0].length -
                                                                                         1
-                                                                                ].id
-                                                                            }`}
+                                                                                ].id}`}
                                                                         >
-                                                                            {row.product_subcategory[1]}
+                                                                            {row.product_subcategory !== null &&
+                                                                                row.product_subcategory[1]}
                                                                         </Link>
                                                                     ) : (
                                                                         <a className="hided">
-                                                                            {row.product_subcategory[1]}
+                                                                            {row.product_subcategory !== null &&
+                                                                                row.product_subcategory[1]}
                                                                         </a>
                                                                     )}
                                                                 </>
@@ -1030,8 +1043,12 @@ class StockManagement extends Component {
                             <button className="cancel_btn" onClick={this.toggleStockDialog}>
                                 Cancel
                             </button>
-                            <button className="blue_btn" onClick={this.addToStock}>
-                                add
+                            <button
+                                className={loadingPage ? "unactive_btn" : "blue_btn"}
+                                disabled={loadingPage}
+                                onClick={this.addToStock}
+                            >
+                                Add
                             </button>
                         </div>
                     </div>
@@ -1099,6 +1116,7 @@ function mapStateToProps({ stock, users }) {
     return {
         stock_list: stock.stock_list,
         search_list: stock.search_list,
+        loadingPage: stock.loading,
         list: {
             stock: stock.stock_list.results,
             search: stock.search_list

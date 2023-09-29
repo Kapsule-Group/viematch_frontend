@@ -28,7 +28,6 @@ class CatalogInterface extends Component {
     };
 
     changeWidth = e => {
-        console.log(e);
         this.setState({
             selectType: e.target.value,
             option: e.target.value,
@@ -37,7 +36,6 @@ class CatalogInterface extends Component {
     };
 
     changeSearchType = e => {
-        console.log(e);
         this.setState({
             selectType: e.target.value,
             option: e.target.value
@@ -218,14 +216,12 @@ class CatalogInterface extends Component {
                 newArr.push(categoryProducts[i]);
             }
             if (categoryProducts[i].name.toLowerCase() === e.target.value.toLowerCase()) {
-                //console.log(categoryProducts[i], 'ошибка');
                 this.setState({
                     nameError: true,
                     nameErrorText: "Product with the same name already exists in this category/subcategory."
                 });
                 break;
             } else {
-                //console.log('нет ошибки');
                 this.setState({
                     nameError: false,
                     nameErrorText: ""
@@ -1014,7 +1010,6 @@ class CatalogInterface extends Component {
     };
 
     searchOnChange = e => {
-        //console.log(e);
         let regEx = /[^a-zA-Zа-яА-Я0-9\s]/g;
         /* this.setState({
             someVal: e.target.value.replace(regEx, ''),

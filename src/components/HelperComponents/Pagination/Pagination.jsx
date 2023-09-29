@@ -4,8 +4,7 @@ import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import './Pagination.scss';
 
-const Pagination = ({active, pageCount, onChange}) => {
-
+const Pagination = ({active, pageCount, pageItemsCount, commentTotalCount, onChange}) => {
     return (
         <div className="pagination-container">
             <ReactPaginate

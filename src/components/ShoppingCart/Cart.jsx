@@ -71,6 +71,9 @@ class Activity extends Component {
         getActivity(activity.value, page).then(res => {
             if (res.payload && res.payload.status && res.payload.status === 200) {
                 this.doStock();
+                this.setState({
+                    loading: false
+                });
             }
         });
     };
@@ -81,7 +84,6 @@ class Activity extends Component {
         getStock("out", false, switcherState).then(res => {
             if (res.payload && res.payload.status && res.payload.status === 200) {
                 this.setState({
-                    loading: false,
                     stockLoad: false
                 });
             }
@@ -236,7 +238,6 @@ class Activity extends Component {
                                             {activityLog.count} products
                                         </div>
                                     </div>
-
                                     {combinedCart.length > 0 ? (
                                         <div className="cart_items">
                                             <ul className="cart_list">

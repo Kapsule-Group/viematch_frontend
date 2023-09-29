@@ -1,30 +1,6 @@
 server {
-    listen 80;
-    server_name www.i-tale.com i-tale.com;
-    return 301 https://www.i-tale.com$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    server_name i-tale.com;
-    return 301 https://www.i-tale.com$request_uri;
-
-    ssl_certificate /etc/letsencrypt/live/www.i-tale.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/www.i-tale.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-}
-
-server {
-    listen 443 ssl;
-    server_name www.i-tale.com;
-
-    ssl_certificate /etc/letsencrypt/live/www.i-tale.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/www.i-tale.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-    root /var/www/admin-viebeg-frontend/build;
+    server_name client.vieprocure.com;
+    root /var/www/viebeg-frontend/build;
     index index.html index.htm;
 
     charset utf-8;
@@ -37,8 +13,8 @@ server {
         deny all;
     }
 
-    access_log /var/www/admin-viebeg-frontend/logs/nginx_access.log;
-    error_log /var/www/admin-viebeg-frontend/logs/nginx_error.log;
+    access_log /var/www/viebeg-frontend/logs/nginx_access.log;
+    error_log /var/www/viebeg-frontend/logs/nginx_error.log;
 
     error_page 404 /404.html;
     error_page 500 502 503 504 /50x.html;
@@ -68,5 +44,23 @@ server {
         log_not_found off;
         deny all;
     }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/client.vieprocure.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/client.vieprocure.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = client.vieprocure.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name client.vieprocure.com;
+    listen 80;
+    return 404; # managed by Certbot
+
 
 }

@@ -1,15 +1,15 @@
-import * as types from './constants.jsx';
+import * as types from "./constants.jsx";
 
-export function getActivity1(status/* , activity, page */) {
+export function getActivity1(status /* , activity, page */) {
     return {
         type: types.GET_ACTIVITY,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
-                 //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
-                 //url: `/requests/?page=${page}&page_size=10${activity ? ` $status=${activity}` : ''}`,
-                 url: `/order/${status === 'all' ? '' : `?status=${status}`}`,
-                method: 'get'
+                //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
+                //url: `/requests/?page=${page}&page_size=10${activity ? ` $status=${activity}` : ''}`,
+                url: `/order/${status === "all" ? "" : `?status=${status}`}`,
+                method: "get"
             }
         }
     };
@@ -19,28 +19,28 @@ export function getActivity(activity, page) {
     return {
         type: types.GET_ACTIVITY,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
-                 //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
+                //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
                 //  url: `/requests/?page=${page}&page_size=10`,
                 url: `/cart/?page=${page}&page_size=10`,
-                 //url: `/order/?status=${status}`,
-                method: 'get'
+                //url: `/order/?status=${status}`,
+                method: "get"
             }
         }
     };
 }
 
-export function getActivityOrder(id/* , activity, page */) {
+export function getActivityOrder(id /* , activity, page */) {
     return {
         type: types.GET_ACTIVITY_ORDER,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
-                 //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
-                 //url: `/requests/?page=${page}&page_size=10${activity ? ` $status=${activity}` : ''}`,
-                 url: `/order/${id}/`,
-                method: 'get'
+                //url: `/clinic-logs/?page=${page}&page_size=10${activity ? `&activity=${activity}` : ''}`,
+                //url: `/requests/?page=${page}&page_size=10${activity ? ` $status=${activity}` : ''}`,
+                url: `/order/${id}/`,
+                method: "get"
             }
         }
     };
@@ -50,7 +50,7 @@ export function patchQuantity(request, data) {
     return {
         type: types.PATCH_QUANTITY,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
                 url: `/cart-quantity-update/${data}/`,
                 method: "PATCH",
@@ -64,7 +64,7 @@ export function deleteOrderItem(order_item_id) {
     return {
         type: types.DELETE_ORDER_ITEM,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
                 url: `/order-item/${order_item_id}/`,
                 method: "DELETE"
@@ -77,7 +77,7 @@ export function nextStep(id) {
     return {
         type: types.NEXT_STEP,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
                 url: `/order/${id}/proceed/`,
                 method: "POST"
@@ -85,12 +85,23 @@ export function nextStep(id) {
         }
     };
 }
-
+export function rejectStep(id) {
+    return {
+        type: types.REJECT_STEP,
+        payload: {
+            client: "default",
+            request: {
+                url: `/order/${id}/reject/`,
+                method: "POST"
+            }
+        }
+    };
+}
 export function patchCart(id, data) {
     return {
         type: types.PATCH_CART_REQUEST,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
                 url: `/cart-quantity-update/${id}/`,
                 method: "PATCH",
@@ -104,7 +115,7 @@ export function patchOrderFile(id, data) {
     return {
         type: types.PATCH_PURCHASE_ORDER_FILE,
         payload: {
-            client: 'default',
+            client: "default",
             request: {
                 url: `/order/${id}/upload-po-file/`,
                 method: "PATCH",
@@ -118,11 +129,36 @@ export function sortFunction(a, b) {
     var dateA = new Date(a.date_created).getTime();
     var dateB = new Date(b.date_created).getTime();
     return dateA > dateB ? 1 : -1;
-};
-
+}
 
 export function sortFunctioncart(a, b) {
     var dateA = new Date(a.date_created).getTime();
     var dateB = new Date(b.date_created).getTime();
     return dateA > dateB ? -1 : 1;
-}; 
+}
+
+export function getSubs(page = 1, search = "", status = null) {
+    return {
+        type: types.GET_SUBS,
+        payload: {
+            client: "default",
+            request: {
+                url: `/subscription/?page=${page}&search=${search}${status ? `&status=${status}` : ""}`,
+                method: "GET"
+            }
+        }
+    };
+}
+
+export function cancelSub(id) {
+    return {
+        type: types.CANCEL_SUB,
+        payload: {
+            client: "default",
+            request: {
+                url: `/subscription/${id}/cancel/`,
+                method: "POST"
+            }
+        }
+    };
+}

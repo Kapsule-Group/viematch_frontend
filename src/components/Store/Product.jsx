@@ -69,7 +69,7 @@ class Product extends Component {
 
                 {this.state.singProd.length > 0 ? (
                     this.state.singProd.map((key, index) => (
-                        <div className="single_product">
+                        <div key={index} className="single_product">
                             <div className="container">
                                 <div className="row">
                                     {/* Images */}

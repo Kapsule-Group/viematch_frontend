@@ -1,56 +1,57 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
-import { bindActionCreators } from 'redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import { bindActionCreators } from "redux";
 import DialogComponent from "../../HelperComponents/DialogComponent/DialogComponent";
 import RenderField from "../../HelperComponents/RenderField/RenderField";
 import { postRequest } from "../../../actions/stockActions";
 
 class RequestDialog extends Component {
-    state = {
-    };
+    state = {};
 
-    submitForm = (data) => {
-        const { product_id, postRequest, toggler,reset, product_image, doRequest } = this.props;
+    submitForm = data => {
+        const { product_id, postRequest, toggler, reset, product_image, doRequest } = this.props;
         data.inventory_id = product_id;
-        data.incart=true;
+        data.incart = true;
         data.image = product_image;
-        console.log(data)
+
         postRequest(data).then(res => {
-            if(res.payload && res.payload.status && res.payload.status === 201) {
+            if (res.payload && res.payload.status && res.payload.status === 201) {
                 doRequest();
                 toggler();
-                reset('RequestDialog');
+                reset("RequestDialog");
             }
-        })
-
+        });
     };
 
-
-
-    render(){
-        const { toggler, state, product_name, handleSubmit, startValue, reset} = this.props;
+    render() {
+        const { toggler, state, product_name, handleSubmit, startValue, reset, loading } = this.props;
 
         return (
             <DialogComponent
                 open={state}
-                onClose={() => { toggler(); reset('RequestDialog');
+                onClose={() => {
+                    toggler();
+                    reset("RequestDialog");
                 }}
-                
             >
                 <div className="quantity_dialog">
-                    
                     <div className="title">
-                        <span>Request supply</span>
+                        <span>Request supply </span>
+                        {console.log(loading)}
                     </div>
                     <div className="descriptions">
-                        <span>You are about to send a request for supply of <span className='name'>{product_name}</span>.<br/>Enter the quantity of the required product to proceed.</span>
+                        <span>
+                            You are about to send a request for supply of <span className="name">{product_name}</span>.
+                            <br />
+                            Enter the quantity of the required product to proceed.
+                        </span>
                     </div>
                     <form onSubmit={handleSubmit(this.submitForm)}>
                         <div className="block_field">
                             <span>Quantity</span>
                             <Field
-                                id='ixd'
+                                id="ixd"
                                 name="quantity"
                                 type="number"
                                 component={RenderField}
@@ -59,8 +60,19 @@ class RequestDialog extends Component {
                             />
                         </div>
                         <div className="btn_wrapper">
-                            <button className="cancel_btn" onClick={(e) => {e.preventDefault(); toggler(); reset('RequestDialog')}}>Cancel</button>
-                            <button className="green_btn">send request</button>
+                            <button
+                                className="cancel_btn"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    toggler();
+                                    reset("RequestDialog");
+                                }}
+                            >
+                                Cancel
+                            </button>
+                            <button disabled={loading} className={loading ? "unactive_btn" : "green_btn"}>
+                                Send request
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -69,31 +81,33 @@ class RequestDialog extends Component {
     }
 }
 
-
 const validate = values => {
     const errors = {};
     if (!values.quantity) {
-        errors.quantity = 'This field is required'
-    }else if(values.quantity && values.quantity <= 0){
-        errors.quantity = 'Ensure this value is greater than 0'
+        errors.quantity = "This field is required";
+    } else if (values.quantity && values.quantity <= 0) {
+        errors.quantity = "Ensure this value is greater than 0";
     }
-    return errors
+    return errors;
 };
 
 RequestDialog = reduxForm({
-    form: 'RequestDialog',
+    form: "RequestDialog",
     validate
 })(RequestDialog);
 
 function mapStateToProps(state) {
-    return{
-
-    }
+    return {
+        loading: state.users.loading
+    };
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        postRequest,
-    }, dispatch);
+    return bindActionCreators(
+        {
+            postRequest
+        },
+        dispatch
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestDialog);

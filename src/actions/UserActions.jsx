@@ -121,3 +121,28 @@ export function getBanners() {
         }
     };
 }
+
+export function getPhone() {
+    return {
+        type: types.GET_PHONE,
+        payload: {
+            client: "default",
+            request: {
+                url: `/region/phone-number/`,
+                method: "get"
+            }
+        }
+    };
+}export function getListPhone() {
+    return {
+        type: types.GET_LIST_PHONE,
+        payload: {
+            client: "default",
+            request: {
+                url: `/region/list/phone-number/`,
+                method: "get"
+            }
+        }
+    };
+}
+

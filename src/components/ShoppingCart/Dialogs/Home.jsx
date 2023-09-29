@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { useAlert } from "react-alert";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-const Home = (j) => {
+const Home = j => {
     const alert = useAlert();
 
     return (
@@ -24,11 +24,10 @@ const Home = (j) => {
             <button
                 onClick={() => {
                     alert.success("We have received yoour request");
-                    console.log()
                 }}
             >
                 Submit Request
-      </button>
+            </button>
         </Fragment>
     );
 };

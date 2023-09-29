@@ -6,55 +6,53 @@ import RenderField from "../../HelperComponents/RenderField/RenderField";
 import DefaultButton from "../../Buttons/DefaultButton/DefaultButton";
 import { Link } from "react-router-dom";
 import arrow from "../../../assets/image/Path.svg";
-import { postRegisterSecondStep } from "../../../actions/authActions";
+import { postRegisterSecondStep, getRegions } from "../../../actions/authActions";
 import SelectComponent from "../../HelperComponents/SelectComponent/SelectComponent";
 import { getOption } from "../../HelperComponents/functions";
-
+import Logo from "../../../assets/image/new logo.svg";
 class SignUpStepSecond extends Component {
     state = {
         username: null,
         loading: false,
-        option: null,
-        option_list: [
-            { label: getOption("Kigali City"), value: "Kigali City" },
-            { label: getOption("Northern Province"), value: "Northern Province" },
-            { label: getOption("Eastern Province"), value: "Eastern Province" },
-            { label: getOption("Southern Province"), value: "Southern Province" },
-            { label: getOption("Western Province"), value: "Western Province" }
-        ],
-        country_option: null,
-        country_option_list: [
-            { label: getOption("DR Congo"), value: "DR Congo" },
-            { label: getOption("Rwanda"), value: "Rwanda" },
-            { label: getOption("Burundi"), value: "Burundi" }
-        ]
+        region: { value: null, label: null },
+        regions: [],
+        option: null
     };
+
+    componentDidMount() {
+        const { getRegions } = this.props;
+        getRegions();
+    }
 
     submitForm = data => {
         const { history } = this.props;
-        const { option, country_option } = this.state;
+        const { option, country_option, region } = this.state;
         this.setState({ loading: true });
         let clinic_info = JSON.parse(localStorage.getItem("clinic_info"));
-        //clinic_info.email = (data && data.email ? data.email : '');
         clinic_info.username = data && data.full_name;
         clinic_info.phone = data && data.phone ? data.phone : "";
         clinic_info.district = data.district;
-        clinic_info.province = country_option.value === "Rwanda" ? option.value : data.province;
-        clinic_info.country = country_option.value;
+        clinic_info.region = region.value;
         localStorage.setItem("clinic_info", JSON.stringify(clinic_info));
         history.push("/auth/sign-up/third-step");
     };
 
     render() {
-        const { handleSubmit, submitting, pristine, valid } = this.props;
-        const { option_list, option, loading, country_option, country_option_list } = this.state;
+        const { handleSubmit, submitting, pristine, valid, regions, region } = this.props;
+        const { option_list, option, loading, country_option } = this.state;
         return (
-            <form onSubmit={handleSubmit(this.submitForm)}>
+            <form className="auth-form" onSubmit={handleSubmit(this.submitForm)}>
+                <header className="auth-header">
+                    <Link to="/main/catalog" className="auth_logo">
+                        <img src={Logo} alt="logo" />
+                    </Link>
+                </header>
                 <Link to={`/auth/sign-up`} className="back_step">
                     <img src={arrow} alt="arrow" />
                     Step 1
                 </Link>
                 <h3 className="auth-block_head">Sign up to VIEBEG</h3>
+
                 {/* <h3 className="auth-block_descriptions">Provide information about your business owner or director</h3> */}
                 <div className="block_field">
                     <span>Full name</span>
@@ -67,17 +65,17 @@ class SignUpStepSecond extends Component {
                     <Field name="phone" type="number" component={RenderField} placeholder="Type here…" />
                 </div>
                 <div className="block_field" style={{ marginBottom: "31px" }}>
-                    <span>Country</span>
+                    <span>Region</span>
                     <div className="select_wrapper" style={{ height: "48px", width: "100%" }}>
                         <SelectComponent
-                            value={country_option}
-                            options={country_option_list}
+                            value={region}
+                            options={regions && regions}
                             change={e => {
-                                this.setState({ country_option: e });
+                                this.setState({ region: e });
                             }}
                             isClearable="false"
                             isSearchable={false}
-                            placeholder="Select country"
+                            placeholder="Select region"
                         />
                     </div>
                 </div>
@@ -117,8 +115,8 @@ class SignUpStepSecond extends Component {
                             submitting ||
                             pristine ||
                             !valid ||
-                            country_option === null ||
-                            (country_option.value === "Rwanda" && option === null)
+                            regions === null ||
+                            (regions.value === "Rwanda" && option === null)
                         }
                         loading={loading}
                         formAction
@@ -160,14 +158,16 @@ SignUpStepSecond = reduxForm({
 
 function mapStateToProps(state, props) {
     return {
-        hospital_credentials: state.auth.hospital_credentials
+        hospital_credentials: state.auth.hospital_credentials,
+        regions: state.auth.regions
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            postRegisterSecondStep
+            postRegisterSecondStep,
+            getRegions
         },
         dispatch
     );

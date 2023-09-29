@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import moment from "moment";
 import Pagination from "../HelperComponents/Pagination/Pagination";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {
     getActivity1,
     sortFunction,
     sortFunctioncart,
     getActivityOrder,
     nextStep,
+    rejectStep,
     patchOrderFile,
     deleteOrderItem
 } from "../../actions/activityActions";
@@ -26,11 +28,26 @@ import { groupBy } from "../../actions/dashboardActions";
 import SelectComponent from "../HelperComponents/SelectComponent/SelectComponent";
 import { getOption } from "../HelperComponents/functions";
 import { toast } from "react-toastify";
-
+import generatePDF from "./generatePDF";
+import generateProformaPDF from "./generateProformaPDF";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import close from "../../assets/image/close.svg";
 import DownloadImg from "../../assets/image/download_tax.svg";
 import ConfirmImg from "../../assets/image/confirm.svg";
+import RejectImg from "../../assets/image/reject.svg";
 import DownloadDoc from "../../assets/image/download_doc.svg";
+import MoreActions from "../../assets/image/more_actions.svg";
+import Refunded from "../../assets/image/no-refunded.svg";
+
+import View from "../../assets/image/view.svg";
+import document from "../../assets/image/document.svg";
+import arrow from "../../assets/image/drop_up.svg";
+import ReactTooltip from "react-tooltip";
+import { NavLink, Link } from "react-router-dom";
+import { BlobProvider } from "@react-pdf/renderer";
+import ProformaPDF from "./PDF/ProformaPDF";
+import InvoicePDF from "./PDF/InvoicePDF";
+import Loader from "../HelperComponents/ContentLoader/ContentLoader";
 
 class Activity extends Component {
     state = {
@@ -42,16 +59,18 @@ class Activity extends Component {
             label: <div></div>,
             value: "supply_requests"
         },
-        option: { label: getOption("All"), value: "all" },
+        option: { label: getOption("All statuses"), value: "all" },
         option_list: [
-            { label: getOption("All"), value: "all" },
-            { label: getOption("Request"), value: "request" },
-            { label: getOption("Proforma"), value: "proforma" },
-            { label: getOption("Purchase order"), value: "order" },
-            { label: getOption("Delivery in progress"), value: "delivery" },
-            { label: getOption("P.O. delivered"), value: "delivered" },
-            { label: getOption("Invoice"), value: "invoice" },
-            { label: getOption("Receipt"), value: "receipt" }
+            { label: "All statuses", value: "all" },
+            { label: "Request", value: "request" },
+
+            { label: "Proforma", value: "proforma" },
+            { label: "Purchase Order", value: "order" },
+            { label: "Delivery in progress", value: "delivery" },
+            { label: "P.O. delivered", value: "delivered" },
+            { label: "Invoice", value: "invoice" },
+            { label: "Refunded ", value: "refunded" },
+            { label: "Receipt", value: "receipt" }
         ],
         namesOfStatuses: {
             all: "All",
@@ -63,6 +82,10 @@ class Activity extends Component {
             invoice: "Invoice",
             receipt: "Receipt"
         },
+        pdfLink: false,
+        choosenOrder: "",
+        linkCount: 1,
+        pdfLinkArray: [],
         requestNamesOfStatuses: {
             request: "View Request",
             proforma: "View Pro Forma",
@@ -74,6 +97,8 @@ class Activity extends Component {
         },
         fileName: "",
         fileTargetId: "",
+        active: false,
+        activeId: null,
         waitingForFile: false
     };
 
@@ -120,33 +145,31 @@ class Activity extends Component {
                 if (isModal) {
                     this.setState({ model: true, modalId: id });
                 } else {
-                    this.generatePDF(res.payload.data);
+                    res.payload.data.status === "proforma"
+                        ? generateProformaPDF(res.payload.data, this.props)
+                        : generatePDF(res.payload.data, this.props, true);
                 }
             }
         });
     };
 
     hideModal = e => {
-        this.setState({ model: false });
+        this.setState({ model: false, popup: false, tax_file: undefined });
     };
 
-    addFile = (event, targetId) => {
-        const file = event.target.files[0];
+    addFile = (filePurch, targetId) => {
+        const file = filePurch;
         const { patchOrderFile } = this.props;
         this.setState({ fileName: file.name, fileTargetId: targetId, waitingForFile: true });
         if (file) {
-            /* let size = Number((file.size / 1024 / 1024).toFixed(2));
-            if (size >= 1000) {
-                this.setState({ edit_error: "The media should not exceed 1 GB" });
-            } else { */
             const formData = new FormData();
             formData.append("purchase_order_file", file);
             patchOrderFile(targetId, formData).then(res => {
                 if (res.payload && res.payload.status && res.payload.status === 200) {
                     this.setState({ fileName: file.name, fileTargetId: targetId, waitingForFile: false });
+                    this.nextStep(targetId);
                 }
             });
-            //}
         }
     };
 
@@ -156,6 +179,29 @@ class Activity extends Component {
         nextStep(id).then(res => {
             if (res.payload && res.payload.status && res.payload.status === 200) {
                 this.doRequest();
+                this.hideModal();
+                sessionStorage.removeItem("id");
+            } else {
+                toast(
+                    `${res.error &&
+                        res.error.response.data.non_field_errors &&
+                        res.error.response.data.non_field_errors[0]}`,
+                    {
+                        progressClassName: "red-progress"
+                    }
+                );
+            }
+        });
+    };
+
+    rejectStep = id => {
+        const { rejectStep } = this.props;
+
+        rejectStep(id).then(res => {
+            if (res.payload && res.payload.status && res.payload.status === 200) {
+                this.doRequest();
+                this.hideModal();
+                sessionStorage.removeItem("id");
             } else {
                 toast(
                     `${res.error &&
@@ -180,206 +226,6 @@ class Activity extends Component {
         });
     };
 
-    /* renderTableForPrint = data => {
-        console.log(data)
-        return (
-            <div id="my-table" style={{ backgroundColor: '#fff' }}>
-                        <img src={imageData} />
-            </div>
-        )
-    } */
-
-    generatePDF = client_data => {
-        const { userInfo } = this.props;
-        var doc = new jsPDF("p", "pt");
-        let imageData = data_image;
-        const pdfdat1 = client_data.items;
-        const pdfdata = pdfdat1.map(elt => [
-            { content: elt.product_name, styles: { fontStyle: "bold" } },
-            { content: elt.quantity, styles: { halign: "right" } },
-            { content: Number(elt.price_per_unit).toFixed(2), styles: { halign: "right" } },
-            { content: Number(+elt.quantity * +elt.price_per_unit).toFixed(2), styles: { halign: "right" } }
-        ]);
-        pdfdata.sort(sortFunction);
-        doc.addImage(imageData, "PNG", 30, 60, 160, 50);
-        const reducer = (accumulator, currentValue) => Number(accumulator) + Number(currentValue);
-        var total = [];
-
-        var z = 0;
-        pdfdata.forEach(element => total.splice(z, 0, Number(element[3]).toFixed(2)));
-        ++z;
-        var total1 = total.reduce(reducer, 0);
-        doc.setFont("Helvetica");
-        doc.setTextColor("#204569");
-        doc.setFontSize(8);
-        doc.setFontType("bold");
-        doc.text(250, 70, "Viebeg Medical and Dental Supplies Ltd");
-        doc.setFontType("normal");
-        doc.text(250, 85, "K&M Building 1st Floor Opposite Sonatubes Kicukiro");
-        doc.text(250, 100, "Kigali, Kigali 20093 RW");
-        doc.text(250, 115, "+250 789700776");
-        doc.text(250, 130, "alex@viebeg.com");
-        doc.text(250, 145, "www.viebeg.com");
-        doc.text(250, 160, "Govt. UID 107902413");
-        doc.setFontSize(10);
-        var pdfbody = [
-            [
-                {
-                    content: `${
-                        client_data.status === "delivered"
-                            ? "Delivery Note"
-                            : this.state.namesOfStatuses[client_data.status].toUpperCase()
-                    }`,
-                    colSpan: 4,
-                    styles: { halign: "left", fontSize: 20, fontStyle: "light", textColor: "#204569" }
-                }
-            ],
-            [
-                {
-                    content: `BILL TO`,
-                    colSpan: 2,
-                    rowSpan: 1,
-                    styles: { fontSize: 10, fontStyle: "bold", valign: "bottom" }
-                },
-                {
-                    content: `Invoice no.\r\nDate\r\nDue Date\r\nTerms`.toUpperCase(),
-                    colSpan: 1,
-                    rowSpan: 2,
-                    styles: { fontSize: 10, halign: "right", fontStyle: "bold" }
-                },
-                {
-                    content:
-                        `${client_data.request}` +
-                        `\r\n${moment(client_data.date_requested).format("MM/DD/YYYY")}` +
-                        `\r\n${
-                            client_data.due_date === null ? "—" : moment(client_data.due_date).format("MM/DD/YYYY")
-                        }` +
-                        `\r\nNet 30`,
-                    colSpan: 1,
-                    rowSpan: 2,
-                    styles: { fontSize: 10 }
-                }
-            ],
-            [
-                {
-                    content: client_data.customer_name.toUpperCase(),
-                    colSpan: 2,
-                    rowSpan: 1,
-                    styles: { fontSize: 10, valign: "top" }
-                },
-                "",
-                ""
-            ],
-            [
-                {
-                    content: "———————————————————————————————————————————————————",
-                    colSpan: 4,
-                    styles: {
-                        valign: "middle",
-                        halign: "center",
-                        cellPadding: 0,
-                        textColor: "#e3e7ec",
-                        fontStyle: "bold",
-                        minCellHeight: 20
-                    }
-                }
-            ],
-            [
-                { content: "", styles: { fillColor: "#EBF4FE" } },
-                { content: "QTY", styles: { fillColor: "#EBF4FE", halign: "right" } },
-                { content: "RATE", styles: { fillColor: "#EBF4FE", halign: "right" } },
-                { content: "AMOUNT", styles: { fillColor: "#EBF4FE", halign: "right" } }
-            ],
-            [
-                {
-                    content:
-                        "—  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —  —",
-                    colSpan: 4,
-                    styles: {
-                        valign: "middle",
-                        halign: "center",
-                        cellPadding: 0,
-                        textColor: "#e3e7ec",
-                        fontStyle: "bold",
-                        minCellHeight: 20
-                    }
-                }
-            ],
-            [
-                {
-                    content:
-                        `Account Number: 21 102347510015100000 -` +
-                        `\r\nGT Bank, Main Branch` +
-                        `\r\nPayment upon delivery` +
-                        `\r\nDelivery: Immediately` +
-                        `\r\nGoods installed and commisioned`,
-                    colSpan: 2,
-                    rowSpan: 2,
-                    styles: { halign: "left", fontSize: 8 }
-                },
-                { content: "PAYMENT", rowSpan: 1, styles: { valign: "bottom" } },
-                {
-                    content: Number(client_data.total).toFixed(2),
-                    rowSpan: 1,
-                    styles: { valign: "bottom", halign: "right" }
-                }
-            ],
-            [
-                { content: "BALANCE DUE", rowSpan: 1, styles: { valign: "middle" } },
-                {
-                    content: `${client_data.balance !== null ? `${userInfo.currency}${client_data.balance}` : "—"}`,
-                    rowSpan: 1,
-                    styles: { valign: "top", fontSize: 20, fontStyle: "bold", halign: "right" }
-                }
-            ],
-            //margin
-            [{ content: ``, colSpan: 4, styles: { minCellHeight: 20 } }],
-            [
-                {
-                    content:
-                        `Prepared by` +
-                        `\r\n\r\nName: ______________________________________` +
-                        `\r\n\r\nSignature: ___________________________________`,
-                    colSpan: 4,
-                    styles: { fontSize: 8 }
-                }
-            ],
-            [
-                {
-                    content:
-                        `\r\nReceived by` +
-                        `\r\n\r\nName: ______________________________________` +
-                        `\r\n\r\nSignature: ___________________________________`,
-                    colSpan: 4,
-                    styles: { fontSize: 8 }
-                }
-            ],
-            //margin
-            [{ content: ``, colSpan: 4, styles: { minCellHeight: 20 } }],
-            [
-                {
-                    content:
-                        `Thank you! All cheques payable to Viebeg Medical and Dental Supplies Ltd.` +
-                        `\r\n\r\n` +
-                        `DISCLAIMER: This invoice is not an official invoice and is only valid together with the EBM invoice provided by VIEBEG upon delivery of the goods.`,
-                    colSpan: 4,
-                    styles: { fontSize: 8, textColor: "#8fa2b4" }
-                }
-            ]
-        ];
-        var k = 5;
-        pdfdata.forEach(element => pdfbody.splice(k, 0, element));
-        ++k;
-        doc.autoTable({
-            theme: "grid",
-            margin: { top: 190 },
-            styles: { lineColor: "black", lineWidth: 0, textColor: "#204569" },
-            body: pdfbody
-        });
-
-        doc.save(client_data.customer_name + "_profomer.pdf");
-    };
-
     returnStatusName = status => {
         switch (status) {
             case "delivered":
@@ -398,6 +244,7 @@ class Activity extends Component {
             case "sales_rejected":
                 return "Request";
             case "invoice":
+            case "refunded":
                 return "Invoice";
 
             default:
@@ -410,26 +257,47 @@ class Activity extends Component {
             activePage,
             loading,
             model,
+            tax_file,
+            popup,
+            fileDropdown = false,
+            buttonIDX = null,
+            popupType,
+            elID,
             option,
             option_list,
             fileName,
+            pdfLink,
+            choosenOrder,
+            linkCount,
+            pdfLinkArray,
             fileTargetId,
             namesOfStatuses,
             requestNamesOfStatuses,
+            active,
+            activeId,
             waitingForFile
         } = this.state;
-        const { activityLog, activityOrder, history } = this.props;
+        const { activityLog, activityOrder, history, loadingRequest } = this.props;
         const addtopdf = [];
         const ModalTotal = [];
 
         const token = localStorage.getItem("token");
-        if (!token) history.push("/main/catalog");
+        if (!token) history.push("/auth/sign-in");
         if (loading) return null;
         const groupedRequest = activityLog;
+
+        const hightlightID = sessionStorage.getItem("id");
+        const elementIdHighlighted = hightlightID && hightlightID.split("=")[1];
+
+        const openPdf = (pdfLinkArray, linkCount = 1) => {
+            window.open(pdfLinkArray[0], "_blank");
+            this.setState({ linkCount: linkCount + 1, pdfLink: false, pdfLinkArray: [] });
+        };
 
         return (
             <div className="activity_page content_block" style={{ backgroundColor: "#EBF4FE" }}>
                 <div className="title_page">Orders</div>
+
                 <div className="activity_block">
                     <div className="select_wrapper">
                         <SelectComponent
@@ -443,6 +311,7 @@ class Activity extends Component {
                             placeholder="Select search option"
                         />
                     </div>
+
                     <div className="in_stock_table">
                         <div className="table_container transactions_columns">
                             <div className="table_header">
@@ -454,6 +323,7 @@ class Activity extends Component {
                                     </div>
                                 </div>
                             </div>
+                            {loadingRequest && <Loader></Loader>}
                             <div className="table_body">
                                 {activityLog.length < 1 ? (
                                     <div className="table_row">
@@ -461,48 +331,139 @@ class Activity extends Component {
                                     </div>
                                 ) : (
                                     activityLog.map((el, idx) => (
-                                        <div className="table_row" key={idx}>
-                                            <div className="row">
-                                                <div className="row_item">
-                                                    {moment(el.date_requested).format("DD/MM/YYYY   hh:mm")}
-                                                </div>
-                                                <div className="row_item">
-                                                    <span>{this.returnStatusName(el.status)}</span>
+                                        <>
+                                            <div
+                                                className={
+                                                    el.id === +elementIdHighlighted
+                                                        ? "table_row-elem highlighted"
+                                                        : "table_row-elem"
+                                                }
+                                                key={el.id}
+                                            >
+                                                <header className="table_row-header">
+                                                    <div className="row_item row_item-date">
+                                                        {moment(el.date).format("DD/MM/YYYY   HH:mm")}
+                                                    </div>
+                                                    <button>
+                                                        <img
+                                                            src={MoreActions}
+                                                            onClick={() =>
+                                                                this.setState(({ active, activeId }) => ({
+                                                                    active: !active,
+                                                                    activeId: idx
+                                                                }))
+                                                            }
+                                                            alt="more actions"
+                                                        />
+                                                        {active && activeId === idx && (
+                                                            <ClickAwayListener
+                                                                onClickAway={() => this.setState({ active: false })}
+                                                            >
+                                                                <div className="drop-menu">
+                                                                    {!loadingRequest && (
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                this.GetCurrOrder(el.id, true);
+                                                                            }}
+                                                                            className="drop-menu-btn"
+                                                                        >
+                                                                            <img src={View} alt="view" />
+                                                                            <span>View</span>
+                                                                        </button>
+                                                                    )}
 
-                                                    <button
-                                                        onClick={() => {
-                                                            this.GetCurrOrder(el.id, true);
-                                                        }}
-                                                        type="primary"
-                                                    >
-                                                        View
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            this.props
+                                                                                .getActivityOrder(el.id)
+                                                                                .then(
+                                                                                    res =>
+                                                                                        res &&
+                                                                                        res.payload &&
+                                                                                        res.payload.status === 200 &&
+                                                                                        this.setState({ pdfLink: true })
+                                                                                )
+                                                                        }
+                                                                        className={
+                                                                            el.tax_invoice_file ||
+                                                                            el.invoice_file ||
+                                                                            el.receipt_file
+                                                                                ? "drop-menu-btn border"
+                                                                                : "drop-menu-btn"
+                                                                        }
+                                                                    >
+                                                                        <img src={document} alt="view" />
+                                                                        <span>Download PDF</span>
+                                                                    </button>
+
+                                                                    {el.tax_invoice_file && (
+                                                                        <a
+                                                                            target="_blank"
+                                                                            download
+                                                                            href={el.tax_invoice_file}
+                                                                            className="drop-menu-btn"
+                                                                        >
+                                                                            <img src={DownloadImg} alt="download" />
+                                                                            <span>Tax invoice</span>
+                                                                        </a>
+                                                                    )}
+                                                                    {el.invoice_file && (
+                                                                        <a
+                                                                            target="_blank"
+                                                                            download
+                                                                            href={el.invoice_file}
+                                                                            className="drop-menu-btn"
+                                                                        >
+                                                                            <img src={DownloadImg} alt="download" />
+
+                                                                            <span>Invoice</span>
+                                                                        </a>
+                                                                    )}
+                                                                    {el.receipt_file && (
+                                                                        <a
+                                                                            target="_blank"
+                                                                            download
+                                                                            href={el.receipt_file}
+                                                                            className="drop-menu-btn"
+                                                                        >
+                                                                            <img src={DownloadImg} alt="download" />
+                                                                            <span>Receipt file</span>
+                                                                        </a>
+                                                                    )}
+                                                                </div>
+                                                            </ClickAwayListener>
+                                                        )}
                                                     </button>
-                                                    {/* <div>•</div> */}
-                                                    <button
-                                                        onClick={() => this.GetCurrOrder(el.id, false)}
-                                                        type="primary"
-                                                        className="download"
-                                                    >
-                                                        Download PDF
-                                                    </button>
+                                                </header>
+                                                <div className="table_row-status">
+                                                    <span>
+                                                        {this.returnStatusName(el.status)}
+                                                        <span className="rejected_status_label">
+                                                            {el.is_rejected && "Rejected"}
+                                                        </span>
+                                                        <span className="refunded_status_label">
+                                                            {el.payment_status === "refunded" && (
+                                                                <img src={Refunded} alt="Refunded" />
+                                                            )}
+                                                            {el.payment_status === "refunded" && "Refunded"}
+                                                        </span>
+                                                    </span>
                                                 </div>
 
-                                                <div className="row_item">
-                                                    {el.tax_invoice_file && (
-                                                        <a
-                                                            target="_blank"
-                                                            download
-                                                            style={{ marginRight: "25px" }}
-                                                            href={el.tax_invoice_file}
-                                                        >
-                                                            <img src={DownloadImg} alt="" />
-                                                        </a>
-                                                    )}
-
-                                                    {(el.status === "proforma" || el.status === "delivered") && (
+                                                {(el.status === "proforma" || el.status === "delivered") && (
+                                                    <div className="table_row-buttons">
                                                         <>
                                                             <button
-                                                                className="confirm-btn"
+                                                                className={
+                                                                    el.status === "delivered"
+                                                                        ? el.is_rejected === false
+                                                                            ? "confirm-btn"
+                                                                            : "confirm-btn fullwidth"
+                                                                        : el.status !== "delivered" &&
+                                                                          el.is_rejected !== false
+                                                                        ? "confirm-btn fullwidth"
+                                                                        : "confirm-btn "
+                                                                }
                                                                 disabled={
                                                                     fileName !== "" &&
                                                                     fileTargetId === el.id &&
@@ -515,13 +476,47 @@ class Activity extends Component {
                                                                     //         ? e.target.nextElementSibling.nextElementSibling.click()
                                                                     //         : this.nextStep(el.id)
                                                                     //     : this.nextStep(el.id);
-                                                                    this.nextStep(el.id);
+
+                                                                    this.setState({
+                                                                        popup: true,
+                                                                        popupType:
+                                                                            el.status === "delivered"
+                                                                                ? "confirm_delivery"
+                                                                                : "approve_proforma",
+                                                                        elID: el.id
+                                                                    });
+                                                                    //this.nextStep(el.id);
                                                                 }}
                                                                 style={{ marginRight: "10px" }}
                                                             >
                                                                 <img src={ConfirmImg} alt="" />
                                                                 {el.status === "delivered" ? "Confirm" : "Approve"}
                                                             </button>
+                                                            {el.is_rejected !== true && (
+                                                                <button
+                                                                    className="reject-btn"
+                                                                    disabled={
+                                                                        fileName !== "" &&
+                                                                        fileTargetId === el.id &&
+                                                                        waitingForFile
+                                                                    }
+                                                                    notification={`You need to add file first.`}
+                                                                    onClick={e => {
+                                                                        this.setState({
+                                                                            popup: true,
+                                                                            popupType: "reject_proforma",
+                                                                            elID: el.id
+                                                                        });
+
+                                                                        //this.rejectStep(el.id);
+                                                                    }}
+                                                                    style={{ marginRight: "10px" }}
+                                                                >
+                                                                    <img src={RejectImg} alt="" />
+                                                                    {"reject"}
+                                                                </button>
+                                                            )}
+
                                                             {el.invoice_file && (
                                                                 <>
                                                                     <button
@@ -540,40 +535,312 @@ class Activity extends Component {
                                                                 </>
                                                             )}
                                                         </>
-                                                    )}
-                                                    {el.status === "proforma" && (
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="table_row" key={idx}>
+                                                <div
+                                                    className={
+                                                        el.id === +elementIdHighlighted ? "row highlighted" : "row"
+                                                    }
+                                                >
+                                                    <div className="row_item row_item-date">
+                                                        {moment(el.date).format("DD/MM/YYYY   HH:mm")}
+                                                    </div>
+                                                    <div className="row_item">
                                                         <>
-                                                            <button
-                                                                style={{ marginLeft: "15px" }}
-                                                                className="download-btn"
-                                                                disabled={
-                                                                    fileName !== "" &&
-                                                                    fileTargetId === el.id &&
-                                                                    waitingForFile
+                                                            <span
+                                                                className={
+                                                                    el.payment_status === "refunded" && "row-alighned"
                                                                 }
-                                                                onClick={e => {
-                                                                    fileTargetId === el.id || fileTargetId === ""
-                                                                        ? e.target.nextElementSibling.click()
-                                                                        : alert(
-                                                                              "Complete the operation you started first."
-                                                                          );
-                                                                }}
                                                             >
-                                                                <img src={DownloadDoc} alt="" />
-                                                                Add file
-                                                            </button>
-                                                            <input
-                                                                type="file"
-                                                                onChange={e => {
-                                                                    this.addFile(e, el.id);
-                                                                }}
-                                                                style={{ display: "none" }}
-                                                            />
+                                                                {this.returnStatusName(el.status)}
+                                                                <span className="rejected_status_label">
+                                                                    {el.is_rejected && "Rejected"}
+                                                                </span>
+                                                                <span className="refunded_status_label">
+                                                                    {el.payment_status === "refunded" && (
+                                                                        <img src={Refunded} alt="Refunded" />
+                                                                    )}
+                                                                    {el.payment_status === "refunded" && "Refunded"}
+                                                                </span>
+                                                            </span>
                                                         </>
-                                                    )}
-                                                    {el.status === "receipt" &&
-                                                        (el.invoice_file || el.receipt_file ? (
+                                                        <button
+                                                            onClick={() => {
+                                                                this.GetCurrOrder(el.id, true);
+                                                            }}
+                                                            type="primary"
+                                                        >
+                                                            View
+                                                        </button>
+
+                                                        <button
+                                                            onClick={() =>
+                                                                this.props
+                                                                    .getActivityOrder(el.id)
+                                                                    .then(
+                                                                        res =>
+                                                                            res &&
+                                                                            res.payload &&
+                                                                            res.payload.status === 200 &&
+                                                                            this.setState({ pdfLink: true })
+                                                                    )
+                                                            }
+                                                            type="primary"
+                                                            className="download"
+                                                        >
+                                                            Download PDF
+                                                        </button>
+                                                        {pdfLink && (
+                                                            <BlobProvider
+                                                                document={
+                                                                    activityOrder &&
+                                                                    activityOrder.status &&
+                                                                    activityOrder.status === "proforma" ? (
+                                                                        <ProformaPDF pdfData={activityOrder} />
+                                                                    ) : (
+                                                                        <InvoicePDF pdfData={activityOrder} />
+                                                                    )
+                                                                }
+                                                                textPDF={"data"}
+                                                            >
+                                                                {({ url, loading, ...props }) => {
+                                                                    url !== null && pdfLinkArray.push(url);
+
+                                                                    linkCount === 1 &&
+                                                                        pdfLinkArray !== [] &&
+                                                                        pdfLinkArray[0] !== undefined &&
+                                                                        openPdf(pdfLinkArray);
+
+                                                                    setTimeout(() => {
+                                                                        this.setState({
+                                                                            linkCount: 1
+                                                                        });
+                                                                    }, 500);
+
+                                                                    return (
+                                                                        choosenOrder === el.id &&
+                                                                        loading && (
+                                                                            <div className="loader_orders">
+                                                                                <Loader></Loader>
+                                                                            </div>
+                                                                        )
+                                                                    );
+                                                                }}
+                                                            </BlobProvider>
+                                                        )}
+                                                    </div>
+
+                                                    <div
+                                                        className={
+                                                            el.tax_invoice_file || el.invoice_file || el.receipt_file
+                                                                ? "row_item"
+                                                                : "row_item with-padding"
+                                                        }
+                                                    >
+                                                        {(el.tax_invoice_file ||
+                                                            el.invoice_file ||
+                                                            el.receipt_file) && (
                                                             <>
+                                                                <a
+                                                                    target="_blank"
+                                                                    style={{ marginRight: "25px" }}
+                                                                    className="download-img-block"
+                                                                    rel="noopener noreferrer"
+                                                                    onClick={e => {
+                                                                        this.setState({
+                                                                            fileDropdown: !fileDropdown,
+                                                                            buttonIDX: idx
+                                                                        });
+                                                                    }}
+                                                                >
+                                                                    <img src={DownloadImg} alt="" />
+                                                                </a>
+
+                                                                {+!!el.tax_invoice_file +
+                                                                    +!!el.invoice_file +
+                                                                    +!!el.receipt_file >
+                                                                1 ? (
+                                                                    <p
+                                                                        className="download-txt-block"
+                                                                        onClick={e => {
+                                                                            this.setState({
+                                                                                fileDropdown: !fileDropdown,
+                                                                                buttonIDX: idx
+                                                                            });
+                                                                        }}
+                                                                    >
+                                                                        Download
+                                                                    </p>
+                                                                ) : (
+                                                                    <a
+                                                                        className={
+                                                                            +!!el.tax_invoice_file +
+                                                                                +!!el.invoice_file +
+                                                                                +!!el.receipt_file >
+                                                                            1
+                                                                                ? "download-txt-block with-margin arrow"
+                                                                                : "download-txt-block with-margin "
+                                                                        }
+                                                                        data-tip={
+                                                                            el.tax_invoice_file &&
+                                                                            "Download tax invoice" + el.invoice_file &&
+                                                                            "Download invoice file" + el.receipt_file &&
+                                                                            "Download receipt file"
+                                                                        }
+                                                                        download
+                                                                        rel="noopener noreferrer"
+                                                                        target="_blank"
+                                                                        href={
+                                                                            (el.tax_invoice_file &&
+                                                                                el.tax_invoice_file) ||
+                                                                            (el.invoice_file && el.invoice_file) ||
+                                                                            (el.receipt_file && el.receipt_file)
+                                                                        }
+                                                                    >
+                                                                        Download
+                                                                    </a>
+                                                                )}
+
+                                                                {+!!el.tax_invoice_file +
+                                                                    +!!el.invoice_file +
+                                                                    +!!el.receipt_file >
+                                                                    1 && (
+                                                                    <img
+                                                                        className={
+                                                                            fileDropdown === true && buttonIDX === idx
+                                                                                ? "download-arrow open"
+                                                                                : "download-arrow"
+                                                                        }
+                                                                        onClick={e => {
+                                                                            this.setState({
+                                                                                fileDropdown: !fileDropdown,
+                                                                                buttonIDX: idx
+                                                                            });
+                                                                        }}
+                                                                        src={arrow}
+                                                                        alt="arrow"
+                                                                    />
+                                                                )}
+                                                                {/* 
+                                                                <ReactTooltip
+                                                                    data-background-color="#fff"
+                                                                    className="tooltip-width"
+                                                                    place="top"
+                                                                    type="light"
+                                                                    effect="solid"
+                                                                /> */}
+
+                                                                {fileDropdown === true && buttonIDX === idx && (
+                                                                    <ClickAwayListener
+                                                                        onClickAway={() =>
+                                                                            this.setState({ fileDropdown: false })
+                                                                        }
+                                                                    >
+                                                                        <p
+                                                                            className={
+                                                                                fileDropdown === true &&
+                                                                                buttonIDX === idx
+                                                                                    ? "dropdown-list open"
+                                                                                    : "dropdown-list "
+                                                                            }
+                                                                        >
+                                                                            {el.tax_invoice_file && (
+                                                                                <a
+                                                                                    target="_blank"
+                                                                                    download
+                                                                                    href={el.tax_invoice_file}
+                                                                                >
+                                                                                    Tax invoice
+                                                                                </a>
+                                                                            )}
+                                                                            {el.invoice_file && (
+                                                                                <a
+                                                                                    target="_blank"
+                                                                                    download
+                                                                                    href={el.invoice_file}
+                                                                                >
+                                                                                    Invoice
+                                                                                </a>
+                                                                            )}
+                                                                            {el.receipt_file && (
+                                                                                <a
+                                                                                    target="_blank"
+                                                                                    download
+                                                                                    href={el.receipt_file}
+                                                                                >
+                                                                                    Receipt file
+                                                                                </a>
+                                                                            )}
+                                                                        </p>
+                                                                    </ClickAwayListener>
+                                                                )}
+                                                            </>
+                                                        )}
+
+                                                        {(el.status === "proforma" || el.status === "delivered") && (
+                                                            <>
+                                                                <button
+                                                                    className={
+                                                                        el.is_rejected
+                                                                            ? "confirm-btn alone"
+                                                                            : "confirm-btn"
+                                                                    }
+                                                                    disabled={
+                                                                        fileName !== "" &&
+                                                                        fileTargetId === el.id &&
+                                                                        waitingForFile
+                                                                    }
+                                                                    notification={`You need to add file first.`}
+                                                                    onClick={e => {
+                                                                        // el.status === "proforma"
+                                                                        //     ? fileName === ""
+                                                                        //         ? e.target.nextElementSibling.nextElementSibling.click()
+                                                                        //         : this.nextStep(el.id)
+                                                                        //     : this.nextStep(el.id);
+
+                                                                        this.setState({
+                                                                            popup: true,
+                                                                            popupType:
+                                                                                el.status === "delivered"
+                                                                                    ? "confirm_delivery"
+                                                                                    : "approve_proforma",
+                                                                            elID: el.id
+                                                                        });
+                                                                        //this.nextStep(el.id);
+                                                                    }}
+                                                                    style={{ marginRight: "10px" }}
+                                                                >
+                                                                    <img src={ConfirmImg} alt="" />
+                                                                    {el.status === "delivered" ? "Confirm" : "Approve"}
+                                                                </button>
+                                                                {el.is_rejected !== true && (
+                                                                    <button
+                                                                        className="reject-btn"
+                                                                        disabled={
+                                                                            fileName !== "" &&
+                                                                            fileTargetId === el.id &&
+                                                                            waitingForFile
+                                                                        }
+                                                                        notification={`You need to add file first.`}
+                                                                        onClick={e => {
+                                                                            this.setState({
+                                                                                popup: true,
+                                                                                popupType: "reject_proforma",
+                                                                                elID: el.id
+                                                                            });
+
+                                                                            //this.rejectStep(el.id);
+                                                                        }}
+                                                                        style={{ marginRight: "10px" }}
+                                                                    >
+                                                                        <img src={RejectImg} alt="" />
+                                                                        {"reject"}
+                                                                    </button>
+                                                                )}
+
                                                                 {el.invoice_file && (
                                                                     <>
                                                                         <button
@@ -581,7 +848,6 @@ class Activity extends Component {
                                                                             onClick={e => {
                                                                                 e.target.nextElementSibling.click();
                                                                             }}
-                                                                            style={{ marginRight: "10px" }}
                                                                         >
                                                                             Invoice
                                                                         </button>
@@ -592,239 +858,68 @@ class Activity extends Component {
                                                                         />
                                                                     </>
                                                                 )}
-                                                                {el.receipt_file && (
-                                                                    <>
-                                                                        <button
-                                                                            className="btn btn-success btn-sm"
-                                                                            onClick={e => {
-                                                                                e.target.nextElementSibling.click();
-                                                                            }}
-                                                                        >
-                                                                            Receipt
-                                                                        </button>
-                                                                        <a
-                                                                            style={{ display: "none" }}
-                                                                            target="_blank"
-                                                                            href={el.receipt_file}
-                                                                        />
-                                                                    </>
-                                                                )}
                                                             </>
-                                                        ) : (
-                                                            <>
-                                                                <button
-                                                                    className="btn btn-success btn-sm"
-                                                                    disabled={true}
-                                                                    style={{ cursor: "not-allowed" }}
-                                                                >
-                                                                    No additional invoice file
-                                                                </button>
-                                                            </>
-                                                        ))}
+                                                        )}
+
+                                                        {el.status === "receipt" &&
+                                                            (el.invoice_file || el.receipt_file ? (
+                                                                <>
+                                                                    {el.invoice_file && (
+                                                                        <>
+                                                                            <button
+                                                                                className="btn btn-success btn-sm"
+                                                                                onClick={e => {
+                                                                                    e.target.nextElementSibling.click();
+                                                                                }}
+                                                                                style={{ marginRight: "10px" }}
+                                                                            >
+                                                                                Invoice
+                                                                            </button>
+                                                                            <a
+                                                                                style={{ display: "none" }}
+                                                                                target="_blank"
+                                                                                href={el.invoice_file}
+                                                                            />
+                                                                        </>
+                                                                    )}
+                                                                    {el.receipt_file && (
+                                                                        <>
+                                                                            <button
+                                                                                className="btn btn-success btn-sm"
+                                                                                onClick={e => {
+                                                                                    e.target.nextElementSibling.click();
+                                                                                }}
+                                                                            >
+                                                                                Receipt
+                                                                            </button>
+                                                                            <a
+                                                                                style={{ display: "none" }}
+                                                                                target="_blank"
+                                                                                href={el.receipt_file}
+                                                                            />
+                                                                        </>
+                                                                    )}
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <button
+                                                                        className="btn btn-success btn-sm"
+                                                                        disabled={true}
+                                                                        style={{ cursor: "not-allowed" }}
+                                                                    >
+                                                                        No additional invoice file
+                                                                    </button>
+                                                                </>
+                                                            ))}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </>
                                     ))
                                 )}
                             </div>
                         </div>
                     </div>
-                    {/* <Table striped bordered hover size="sm">
-                        <thead>
-                            <tr>
-                                <th>DATE</th>
-                                <th>REQUEST</th>
-                                <th>PDF</th>
-                                <th>ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {activityLog && activityLog.length > 0 ? (
-                                activityLog.map((el, index) => (
-                                    <tr>
-                                        <>
-                                            <td key={index}>
-                                                {moment(el.date_requested).format("DD/MM/YYYY   hh-mm-ss")}
-                                            </td>
-                                            <td>
-                                                {el.status === "invoice"
-                                                    ? "Complete payment"
-                                                    : el.status === "receipt"
-                                                    ? "Order completed"
-                                                    : el.status === "request"
-                                                    ? "Request submitted"
-                                                    : el.status === "order"
-                                                    ? "P.O. submitted"
-                                                    : namesOfStatuses[el.status]}
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <button
-                                                        onClick={() => this.GetCurrOrder(el.id, false)}
-                                                        type="primary"
-                                                    >
-                                                        Download PDF
-                                                    </button>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div>
-                                                    {el.status === "invoice"
-                                                        ? "Complete payment"
-                                                        : el.status === "receipt"
-                                                        ? "Order completed"
-                                                        : el.status === "request"
-                                                        ? "Request submitted"
-                                                        : el.status === "order"
-                                                        ? "P.O. submitted"
-                                                        : namesOfStatuses[el.status]}
-                                                </div>
-                                                {el.tax_invoice_file && (
-                                                    <a
-                                                        className="btn btn-success btn-sm"
-                                                        target="_blank"
-                                                        download
-                                                        style={{ marginRight: "25px" }}
-                                                        href={el.tax_invoice_file}
-                                                    >
-                                                        Tax file
-                                                    </a>
-                                                )}
-
-                                                {(el.status === "proforma" || el.status === "delivered") && (
-                                                    <>
-                                                        <button
-                                                            className={`btn btn-success btn-sm waiting${
-                                                                fileTargetId !== el.id ? ` notification_for_file` : ""
-                                                            }${el.status === "delivered" ? " no_tooltip" : ""}`}
-                                                            disabled={
-                                                                fileName !== "" &&
-                                                                fileTargetId === el.id &&
-                                                                waitingForFile
-                                                            }
-                                                            notification={`You need to add file first.`}
-                                                            onClick={e => {
-                                                                this.nextStep(el.id);
-                                                            }}
-                                                            style={{ marginRight: "10px" }}
-                                                        >
-                                                            {el.status === "delivered" ? "Confirm delivery" : "Approve"}
-                                                        </button>
-                                                        {el.invoice_file && (
-                                                            <>
-                                                                <button
-                                                                    className="btn btn-success btn-sm"
-                                                                    onClick={e => {
-                                                                        e.target.nextElementSibling.click();
-                                                                    }}
-                                                                >
-                                                                    Invoice
-                                                                </button>
-                                                                <a
-                                                                    style={{ display: "none" }}
-                                                                    target="_blank"
-                                                                    href={el.invoice_file}
-                                                                />
-                                                            </>
-                                                        )}
-                                                    </>
-                                                )}
-                                                {el.status === "proforma" && (
-                                                    <>
-                                                        <button
-                                                            style={{ marginLeft: "15px" }}
-                                                            className="btn btn-success btn-sm waiting"
-                                                            disabled={
-                                                                fileName !== "" &&
-                                                                fileTargetId === el.id &&
-                                                                waitingForFile
-                                                            }
-                                                            onClick={e => {
-                                                                fileTargetId === el.id || fileTargetId === ""
-                                                                    ? e.target.nextElementSibling.click()
-                                                                    : alert(
-                                                                          "Complete the operation you started first."
-                                                                      );
-                                                            }}
-                                                        >
-                                                            {fileName !== "" &&
-                                                                fileTargetId === el.id &&
-                                                                waitingForFile && <CircularProgress color="inherit" />}
-                                                            {fileName !== "" && fileTargetId === el.id
-                                                                ? fileName
-                                                                : "Add file"}
-                                                        </button>
-                                                        <input
-                                                            type="file"
-                                                            onChange={e => {
-                                                                this.addFile(e, el.id);
-                                                            }}
-                                                            style={{ display: "none" }}
-                                                        />
-                                                    </>
-                                                )}
-                                                {el.status === "receipt" &&
-                                                    (el.invoice_file || el.receipt_file ? (
-                                                        <>
-                                                            {el.invoice_file && (
-                                                                <>
-                                                                    <button
-                                                                        className="btn btn-success btn-sm"
-                                                                        onClick={e => {
-                                                                            e.target.nextElementSibling.click();
-                                                                        }}
-                                                                        style={{ marginRight: "10px" }}
-                                                                    >
-                                                                        Invoice
-                                                                    </button>
-                                                                    <a
-                                                                        style={{ display: "none" }}
-                                                                        target="_blank"
-                                                                        href={el.invoice_file}
-                                                                    />
-                                                                </>
-                                                            )}
-                                                            {el.receipt_file && (
-                                                                <>
-                                                                    <button
-                                                                        className="btn btn-success btn-sm"
-                                                                        onClick={e => {
-                                                                            e.target.nextElementSibling.click();
-                                                                        }}
-                                                                    >
-                                                                        Receipt
-                                                                    </button>
-                                                                    <a
-                                                                        style={{ display: "none" }}
-                                                                        target="_blank"
-                                                                        href={el.receipt_file}
-                                                                    />
-                                                                </>
-                                                            )}
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <button
-                                                                className="btn btn-success btn-sm"
-                                                                disabled={true}
-                                                                style={{ cursor: "not-allowed" }}
-                                                            >
-                                                                No additional invoice file
-                                                            </button>
-                                                        </>
-                                                    ))}
-                                            </td>
-                                        </>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td>The list is empty.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </Table> */}
                 </div>
                 <DialogComponent open={model} onClose={this.hideModal} classes={"contained-modal-title-vcenter"}>
                     <div className="modal-content">
@@ -841,10 +936,46 @@ class Activity extends Component {
                                             <img src={imageData} alt={"logo"} />{" "}
                                         </td>
                                         <td>
-                                            Address: K&M Building 1st Floor Opposite Sonatube kicukiro kigali <br />
-                                            Email: alex@viebeg.com / tobias@viebeg.com <br />
-                                            Website: www.viebeg.com <br />
-                                            Office line: +250782205366 Tel: +250787104894 <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address1 &&
+                                                activityOrder.region.address1}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address2 &&
+                                                activityOrder.region.address2}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address3 &&
+                                                activityOrder.region.address3}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address4 &&
+                                                activityOrder.region.address4}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address5 &&
+                                                activityOrder.region.address5}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address6 &&
+                                                activityOrder.region.address6}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address7 &&
+                                                activityOrder.region.address7}{" "}
+                                            <br />
+                                            {activityOrder &&
+                                                activityOrder.region &&
+                                                activityOrder.region.address8 &&
+                                                activityOrder.region.address8}{" "}
+                                            <br />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -860,19 +991,35 @@ class Activity extends Component {
                                     </tr>
                                     <tr>
                                         <td colSpan="6" id="clientDesc">
+                                            {activityOrder.status === "invoice" ? "INVOICE NO. " : "ID/PI#:"}{" "}
+                                            {activityOrder.request}
+                                            <br />
                                             Client Name: {activityOrder.customer_name}
+                                            {activityOrder.status === "proforma" && (
+                                                <>
+                                                    <br />
+                                                    Sales rep:{" "}
+                                                    {activityOrder.sales_rep ? activityOrder.sales_rep.username : "-"}
+                                                </>
+                                            )}
                                             <br />
-                                            PI#: {activityOrder.request}
+                                            {activityOrder.tin && "TIN: " + activityOrder.tin}
                                             <br />
-                                            Date: {moment(activityOrder.date_requested).format("DD/MM/YYYY   hh-mm-ss")}
+                                            Date: {moment(activityOrder.date).format("DD/MM/YYYY   HH-mm-ss")}
+                                            {activityOrder.status === "proforma" && (
+                                                <>
+                                                    <br />
+                                                    Quotation Validity:{" "}
+                                                    {moment(activityOrder.due_date).format("DD/MM/YYYY   HH-mm-ss")}
+                                                </>
+                                            )}
                                             <br />
-                                            {/* Sales Rep: Cecile<br /> */}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>ITEM DESCRIPTION</td>
                                         <td>QTY</td>
-                                        <td>UNITY PRICE</td>
+                                        <td>UNIT PRICE</td>
                                         <td>TOTAL</td>
                                         <td>STATUS</td>
                                     </tr>
@@ -899,7 +1046,7 @@ class Activity extends Component {
                                                                     : ".75rem"
                                                             }`
                                                         }}
-                                                        key={index}
+                                                        key={el.id}
                                                     >
                                                         {el.product_name}
                                                         {activityOrder.status === "proforma" && (
@@ -909,19 +1056,37 @@ class Activity extends Component {
                                                             />
                                                         )}
                                                     </td>
-                                                    <td>{el.quantity}</td>
+                                                    <td>{new Intl.NumberFormat("en-US").format(el.quantity)}</td>
+
                                                     <td>
-                                                        {el.price_per_unit
-                                                            ? `${el.price_per_unit} ${this.props.userInfo.currency}`
-                                                            : "Waiting to be processed"}
+                                                        {!el.price_per_unit ||
+                                                        activityOrder.status === "sales_review" ||
+                                                        activityOrder.status === "sales_rejected" ||
+                                                        activityOrder.status === "sales_to_approve"
+                                                            ? "Waiting to be processed"
+                                                            : `${new Intl.NumberFormat("en-US", {
+                                                                  minimumFractionDigits: 2
+                                                              }).format(el.price_per_unit)} ${
+                                                                  this.props.activityOrder.currency
+                                                                      ? this.props.activityOrder.currency
+                                                                      : ""
+                                                              }`}
                                                     </td>
                                                     <td>
-                                                        {el.price_per_unit
-                                                            ? `${(el.price_per_unit * el.quantity).toFixed(2)} ${
-                                                                  this.props.userInfo.currency
-                                                              }`
-                                                            : "Waiting to be processed"}
+                                                        {!el.price_per_unit ||
+                                                        activityOrder.status === "sales_review" ||
+                                                        activityOrder.status === "sales_rejected" ||
+                                                        activityOrder.status === "sales_to_approve"
+                                                            ? "Waiting to be processed"
+                                                            : `${new Intl.NumberFormat("en-US", {
+                                                                  minimumFractionDigits: 2
+                                                              }).format(Number(el.price_per_unit * el.quantity))} ${
+                                                                  this.props.activityOrder.currency
+                                                                      ? this.props.activityOrder.currency
+                                                                      : ""
+                                                              }`}
                                                     </td>
+
                                                     <td>
                                                         {" "}
                                                         {activityOrder.status === "delivered"
@@ -947,14 +1112,80 @@ class Activity extends Component {
                                     )}
                                     <tr>
                                         <td colSpan="3" id="clientDesc">
-                                            TOTAL
+                                            {this.props.activityOrder.region &&
+                                            this.props.activityOrder.region.vat &&
+                                            this.props.activityOrder.region.vat &&
+                                            this.props.activityOrder.total !== 0 ? (
+                                                <>
+                                                    <p className={"without-margin"}>SUBTOTAL</p>
+                                                    <p className={"without-margin"}>VAT</p>
+                                                    <p className={"without-margin"}>TOTAL</p>
+                                                </>
+                                            ) : (
+                                                "TOTAL"
+                                            )}
                                         </td>
                                         <td id="clientDesc">
-                                            {JSON.stringify(activityOrder) !== "{}"
-                                                ? `${activityOrder.items
-                                                      .reduce((x, y) => x + y.price_per_unit * y.quantity, 0)
-                                                      .toFixed(2)} ${this.props.userInfo.currency}`
-                                                : ""}
+                                            {this.props.activityOrder.region &&
+                                            this.props.activityOrder.region.vat &&
+                                            this.props.activityOrder.region.vat &&
+                                            this.props.activityOrder.total !== 0 ? (
+                                                <>
+                                                    <p className={"without-margin"}>
+                                                        {activityOrder.status === "sales_review" ||
+                                                        activityOrder.status === "sales_rejected" ||
+                                                        activityOrder.status === "sales_to_approve"
+                                                            ? "—"
+                                                            : new Intl.NumberFormat("en-US", {
+                                                                  minimumFractionDigits: 2
+                                                              }).format(
+                                                                  (+this.props.activityOrder.total * 100) /
+                                                                      (+this.props.activityOrder.region.vat + 100)
+                                                              ) +
+                                                              (this.props.activityOrder.currency
+                                                                  ? this.props.activityOrder.currency
+                                                                  : "")}
+                                                    </p>
+                                                    <p className={"without-margin"}>
+                                                        {activityOrder.status === "sales_review" ||
+                                                        activityOrder.status === "sales_rejected" ||
+                                                        activityOrder.status === "sales_to_approve"
+                                                            ? "—"
+                                                            : this.props.activityOrder.region.vat + "%"}
+                                                    </p>
+                                                    <p className={"without-margin"}>
+                                                        {activityOrder.status === "sales_review" ||
+                                                        activityOrder.status === "sales_rejected" ||
+                                                        activityOrder.status === "sales_to_approve"
+                                                            ? "—"
+                                                            : JSON.stringify(activityOrder) !== "{}"
+                                                            ? `${new Intl.NumberFormat("en-US", {
+                                                                  minimumFractionDigits: 2
+                                                              }).format(+this.props.activityOrder.total.toFixed(2))}${
+                                                                  this.props.activityOrder.currency
+                                                                      ? this.props.activityOrder.currency
+                                                                      : ""
+                                                              }`
+                                                            : ""}
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <p className={"without-margin"}>
+                                                    {activityOrder.status === "sales_review" ||
+                                                    activityOrder.status === "sales_rejected" ||
+                                                    activityOrder.status === "sales_to_approve"
+                                                        ? "Waiting to be processed"
+                                                        : JSON.stringify(activityOrder) !== "{}"
+                                                        ? `${new Intl.NumberFormat("en-US", {
+                                                              minimumFractionDigits: 2
+                                                          }).format(+this.props.activityOrder.total.toFixed(2))}${
+                                                              this.props.activityOrder.currency
+                                                                  ? this.props.activityOrder.currency
+                                                                  : ""
+                                                          }`
+                                                        : ""}
+                                                </p>
+                                            )}
                                         </td>
                                         <td></td>
                                     </tr>
@@ -967,6 +1198,91 @@ class Activity extends Component {
                     </div>
                 </DialogComponent>
                 {/* {this.renderTableForPrint()} */}
+
+                <DialogComponent open={popup} onClose={this.hideModal}>
+                    <div className="activity_dialog">
+                        <div className="activity_dialog-title">
+                            {popupType === "confirm_delivery" && <span>Confirm delivery</span>}
+                            {popupType === "reject_proforma" && <span>Reject proforma</span>}
+                            {popupType === "approve_proforma" && <span>Approve proforma</span>}
+                        </div>
+                        <p className="activity_dialog-txt">
+                            {popupType === "confirm_delivery" &&
+                                "You are about to confirm delivery of the order. Are you sure?"}
+                            {popupType === "reject_proforma" &&
+                                `You are about to reject the proforma. \n Are you sure?`}
+                            {popupType === "approve_proforma" &&
+                                `You are about to approve the proforma. \n Are you sure?`}
+                        </p>
+
+                        {popupType === "approve_proforma" && (
+                            <div className="block_field stamp-block">
+                                {tax_file !== undefined ? (
+                                    <>
+                                        <span className="stamp-title">File</span>
+                                        <div className="stamp-block-row">
+                                            <img src={document} alt="document" />
+                                            <p className="stamp-block-title">
+                                                {tax_file &&
+                                                    tax_file.name.split("/")[tax_file.name.split("/").length - 1]}
+                                            </p>
+                                            <button
+                                                type={"button"}
+                                                className="stamp-block-btn"
+                                                onClick={() => {
+                                                    this.setState({ tax_file: undefined });
+                                                }}
+                                            >
+                                                <img src={close} alt="close" />
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>File</span>
+                                        <label for="fileInp" className="blue_btn upload">
+                                            Upload
+                                        </label>
+                                        <input
+                                            style={{
+                                                display: "none"
+                                            }}
+                                            type="file"
+                                            accept="image/*"
+                                            id="fileInp"
+                                            onChange={e => {
+                                                let tax_file = e.target.files[0];
+                                                this.setState({
+                                                    tax_file
+                                                });
+                                            }}
+                                        />
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        <div className="btn_wrapper">
+                            <button className="cancel_btn" onClick={this.hideModal}>
+                                Cancel
+                            </button>
+                            <button
+                                className={popupType !== "reject_proforma" ? "blue_btn" : "red_btn"}
+                                onClick={() => {
+                                    // popupType === "confirm_delivery" && this.nextStep(elID);
+                                    popupType === "reject_proforma" && this.rejectStep(elID);
+                                    popupType === "approve_proforma" && tax_file !== undefined
+                                        ? this.addFile(tax_file, elID)
+                                        : popupType !== "reject_proforma" && this.nextStep(elID);
+                                }}
+                            >
+                                {popupType === "confirm_delivery" && "Confirm"}
+                                {popupType === "approve_proforma" && "Approve"}
+                                {popupType === "reject_proforma" && "Reject"}
+                            </button>
+                        </div>
+                    </div>
+                </DialogComponent>
             </div>
         );
     }
@@ -976,6 +1292,7 @@ function mapStateToProps(state) {
     return {
         activityLog: state.activity.activityLog,
         activityOrder: state.activity.activityOrder,
+        loadingRequest: state.activity.loading,
         userInfo: state.users.userInfo
     };
 }
@@ -986,6 +1303,7 @@ function mapDispatchToProps(dispatch) {
             getStock,
             getActivityOrder,
             nextStep,
+            rejectStep,
             patchOrderFile,
             deleteOrderItem
         },

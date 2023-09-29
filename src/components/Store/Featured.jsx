@@ -1,67 +1,56 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getFeaturedProd, getTrendsProd  } from '../../actions/storeAction';
-
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getFeaturedProd, getTrendsProd } from "../../actions/storeAction";
 
 class Featured extends Component {
+    constructor(props) {
+        super(props);
+        this.featuredProd();
+    }
 
-  constructor(props) {
-   super(props);
-   this.featuredProd();
- }
+    state = {
+        featuredProd: []
+    };
 
-  state = {
-      featuredProd: []
-  };
+    componentDidMount() {
+        this.featuredProd();
+    }
 
-  componentDidMount() {
-      this.featuredProd();
-  }
+    componentWillUnmount() {
+        this.featuredProd();
+    }
 
-  componentWillUnmount() {
-    this.featuredProd();
-  }
+    featuredProd = () => {
+        const { getTrendsProd } = this.props;
 
-  featuredProd = () => {
-      const { getTrendsProd } = this.props;
-
-      getTrendsProd().then(res => {
-          if (res.payload && res.payload.status && res.payload.status === 200) {
-              this.setState({
-                featuredProd: res.payload.data
-              })
-          }
-      })
-};
-
-
+        getTrendsProd().then(res => {
+            if (res.payload && res.payload.status && res.payload.status === 200) {
+                this.setState({
+                    featuredProd: res.payload.data
+                });
+            }
+        });
+    };
 
     render() {
         const role = localStorage.role;
 
-        console.log(this.state.featuredProd);
-
-        return (
-          <div>
-      
-     </div>
-        );
+        return <div></div>;
     }
 }
 
 function mapStateToProps(state) {
-    return {
-
-    }
+    return {};
 }
 
-
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        getTrendsProd
-    }, dispatch);
+    return bindActionCreators(
+        {
+            getTrendsProd
+        },
+        dispatch
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Featured);

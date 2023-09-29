@@ -1,51 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { bindActionCreators } from 'redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import { bindActionCreators } from "redux";
 import DialogComponent from "../../HelperComponents/DialogComponent/DialogComponent";
 import { getStock, postRequest } from "../../../actions/stockActions";
 //import { patchQuantity } from "../../../actions/activityActions";
 
 class CartDialogue extends Component {
+    state = {};
 
-    state = {
-    };
-
-
-    submitForm = (data) => {
+    submitForm = data => {
         const { postRequest, request, toggler, activePage, doRequest } = this.props;
         postRequest(request, data).then(res => {
-            console.log(request)
             if (res.payload && res.payload.status && res.payload.status === 200) {
-                console.log(res.payload)
                 toggler();
                 doRequest(activePage);
                 //doRequest( {selected: activePage});
-
             }
-            console.log(res)
         });
-
     };
 
-
     render() {
-        const {
-            state,
-            toggler,
-            request,
-            handleSubmit,
-            fail_err,
-            startValue,
-            reset,
-
-        } = this.props;
+        const { state, toggler, request, handleSubmit, fail_err, startValue, reset } = this.props;
         return (
-
-            <DialogComponent
-                open={state}
-                onClose={toggler}
-            >
+            <DialogComponent open={state} onClose={toggler}>
                 <div className="quantity_dialog">
                     <div className="title">
                         <span>Submit Multiple Request</span>
@@ -55,12 +33,21 @@ class CartDialogue extends Component {
                     </div>
                     <form onSubmit={handleSubmit(this.submitForm)}>
                         <div className="block_field">
-                            <span className='back_error'>{fail_err && fail_err.request}</span>
-                           
+                            <span className="back_error">{fail_err && fail_err.request}</span>
+
                             <div className="btn_wrapper">
-                                <button className="cancel_btn" onClick={(e) => { e.preventDefault(); toggler(); reset('CartDialogue') }}>Cancel</button>
+                                <button
+                                    className="cancel_btn"
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        toggler();
+                                        reset("CartDialogue");
+                                    }}
+                                >
+                                    Cancel
+                                </button>
                                 <button className="blue_btn">Confirm</button>
-                            </div> 
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -70,20 +57,22 @@ class CartDialogue extends Component {
 }
 
 CartDialogue = reduxForm({
-    form: 'CartDialogue',
-
+    form: "CartDialogue"
 })(CartDialogue);
 
 function mapStateToProps(state) {
     return {
-        fail_err: state.stock.error,
-    }
+        fail_err: state.stock.error
+    };
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        postRequest,
-        getStock
-    }, dispatch);
+    return bindActionCreators(
+        {
+            postRequest,
+            getStock
+        },
+        dispatch
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartDialogue);

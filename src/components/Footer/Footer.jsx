@@ -29,12 +29,12 @@ const Footer = ({
                             <Link to="/main/activity" className={pathname === "/main/activity" ? "active" : ""}>
                                 Orders
                             </Link>
-                            <Link
+                            {/* <Link
                                 to="/main/user-management"
                                 className={pathname === "/main/user-management" ? "active" : ""}
                             >
                                 Users
-                            </Link>
+                            </Link> */}
                         </>
                     ) : (
                         <>
@@ -48,7 +48,7 @@ const Footer = ({
                     )}
                 </div>
             </div>
-            <div className="down-wrapper">© 2021 Viebeg. All rights reserved.</div>
+            <div className="down-wrapper">© 2022 Viebeg. All rights reserved.</div>
         </footer>
     );
 };

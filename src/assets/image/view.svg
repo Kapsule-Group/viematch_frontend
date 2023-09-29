@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>A20A0585-5ABE-4879-9986-0D1D60CBCBEF</title>
+    <g id="Client" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="client-orders---actions1---responsive" transform="translate(-96.000000, -300.000000)">
+            <g id="status-options" transform="translate(80.000000, 284.000000)">
+                <g id="pdf-copy-3" transform="translate(16.000000, 16.000000)">
+                    <rect id="Rectangle" x="0" y="0" width="20" height="20"></rect>
+                    <path d="M10,4.5 C12.636718,4.5 15.2214997,6.4040752 17.8288195,10.0005185 C15.2211718,13.5961663 12.6365507,15.5 10,15.5 C7.36328202,15.5 4.77850034,13.5959248 2.17118047,9.99948151 C4.77882821,6.40383368 7.36344925,4.5 10,4.5 Z" id="Oval" stroke="#3796F6" stroke-width="1.5"></path>
+                    <circle id="Oval" fill="#3796F6" cx="10" cy="10" r="2"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
